@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 A Jekyll-based course website template, currently instantiated for a Fall 2026 course
-("AI-Assisted Software Engineering", CS 5XXX, National Taiwan University). It's designed
+("AI-in-the-Loop in Software Project Cycle AI", CSIC30216, National Yang Ming Chiao Tung University). It's designed
 to be duplicated and re-themed for other courses/semesters — the README documents that
 reuse workflow in detail.
 
