@@ -1,0 +1,46 @@
+---
+layout: default
+title: Resources
+permalink: /resources/
+---
+
+<div class="page-header">
+  <h1>Resources</h1>
+  <p class="page-subtitle">Tools, readings, and setup guides</p>
+</div>
+
+{% for section in site.data.resources %}
+<div class="resource-category">
+  <h2>{{ section.category }}</h2>
+  <ul class="resource-list">
+    {% for item in section.items %}
+    <li>
+      {% if item.url != "" and item.url %}
+        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+      {% else %}
+        {{ item.title }}
+      {% endif %}
+      {% if item.note != "" and item.note %}
+        <span class="resource-note">— {{ item.note }}</span>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}
+
+<h2>API Budget</h2>
+<p>
+  Each student has an API budget of NT$1,000 for the semester. This covers API calls for
+  assignments and labs. Use Haiku for experimentation and test runs; use Sonnet for graded
+  submissions and production-quality work.
+</p>
+<p>
+  Budget distribution instructions and API key setup are posted separately on the course portal.
+</p>
+
+<h2>Office Hours</h2>
+<p>
+  Office hours schedule posted on the course portal. For technical issues during lab weeks,
+  TAs hold extended drop-in sessions — times posted on the schedule page for async weeks.
+</p>

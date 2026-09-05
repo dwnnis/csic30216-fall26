@@ -1,0 +1,45 @@
+# ─────────────────────────────────────────────────────────────
+# Resources — grouped by category
+# ─────────────────────────────────────────────────────────────
+
+- category: "Course Tools"
+  items:
+    - title: "Anthropic API Documentation"
+      url: "https://docs.anthropic.com"
+      note: "Primary API reference"
+    - title: "PromptFoo"
+      url: "https://promptfoo.dev"
+      note: "Prompt testing framework — required for Week 11 lab"
+    - title: "ChromaDB"
+      url: "https://docs.trychroma.com"
+      note: "Vector database — required for Week 10 lab"
+
+- category: "Required Readings"
+  items:
+    - title: "The Illustrated Transformer — Jay Alammar"
+      url: "https://jalammar.github.io/illustrated-transformer/"
+      note: "Week 1 self-paced module"
+    - title: "Prompt Engineering — Lilian Weng"
+      url: "https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/"
+      note: "Week 2 self-paced module"
+
+- category: "Recommended Reading"
+  items:
+    - title: "Simon Willison's Blog"
+      url: "https://simonwillison.net"
+      note: "Best practitioner writing on LLMs and AI engineering"
+    - title: "Anthropic Research"
+      url: "https://www.anthropic.com/research"
+      note: ""
+
+- category: "Setup Guides"
+  items:
+    - title: "Anthropic SDK Setup"
+      url: ""
+      note: "Installing the Python SDK and configuring your API key"
+    - title: "Claude Code Installation"
+      url: "https://docs.anthropic.com/claude-code"
+      note: "Required before Week 12"
+    - title: "PromptFoo Installation"
+      url: "https://promptfoo.dev/docs/installation"
+      note: "Required before Week 11"

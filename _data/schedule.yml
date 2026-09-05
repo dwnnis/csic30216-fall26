@@ -1,0 +1,196 @@
+# ─────────────────────────────────────────────────────────────
+# Schedule data — add/edit rows here, HTML updates automatically
+# status options: normal | holiday | async | online
+# ─────────────────────────────────────────────────────────────
+
+- week: 1
+  date: "Sep 7"
+  status: normal
+  topic: "Introduction to AI-Assisted SE"
+  topic_url: ""
+  slides_url: ""
+  lab: "AI Telephone — experiencing the intent-output gap"
+  lab_url: ""
+  self_paced: "History of language models"
+  assigned: ""
+  due: "Baseline survey"
+
+- week: 2
+  date: "Sep 14"
+  status: normal
+  topic: "How LLMs Actually Work"
+  topic_url: ""
+  slides_url: ""
+  lab: "API exploration — tokens, system prompts, context"
+  lab_url: ""
+  self_paced: "In-context learning and instruction tuning"
+  assigned: ""
+  due: "Baseline survey"
+
+- week: 3
+  date: "Sep 21"
+  status: normal
+  topic: "Working with AI in a Team"
+  topic_url: ""
+  slides_url: ""
+  lab: "Repository setup + team norms + evaluation plan (2%)"
+  lab_url: ""
+  self_paced: "How engineering teams adopt AI tooling"
+  assigned: ""
+  due: ""
+
+- week: 4
+  date: "Sep 28"
+  status: holiday
+  topic: "National Holiday — Teacher's Day"
+  topic_url: ""
+  slides_url: ""
+  lab: ""
+  lab_url: ""
+  self_paced: "Optional enrichment reading"
+  assigned: ""
+  due: ""
+
+- week: 5
+  date: "Oct 5"
+  status: normal
+  topic: "Prompt Engineering I: Core Techniques"
+  topic_url: ""
+  slides_url: ""
+  lab: "Writing prompts well — code generation focus"
+  lab_url: ""
+  self_paced: "Chain-of-thought variations"
+  assigned: ""
+  due: "Assignment 1 (10%)"
+
+- week: 6
+  date: "Oct 12"
+  status: async
+  topic: "Understanding Why Prompts Fail"
+  topic_url: ""
+  slides_url: ""
+  lab: "Hallucination red-team notebook (async)"
+  lab_url: ""
+  self_paced: "RLHF, Constitutional AI, and calibration"
+  assigned: ""
+  due: "CP1 (5%)"
+
+- week: 7
+  date: "Oct 19"
+  status: online
+  topic: "Prompt Engineering II: Making Prompts More Capable"
+  topic_url: ""
+  slides_url: ""
+  lab: "Self-correcting pipeline (online)"
+  lab_url: ""
+  self_paced: "APE and self-consistency"
+  assigned: ""
+  due: ""
+
+- week: 8
+  date: "Oct 26"
+  status: holiday
+  topic: "National Holiday — Retrocession Day"
+  topic_url: ""
+  slides_url: ""
+  lab: ""
+  lab_url: ""
+  self_paced: "Optional enrichment reading"
+  assigned: ""
+  due: ""
+
+- week: 9
+  date: "Nov 2"
+  status: normal
+  topic: "Tool Use, Function Calling, and MCP"
+  topic_url: ""
+  slides_url: ""
+  lab: "Two-tool agent + prompt system sketch"
+  lab_url: ""
+  self_paced: "Evolution of tool use"
+  assigned: ""
+  due: "T1 Survey"
+
+- week: 10
+  date: "Nov 9"
+  status: normal
+  topic: "Context Management and Grounding (RAG)"
+  topic_url: ""
+  slides_url: ""
+  lab: "Build a minimal RAG pipeline"
+  lab_url: ""
+  self_paced: "Vector databases and RAG evaluation in depth"
+  assigned: ""
+  due: "T1 Survey"
+
+- week: 11
+  date: "Nov 16"
+  status: normal
+  topic: "Prompt Testing and Reliability"
+  topic_url: ""
+  slides_url: ""
+  lab: "Prompt test suite with PromptFoo"
+  lab_url: ""
+  self_paced: "How researchers evaluate LLM outputs at scale"
+  assigned: ""
+  due: "Assignment 3 (15%)"
+
+- week: 12
+  date: "Nov 23"
+  status: normal
+  topic: "Evaluating and Debugging AI-Assisted Code"
+  topic_url: ""
+  slides_url: ""
+  lab: "Claude Code debugging split lab"
+  lab_url: ""
+  self_paced: "Code evaluation benchmarks and AI pair programming patterns"
+  assigned: ""
+  due: "CP2 (15%)"
+
+- week: 13
+  date: "Nov 30"
+  status: normal
+  topic: "SE Practices + Making AI Work Legible"
+  topic_url: ""
+  slides_url: ""
+  lab: "PR review workshop + evaluation methodology revisit"
+  lab_url: ""
+  self_paced: "Engineering team culture around AI"
+  assigned: ""
+  due: "T2 Survey"
+
+- week: 14
+  date: "Dec 7"
+  status: normal
+  topic: "When Is an Agent the Right Tool?"
+  topic_url: ""
+  slides_url: ""
+  lab: "Minimum viable agent"
+  lab_url: ""
+  self_paced: "Agents in production"
+  assigned: ""
+  due: "T2 Survey"
+
+- week: 15
+  date: "Dec 14"
+  status: normal
+  topic: "Ethics, Safety, and Professional Responsibility"
+  topic_url: ""
+  slides_url: ""
+  lab: "Case study discussion"
+  lab_url: ""
+  self_paced: "Super-alignment research and open problems"
+  assigned: ""
+  due: "Assignment 5 (10%) | CP3 (12%)"
+
+- week: 16
+  date: "Dec 21"
+  status: normal
+  topic: "Guest Lecture + Final Presentations"
+  topic_url: ""
+  slides_url: ""
+  lab: "Lightning talks + poster/demo session"
+  lab_url: ""
+  self_paced: "Assigned by guest speaker"
+  assigned: ""
+  due: "Video (24h) | Essay + Peer eval (48h)"

@@ -1,0 +1,109 @@
+---
+layout: default
+title: Home
+---
+
+<div class="page-header">
+  <h1>{{ site.course_name }}</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<!-- Course info bar -->
+<div class="course-info-bar">
+  <span class="info-item"><strong>When</strong> {{ site.course_time }}</span>
+  <span class="info-item"><strong>Where</strong> {{ site.course_location }}</span>
+  <span class="info-item"><strong>Instructor</strong>
+    {% if site.instructor_url != "" and site.instructor_url %}
+      <a href="{{ site.instructor_url }}">{{ site.instructor_name }}</a>
+    {% else %}
+      {{ site.instructor_name }}
+    {% endif %}
+  </span>
+  {% if site.instructor_email != "" and site.instructor_email %}
+  <span class="info-item"><strong>Email</strong>
+    <a href="mailto:{{ site.instructor_email }}">{{ site.instructor_email }}</a>
+  </span>
+  {% endif %}
+  <span class="info-item"><strong>Office hours</strong> {{ site.instructor_office_hours }}</span>
+</div>
+
+<!-- Overview -->
+<p>
+  This course prepares students to work effectively as software engineers in an era of
+  AI-assisted development. The guiding question across all 16 weeks:
+  <strong>how does this make you a better software engineer working with AI?</strong>
+</p>
+<p>
+  Students develop the ability to specify intent precisely enough for AI agents to execute it,
+  evaluate AI output critically, override AI judgment when necessary, and collaborate on
+  AI-integrated software that other engineers can understand and maintain.
+</p>
+
+<!-- Announcements -->
+<h2>Announcements</h2>
+<div class="announcements">
+  {% for item in site.data.announcements %}
+  <div class="announcement">
+    <span class="ann-date">{{ item.date }}</span>
+    <span class="ann-text">{{ item.text }}</span>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Schedule -->
+<h2>Schedule</h2>
+<div class="callout note">
+  All classes meet on Mondays. Slides and lab guides are linked as they are released.
+</div>
+
+<div class="table-scroll">
+<table class="schedule-table">
+  <thead>
+    <tr>
+      <th class="col-wk">Wk</th>
+      <th>Date</th>
+      <th>Topic</th>
+      <th>Lab</th>
+      <th>Self-paced</th>
+      <th>Due</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in site.data.schedule %}
+    <tr class="{% if row.status == 'holiday' %}row-holiday{% elsif row.status == 'async' %}row-async{% elsif row.status == 'online' %}row-online{% endif %}">
+
+      <td class="col-wk">{{ row.week }}</td>
+      <td class="col-date">{{ row.date }}</td>
+
+      <td>
+        {% if row.slides_url != "" and row.slides_url %}
+          <a href="{{ row.slides_url }}">{{ row.topic }}</a>
+        {% else %}
+          {{ row.topic }}
+        {% endif %}
+        {% if row.status == 'holiday' %}
+          <span class="badge badge-holiday">Holiday</span>
+        {% elsif row.status == 'async' %}
+          <span class="badge badge-async">Async</span>
+        {% elsif row.status == 'online' %}
+          <span class="badge badge-online">Online</span>
+        {% endif %}
+      </td>
+
+      <td>
+        {% if row.lab_url != "" and row.lab_url %}
+          <a href="{{ row.lab_url }}">{{ row.lab }}</a>
+        {% else %}
+          {{ row.lab }}
+        {% endif %}
+      </td>
+
+      <td>{{ row.self_paced }}</td>
+
+      <td class="{% if row.due != '' %}col-due{% endif %}">{{ row.due }}</td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>

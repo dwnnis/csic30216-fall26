@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────
+# Site configuration — edit this file for each new course
+# ─────────────────────────────────────────────────────────────
+
+# Course identity
+course_code:      "CS 5XXX"
+course_name:      "AI-Assisted Software Engineering"
+course_semester:  "Fall 2026"
+course_university: "National Taiwan University"
+course_location:  "Room XXX"
+course_time:      "Mondays, 9:00–11:00 AM"
+course_units:     "3 credits"
+
+# Instructor
+instructor_name:  "Your Name"
+instructor_url:   "https://yourwebsite.com"
+instructor_office_hours: "By appointment"
+instructor_email: "your@email.edu"
+
+# Course links — leave blank to hide the link
+link_syllabus:    "/syllabus"
+link_assignments: "/assignments"
+link_project:     "/project"
+link_resources:   "/resources"
+link_github:      ""
+link_gradescope:  ""
+link_discussion:  ""
+
+# Jekyll settings — do not change
+markdown:  kramdown
+permalink: pretty
+plugins:
+  - jekyll-feed
+
+# Navigation pages — controls sidebar order
+nav_pages:
+  - title: "Home"
+    url:   "/"
+  - title: "Syllabus"
+    url:   "/syllabus"
+  - title: "Assignments"
+    url:   "/assignments"
+  - title: "Final Project"
+    url:   "/project"
+  - title: "Resources"
+    url:   "/resources"
