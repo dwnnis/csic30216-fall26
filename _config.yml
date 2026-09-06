@@ -50,7 +50,7 @@ link_discussion:  ""
 # Jekyll settings — do not change
 markdown:  kramdown
 permalink: pretty
-baseurl:   "/csic30216-fall26"
+baseurl:   ""
 plugins:
   - jekyll-feed
 
