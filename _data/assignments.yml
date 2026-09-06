@@ -4,7 +4,7 @@
 
 - id: "A1"
   number: 1
-  slug: "a1"
+  slug: ""
   title: "Technique Practice and Prompt Diagnosis"
   weight: "10%"
   due: "Week 5 — Oct 5, start of class"
