@@ -1,0 +1,133 @@
+---
+layout: default
+title: Project Theme and Criteria
+permalink: /project/theme-criteria/
+---
+
+<div class="page-header">
+  <h1>Project Theme and Criteria</h1>
+  <p class="page-subtitle">Final Project &middot; {{ site.course_code }}</p>
+</div>
+
+<h2>Project Theme</h2>
+<div class="callout">
+  <strong>&ldquo;Collaboration Tools for Software Engineering and Academic Teams&rdquo;</strong>
+</div>
+<p>
+  Each group identifies a specific, real collaboration pain point experienced by software
+  engineering teams, academic research, or study teams, and builds a working tool that
+  meaningfully reduces that friction. The tool must support interaction between at least two
+  people. AI may be used where it genuinely adds value; its use must be justified, not assumed.
+</p>
+
+<h2>What This Means in Practice</h2>
+<p>
+  The theme is deliberately broad. &ldquo;Collaboration&rdquo; covers a wide range of friction
+  that teams experience. Projects should be specific. For instance, one that aims to address
+  &ldquo;poor team communication&rdquo; is considered too vague — it might not be helpful in
+  building something useful or in evaluating whether it worked. A project that addresses
+  &ldquo;engineering teams reviewing pull requests asynchronously lose context about why a
+  decision was made, leading to redundant back-and-forth in code review&rdquo; is specific enough
+  to build toward and to measure. This project should also address real collaboration experience —
+  it should be grounded in problems of collaboration that actually exist. We therefore encourage
+  teams to talk to real people outside your team who have experienced the problem before settling
+  on an idea and starting to think about your design.
+</p>
+
+<h2>Example Problem Areas</h2>
+<p>
+  Your team should choose a problem you find genuinely interesting and can find real users for.
+  The following lists are examples that may be helpful as inspiration — starting points for
+  brainstorming, not a menu to choose from. The strongest projects address problems your team has
+  direct access to and deeply cares about. A narrower problem you can evaluate properly is always
+  better than a broader problem you cannot.
+</p>
+
+<h3>Software Engineering Team Collaboration</h3>
+<ul>
+  <li>Knowledge transfer when a team member joins or leaves: onboarding takes weeks because context is undocumented</li>
+  <li>Code review bottlenecks: PRs sit unreviewed for days because reviewers lack context about the change's intent</li>
+  <li>Meeting-to-action gap: decisions made in standups are not captured in a form that is useful for people who were absent</li>
+  <li>Dependency coordination: teams working on interconnected components do not know when upstream changes affect their work</li>
+  <li>Incident retrospectives: teams repeat the same post-mortem format without retaining institutional learning across incidents</li>
+</ul>
+
+<h3>Academic Research Collaboration</h3>
+<ul>
+  <li>Literature synthesis across team members: researchers read different papers and struggle to build a shared understanding of the field</li>
+  <li>Research handoff between lab generations: graduating students leave behind knowledge that new students cannot easily access</li>
+  <li>Experiment documentation: research teams run variations of experiments but do not document decisions in a way that is reproducible</li>
+</ul>
+
+<h3>Study Team Collaboration</h3>
+<ul>
+  <li>Study group coordination: groups preparing for exams cannot easily share and consolidate notes across different members' understanding</li>
+  <li>Collaborative writing friction: co-authors working on a shared document lose track of who changed what and why</li>
+</ul>
+
+<h2>What the Tool Must Do</h2>
+<ul>
+  <li>Support interaction between at least two people: a tool only one person uses is not a collaboration tool</li>
+  <li>Address a specific, evidenced collaboration pain point: you must be able to describe the problem clearly and show that real people (people outside of your team) experience it</li>
+  <li>Be demonstrable: by Week 16, two people must be able to use it together in a live demo</li>
+  <li>Be evaluable: you must be able to show evidence that it reduces the collaboration problem, not just that it works technically</li>
+</ul>
+
+<h2>What Is Not in Scope</h2>
+<ul>
+  <li>General productivity tools: a to-do list or calendar app is not a collaboration tool unless it specifically addresses how two or more people coordinate</li>
+  <li>Chatbots that answer questions: unless the chatbot specifically reduces a documented collaboration friction between team members</li>
+  <li>Tools that solve your own team's workflow: you cannot be your own primary user population; you need external users</li>
+  <li>Fully automated systems with no human interaction: the tool must involve at least two people interacting, not a pipeline that runs without human input</li>
+</ul>
+
+<h2>Strong vs. Weak Project Directions</h2>
+<div class="callout warning">
+  <strong>Weak direction:</strong> &ldquo;We will build an AI tool that helps teams communicate
+  better.&rdquo; This is too vague to build toward, too broad to evaluate, and does not identify a
+  specific pain point. &ldquo;Communicate better&rdquo; could mean anything.
+</div>
+<div class="callout note">
+  <strong>Stronger direction:</strong> &ldquo;During code review, reviewers frequently ask
+  questions that were already discussed during the PR's design phase because that discussion
+  happened in Slack and was never captured in the PR itself. We will build a tool that surfaces
+  relevant Slack context alongside the PR during review, so reviewers have the background they
+  need without having to ask.&rdquo; This is specific (a particular moment in the PR review
+  workflow), evidenced (a pattern that happens repeatedly), and evaluable (you can measure whether
+  reviewers ask fewer redundant questions after using the tool).
+</div>
+
+<h2>On Using AI in Your Tool</h2>
+<p>
+  AI is not required as part of the tool. Some of the strongest collaboration tools are not
+  AI-powered, but are well-designed interfaces, smart notification systems, or structured
+  workflows. If your tool does not use AI, that is a legitimate engineering choice — you will be
+  asked to briefly explain why AI did not add value for your specific problem.
+</p>
+<p>If your tool does use AI, two questions must be answered before you start building:</p>
+<ul>
+  <li>What does the AI decide, and what does the human decide? Where in the interaction does the user retain control?</li>
+  <li>How will you evaluate whether the AI component improves the collaboration interaction — not just that it works technically?</li>
+</ul>
+<p>
+  AI used as a feature because it is interesting, rather than because it solves a specific part of
+  the collaboration problem, tends to make tools worse rather than better. The course is about
+  engineering judgment — using AI where it genuinely helps is part of that judgment.
+</p>
+
+<h2>Evaluation Expectation</h2>
+<p>
+  By the final presentation, your team must provide evidence that the tool reduces the
+  collaboration problem — not just that users found it pleasant to use. Evidence means something
+  observable changed: users completed a task faster, asked fewer clarifying questions, made fewer
+  errors, or reported a specific friction being reduced.
+</p>
+<p>
+  &ldquo;Users said they liked it&rdquo; is not sufficient evidence on its own. &ldquo;Users who
+  used the tool during code review asked 40% fewer questions about design intent than in a
+  baseline session without the tool&rdquo; is evidence. You do not need a large-scale study — two
+  to three well-documented sessions with real users outside your team, with a clear before/after
+  comparison, is sufficient for a semester project.
+</p>
+
+<p><a href="{{ '/project/' | relative_url }}">&larr; Back to Final Project</a></p>

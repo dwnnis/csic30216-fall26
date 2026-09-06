@@ -1,0 +1,60 @@
+---
+layout: default
+title: Final Deliverables
+permalink: /project/final-deliverables/
+---
+
+{% assign cp = site.data.checkpoints | where: "id", "FinalDeliverables" | first %}
+
+<div class="page-header">
+  <h1>{{ cp.title }}</h1>
+  <p class="page-subtitle">Due: {{ cp.due }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  After the Week 16 presentations, two individual deliverables and one team deliverable are due
+  asynchronously. Deadlines are strict — these close the semester.
+</p>
+
+<h2>Team Deliverable</h2>
+<h3>5-Minute Demo Video</h3>
+<p><strong>Due:</strong> within 24 hours of the Week 16 class (by December 22nd, 11:59 PM)</p>
+<p>A recorded video of your project with the following structure:</p>
+<ul>
+  <li><strong>0:00–0:30:</strong> The collaboration problem and who specifically has it</li>
+  <li><strong>0:30–2:00:</strong> A live demo of two people using the tool simultaneously — not a screencast of one person clicking through features</li>
+  <li><strong>2:00–3:30:</strong> Evaluation evidence — what data shows the tool actually reduces the collaboration problem?</li>
+  <li><strong>3:30–4:30:</strong> What your team would do differently if you started again</li>
+</ul>
+<p>
+  Submit the video file or a streaming link to E3 under &ldquo;Demo Video.&rdquo; File name:
+  <code>GroupXX_DemoVideo</code>.
+</p>
+
+<h2>Individual Deliverables</h2>
+<h3>Peer Evaluation (2%)</h3>
+<p><strong>Due:</strong> within 48 hours of the Week 16 class (by December 23rd, 11:59 PM)</p>
+<p>
+  A short evaluation of your three teammates, submitted individually and anonymously. Tied to
+  observable, specific behaviours — not personality or effort.
+</p>
+<p>For each teammate, answer:</p>
+<ul>
+  <li>Did this person contribute substantive code to the project? (yes / partially / no — point to specific merged PRs)</li>
+  <li>Did they engage genuinely as code steward when it was their turn? (yes / partially / no — point to specific PR comments they left)</li>
+  <li>One sentence: the most valuable specific contribution this person made across the whole project</li>
+</ul>
+<p>
+  Submit via the peer evaluation form on E3. Your teammates cannot see your individual responses —
+  only aggregate patterns are shared, and only after final grades are submitted.
+</p>
+
+<h2>Questions</h2>
+<p>
+  If you have questions about any final deliverable, email the course instructor before December
+  21st. Questions submitted after the class session ends may not receive a response before the
+  deadline.
+</p>
+
+<p><a href="{{ '/project/' | relative_url }}">&larr; Back to Final Project</a></p>

@@ -1,0 +1,16 @@
+---
+layout: default
+title: Peer Evaluation
+permalink: /assignments/peer/
+---
+
+{% assign a = site.data.assignments | where: "id", "Peer" | first %}
+
+<div class="page-header">
+  <h1>{{ a.title }}</h1>
+  <p class="page-subtitle">{{ a.weight }} &middot; Due: {{ a.due }}</p>
+</div>
+
+<p>{{ a.description }}</p>
+
+<p><a href="{{ '/assignments/' | relative_url }}">&larr; Back to Assignments</a></p>

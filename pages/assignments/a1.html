@@ -1,0 +1,16 @@
+---
+layout: default
+title: Assignment 1
+permalink: /assignments/a1/
+---
+
+{% assign a = site.data.assignments | where: "id", "A1" | first %}
+
+<div class="page-header">
+  <h1>{% if a.number %}Assignment {{ a.number }}: {% endif %}{{ a.title }}</h1>
+  <p class="page-subtitle">{{ a.weight }} &middot; Due: {{ a.due }}</p>
+</div>
+
+<p>{{ a.description }}</p>
+
+<p><a href="{{ '/assignments/' | relative_url }}">&larr; Back to Assignments</a></p>

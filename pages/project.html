@@ -22,6 +22,13 @@ permalink: /project/
   impressive tool that one person built and nobody else understands.
 </div>
 
+<h2>Project Theme and Criteria</h2>
+<p>
+  Full details on the project theme, example problem areas, what the tool must do, and what
+  counts as evaluation evidence are on the
+  <a href="{{ '/project/theme-criteria/' | relative_url }}">Project Theme and Criteria</a> page.
+</p>
+
 <h2>What Is Graded</h2>
 <p>The project grades five things, in roughly equal importance:</p>
 <ul>
@@ -54,6 +61,7 @@ permalink: /project/
 
 <h2>Phases and Checkpoints</h2>
 
+<div class="table-scroll">
 <table class="grading-table">
   <thead>
     <tr><th>Phase</th><th>Weeks</th><th>Primary focus</th><th>Checkpoint</th><th>Weight</th></tr>
@@ -82,6 +90,22 @@ permalink: /project/
     </tr>
   </tbody>
 </table>
+</div>
+
+<h3>Checkpoint Pages</h3>
+<ul class="checkpoint-list">
+  {% for cp in site.data.checkpoints %}
+  {% capture cp_label %}{% if cp.number %}Checkpoint {{ cp.number }} ({{ cp.id }}){% else %}{{ cp.title }}{% endif %}{% endcapture %}
+  <li>
+    {% if cp.slug != "" and cp.slug %}
+      <a href="{{ '/project/' | append: cp.slug | append: '/' | relative_url }}">{{ cp_label }}</a>
+    {% else %}
+      {{ cp_label }}
+    {% endif %}
+    — {% if cp.phase %}{{ cp.phase }}, {% endif %}due {{ cp.due }}
+  </li>
+  {% endfor %}
+</ul>
 
 <h2>Three Mandatory Collaboration Sessions</h2>
 <ul>
@@ -115,6 +139,8 @@ permalink: /project/
   <strong>Poster and demo session (40 minutes):</strong> groups man stations simultaneously. All members engage with visitors. Running demo, poster, and evaluation evidence must be visible.
 </p>
 <p>
-  <strong>5-minute demo video (due 24h after class):</strong>
-  30s problem / 90s live two-person demo / 90s evaluation evidence / 60s what the team would do differently.
+  <strong>Final deliverables (demo video + peer evaluation):</strong> due asynchronously after
+  class — see the
+  <a href="{{ '/project/final-deliverables/' | relative_url }}">Final Deliverables</a> page for
+  the full breakdown and deadlines.
 </p>

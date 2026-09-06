@@ -5,26 +5,104 @@ title: Home
 
 <div class="page-header">
   <h1>{{ site.course_name }}</h1>
+  <h4>{{ site.course_name_zh }}</h4>
   <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
 </div>
 
 <!-- Course info bar -->
 <div class="course-info-bar">
-  <span class="info-item"><strong>When</strong> {{ site.course_time }}</span>
-  <span class="info-item"><strong>Where</strong> {{ site.course_location }}</span>
-  <span class="info-item"><strong>Instructor</strong>
-    {% if site.instructor_url != "" and site.instructor_url %}
-      <a href="{{ site.instructor_url }}">{{ site.instructor_name }}</a>
-    {% else %}
-      {{ site.instructor_name }}
-    {% endif %}
-  </span>
-  {% if site.instructor_email != "" and site.instructor_email %}
-  <span class="info-item"><strong>Email</strong>
-    <a href="mailto:{{ site.instructor_email }}">{{ site.instructor_email }}</a>
-  </span>
+  <span class="info-item"><strong>Time</strong> {{ site.course_time }}</span>
+  <span class="info-item"><strong>Location</strong> {{ site.course_location }}</span>
+  {% if site.course_website != "" and site.course_website %}
+  <span class="info-item"><a href="{{ site.course_website }}">Course website</a></span>
   {% endif %}
-  <span class="info-item"><strong>Office hours</strong> {{ site.instructor_office_hours }}</span>
+  {% if site.course_platform != "" and site.course_platform %}
+  <span class="info-item"><a href="{{ site.course_platform }}">Course platform</a></span>
+  {% endif %}
+  {% if site.course_mailing_list != "" and site.course_mailing_list %}
+  <span class="info-item"><strong>Mailing list</strong> {{ site.course_mailing_list }}</span>
+  {% endif %}
+</div>
+
+<div class="callout warning">
+  <p>
+    <strong>On manual ADD/DROP (加簽): </strong>We are truly grateful for the overwhelming interests that we received to enroll in this class! However, due to our current resource limitations (especially classroom size and budget plan), we <strong>would not be taking manual ADD/DROP (加簽) for this course</strong>.
+  </p>
+  <p>
+    We plan to be offering this class every Fall semester from now on, and will be iterating it to align with the most recent trends and advancements in LLM/Model develeopment. NYCU Students: we will soon be open to sign up for class audit (旁聽), which gives you access to the class materials on E3. More information to come after the first week.
+  </p>
+</div>
+
+<!-- Announcements -->
+<h2>Announcements</h2>
+<div class="announcements">
+  {% assign recent_announcements = site.data.announcements | slice: 0, 3 %}
+  {% for item in recent_announcements %}
+  <div class="announcement">
+    <span class="ann-date">{{ item.date }}</span>
+    <span class="ann-text">{{ item.text }}</span>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Upcoming Deadlines -->
+<h2>Upcoming Deadlines</h2>
+<div class="deadline-list">
+  {% assign today = site.time | date: "%Y-%m-%d" %}
+  {% assign upcoming = site.data.deadlines | where_exp: "d", "d.date" | where_exp: "d", "d.date >= today" | sort: "date" %}
+  {% for d in upcoming %}
+  <div class="deadline-item">
+    <span class="deadline-date">{{ d.date | date: "%a, %b %-d" }}</span>
+    <span class="deadline-title">
+      {% if d.url != "" and d.url %}
+        <a href="{{ d.url | relative_url }}">{{ d.title }}</a>
+      {% else %}
+        {{ d.title }}
+      {% endif %}
+    </span>
+    <span class="deadline-due">{{ d.due_text }}</span>
+  </div>
+  {% endfor %}
+  {% if upcoming.size == 0 %}
+  <p class="deadline-empty">No upcoming deadlines.</p>
+  {% endif %}
+</div>
+
+
+<!-- Instructors and TAs -->
+ <h2>Course Staffs</h2>
+<div class="people-grid">
+  {% for instructor in site.instructors %}
+  <div class="person-card">
+    <span class="person-role">Instructor</span>
+    <span class="person-name">
+      {% if instructor.url != "" and instructor.url %}
+        <a href="{{ instructor.url }}">{{ instructor.name }}</a>
+      {% else %}
+        {{ instructor.name }}
+      {% endif %}
+    </span>
+    {% if instructor.email != "" and instructor.email %}
+      <span class="person-detail">{{ instructor.email }}</span>
+    {% endif %}
+    {% if instructor.office_hours != "" and instructor.office_hours %}
+      <span class="person-detail">Office hours: {{ instructor.office_hours }}</span>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {% for ta in site.tas %}
+  <div class="person-card">
+    <span class="person-role">TA</span>
+    <span class="person-name">{{ ta.name }}</span>
+    {% if ta.email != "" and ta.email %}
+      <span class="person-detail">{{ ta.email }}</span>
+    {% endif %}
+    {% if ta.office_hours != "" and ta.office_hours %}
+      <span class="person-detail">Office hours: {{ ta.office_hours }}</span>
+    {% endif %}
+  </div>
+  {% endfor %}
 </div>
 
 <!-- Overview -->
@@ -39,71 +117,7 @@ title: Home
   AI-integrated software that other engineers can understand and maintain.
 </p>
 
-<!-- Announcements -->
-<h2>Announcements</h2>
-<div class="announcements">
-  {% for item in site.data.announcements %}
-  <div class="announcement">
-    <span class="ann-date">{{ item.date }}</span>
-    <span class="ann-text">{{ item.text }}</span>
-  </div>
-  {% endfor %}
-</div>
-
-<!-- Schedule -->
-<h2>Schedule</h2>
-<div class="callout note">
-  All classes meet on Mondays. Slides and lab guides are linked as they are released.
-</div>
-
-<div class="table-scroll">
-<table class="schedule-table">
-  <thead>
-    <tr>
-      <th class="col-wk">Wk</th>
-      <th>Date</th>
-      <th>Topic</th>
-      <th>Lab</th>
-      <th>Self-paced</th>
-      <th>Due</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for row in site.data.schedule %}
-    <tr class="{% if row.status == 'holiday' %}row-holiday{% elsif row.status == 'async' %}row-async{% elsif row.status == 'online' %}row-online{% endif %}">
-
-      <td class="col-wk">{{ row.week }}</td>
-      <td class="col-date">{{ row.date }}</td>
-
-      <td>
-        {% if row.slides_url != "" and row.slides_url %}
-          <a href="{{ row.slides_url }}">{{ row.topic }}</a>
-        {% else %}
-          {{ row.topic }}
-        {% endif %}
-        {% if row.status == 'holiday' %}
-          <span class="badge badge-holiday">Holiday</span>
-        {% elsif row.status == 'async' %}
-          <span class="badge badge-async">Async</span>
-        {% elsif row.status == 'online' %}
-          <span class="badge badge-online">Online</span>
-        {% endif %}
-      </td>
-
-      <td>
-        {% if row.lab_url != "" and row.lab_url %}
-          <a href="{{ row.lab_url }}">{{ row.lab }}</a>
-        {% else %}
-          {{ row.lab }}
-        {% endif %}
-      </td>
-
-      <td>{{ row.self_paced }}</td>
-
-      <td class="{% if row.due != '' %}col-due{% endif %}">{{ row.due }}</td>
-
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
-</div>
+<h2>Office Hours</h2>
+<p>
+  Office hours are by appointment. Please send your appointment request to the course mailing list. 
+</p>

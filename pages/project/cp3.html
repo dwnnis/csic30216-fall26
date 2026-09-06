@@ -1,0 +1,73 @@
+---
+layout: default
+title: Checkpoint 3
+permalink: /project/cp3/
+---
+
+{% assign cp = site.data.checkpoints | where: "id", "CP3" | first %}
+
+<div class="page-header">
+  <h1>Checkpoint {{ cp.number }} ({{ cp.id }})</h1>
+  <p class="page-subtitle">{{ cp.phase }} &middot; Due {{ cp.due }} &middot; {{ cp.weight }}</p>
+</div>
+
+<div class="callout">
+  <strong>Due: Week 15, December 14th</strong> — submitted to E3 by start of class. Weight: 12%.
+</div>
+
+<h2>Overview</h2>
+<p>
+  CP3 closes Phase 3 and is the last major team submission before final presentations.
+</p>
+
+<h2>What to Submit</h2>
+<ol>
+  <li><strong>Refined prototype</strong> — the version you will demo in Week 16. It must be stable, running, and tested. If it requires setup, the setup must be documented clearly enough that someone who has never seen your project can run it.</li>
+  <li>
+    <strong>Full evaluation report</strong> — outcome evidence that your tool reduces the
+    collaboration problem you identified. &ldquo;Users said they liked it&rdquo; is not outcome
+    evidence. &ldquo;Users completed the primary task 40% faster&rdquo; or &ldquo;users no longer
+    needed to re-explain context at handoff&rdquo; is outcome evidence. Be honest about
+    limitations — an evaluation section that only reports positive results is less credible, not
+    more impressive.
+  </li>
+  <li><strong>Poster</strong> — ready for the Week 16 station. Must clearly state the collaboration problem, describe the tool in one sentence, and make key evaluation evidence visible. Visitors should be able to understand what your project is and why it matters in 30 seconds.</li>
+  <li>
+    <strong>Full final report</strong> — a complete written account of the project with four
+    required sections:
+    <ul>
+      <li><strong>Technical section:</strong> what you built, how it works, key architectural decisions</li>
+      <li><strong>Design section:</strong> the user experience decisions and what shaped them</li>
+      <li><strong>Evaluation section:</strong> what evidence you collected, what it shows, and what you would test if you had more time</li>
+      <li><strong>Team process section:</strong> how the team worked, what the collaboration structure looked like in practice, and a retrospective — what went well, what did not, and three specific things you would do differently</li>
+    </ul>
+  </li>
+  <li><strong>Handoff README</strong> — a new engineer should be able to clone your repository and run the project without asking anyone a question. If they would need to ask, the README is not complete.</li>
+  <li><strong>DECISIONS.md</strong> — complete through Phase 3. Must include entries for all significant decisions made during Phase 3, including refinement decisions made after CP2 feedback.</li>
+  <li><strong>Demo rehearsal artifact</strong> — a DECISIONS.md entry confirming that all four team members ran the demo successfully during the Week 15 rehearsal session, and listing any issues found and fixed.</li>
+  <li><strong>GitHub contributor graph</strong> — confirming that all four team members meet the minimum verifiable collaboration outcomes for CP3.</li>
+</ol>
+
+<h2>Timing Warning</h2>
+<div class="callout warning">
+  CP3 is due Week 15 — the guest lecture week. The final report requires contributions from all
+  four team members and consistently takes longer than teams expect. Begin coordinating the report
+  no later than Week 13. The team should agree on a writing schedule before anyone starts building
+  new features in Phase 3.
+</div>
+
+<h2>What Happens After CP3</h2>
+<p>
+  The instructor will provide written feedback on your final report before Week 16. This feedback
+  will identify the strongest sections and flag anything that needs clarification or strengthening
+  before the final presentation.
+</p>
+
+<h2>Submission</h2>
+<p>
+  Submit one zip file per group to E3 under &ldquo;CP3&rdquo; by the start of class on December
+  14th. File name: <code>GroupXX_CP3</code>. The zip should contain all deliverables listed above
+  plus a plain text file with the link to your GitHub repository.
+</p>
+
+<p><a href="{{ '/project/' | relative_url }}">&larr; Back to Final Project</a></p>

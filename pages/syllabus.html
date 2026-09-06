@@ -22,10 +22,23 @@ permalink: /syllabus/
   software engineering practices for AI workflows, ethics and professional responsibility.
 </p>
 
+<h2>Learning Objectives</h2>
+<p>By the end of this course, students will be able to:</p>
+<ul>
+  <li>Specify intent precisely enough for an AI coding agent to execute it reliably</li>
+  <li>Evaluate AI-generated code, prompts, and agent trajectories critically, and identify where they fail</li>
+  <li>Design, test, and iterate on prompt systems using structured techniques and automated evaluation</li>
+  <li>Build and reason about tool-using agents and retrieval-augmented generation (RAG) pipelines</li>
+  <li>Apply software engineering practices — PR review, decision logs, documentation — to AI-integrated projects</li>
+  <li>Exercise professional judgment about when to trust, override, or reject AI output</li>
+</ul>
+
 <h2>Prerequisites</h2>
 <p>
-  Students should be comfortable with Python and basic data structures. Prior experience with
-  machine learning or AI is not required.
+  This course requires basic familiarity with computer science and experience with programming. Prior experience with machine learning, AI, or AI-assisted programming is not required. 
+</p>
+<p>
+  Although this course focuses on AI-assisted programming, please note that the course does not teach basic programming skills. We focused specifically on how AI could be incorporated into the software engineering practices. 
 </p>
 
 <h2>Course Format</h2>
@@ -33,12 +46,56 @@ permalink: /syllabus/
   Each week has three components:
 </p>
 <ul>
-  <li><strong>Lecture + Lab (120 min, Mondays):</strong> approximately 60 minutes of lecture followed by 60 minutes of lab in the same session. No separate lab section.</li>
-  <li><strong>Self-paced module (~60 min):</strong> a short video and assigned reading completed during the week after class. Each module deepens the week's lecture content.</li>
+  <li><strong>Lecture + Lab (120 min, Mondays):</strong> The class meets one time each week for lecture and lab. There will be approximately 60 minutes of lecture followed by 60 minutes of lab in the same session. No separate lab section. The in-class lab practice will be individual or group-based, with people engaging with exercises around the weekly course materials or other relevant topics around the topical focus of the week. Students will make a lab submission after the session, and will receive a binary grade (completed/incompleted) afterwards. </li>
+  <li><strong>Self-paced module (~60 min):</strong> Each weekm there will be a short video and assigned reading or media material to be completed during the week after class. Each module deepens the week's lecture content. After finishing the reading, students will be required to respond to a provided question set on the week's module, grade will be binary (completed/incompleted) </li>
 </ul>
 
-<h2>Grading</h2>
+<h2>Communication</h2>
+<p>
+  For questions, please email the course staffs through the <strong>course mailing list</strong> on the <a href="{{ '/' | relative_url }}">home page</a>. Allow up to 48 hours for an email response on weekdays. 
+</p>
+<p>
+  When you do send an email, please prioritize sending it to the staff mailing list rather than emailing us directly. Doing so will ensure the message does not get lost and help us stay informed. Please note that some questions may be deferred over email and will be addressed in the next class session.
+</p>
+<p>
+  General announcements are posted on the home page
+  {% if site.course_platform != "" and site.course_platform %}
+    and the course platform (<a href="{{ site.course_platform }}">{{ site.course_platform }}</a>)
+  {% endif %}.
+</p>
+  
 
+<h2>Required Text and Videos</h2>
+<p>
+  There is no required textbook. Each week's self-paced module — linked from the
+  <a href="{{ '/calendar/' | relative_url }}">Calendar</a> — assigns the required reading or video
+  for that week. Additional recommended readings are listed on the
+  <a href="{{ '/resources/' | relative_url }}">Resources</a> page.
+</p>
+
+<h2>Assignment Submission</h2>
+<p>
+  {% if site.course_platform != "" and site.course_platform %}
+    Assignments are submitted via <a href="{{ site.course_platform }}">E3</a>, unless an
+    assignment's instructions say otherwise.
+  {% else %}
+    Submission method: <em>TBA</em>. Instructions specific to each assignment are posted with the
+    assignment on the <a href="{{ '/assignments/' | relative_url }}">Assignments</a> page.
+  {% endif %}
+</p>
+
+<h2>Assignment Due Dates</h2>
+<p>
+  Unless otherwise specified, all assignments are due "<strong>at the end of the day</strong>" on whatever date is listed on the calendar. In practice, we will implement this on E3 as 11:59pm Taiwan Standard Time (GMT+8) that day. See
+  <a href="#late-work">Late Work</a> below for the late submission policy.
+</p>
+
+<h2>Assessment</h2>
+<p>
+  Grades will be calculated as follows:
+</p>
+
+<div class="table-scroll">
 <table class="grading-table">
   <thead>
     <tr>
@@ -49,13 +106,13 @@ permalink: /syllabus/
   </thead>
   <tbody>
     <tr><td>Assignment 1 — Technique practice and prompt diagnosis</td><td>10%</td><td>Individual</td></tr>
-    <tr><td>Assignment 3 — Prompt system design and test suite</td><td>15%</td><td>Individual</td></tr>
-    <tr><td>Assignment 5 — Engineering decision portfolio</td><td>10%</td><td>Individual</td></tr>
-    <tr><td>Individual reflection essay</td><td>8%</td><td>Individual, async after Week 16</td></tr>
-    <tr><td>Check-in surveys (4 surveys)</td><td>3%</td><td>Individual, graded on completion</td></tr>
-    <tr><td>Peer evaluation (once, at CP3)</td><td>2%</td><td>Individual</td></tr>
+    <tr><td>Assignment 2 — Prompt system design and test suite</td><td>12%</td><td>Individual</td></tr>
+    <tr><td>Assignment 3 — Engineering decision portfolio</td><td>10%</td><td>Individual</td></tr>
+    <tr><td>Self-paced Module Question Set</td><td>12%</td><td>Individual, async after Week 16</td></tr>
+    <tr><td>Check-in surveys (4 surveys)</td><td>4%</td><td>Individual, graded on completion</td></tr>
+    <tr><td>Labs — all other graded weeks (1% &times; 13)</td><td>11%</td><td>Individual</td></tr>
+    <tr><td>Peer evaluation (once, at CP3)</td><td>2%</td><td>Team (done individually)</td></tr>
     <tr><td>Lab — Week 3 (repository setup + team norms)</td><td>2%</td><td>Team</td></tr>
-    <tr><td>Labs — all other graded weeks (1% &times; 13)</td><td>13%</td><td>Individual</td></tr>
     <tr><td>Checkpoint 1 (CP1)</td><td>5%</td><td>Team</td></tr>
     <tr><td>Checkpoint 2 (CP2)</td><td>15%</td><td>Team</td></tr>
     <tr><td>Checkpoint 3 (CP3)</td><td>12%</td><td>Team</td></tr>
@@ -63,6 +120,26 @@ permalink: /syllabus/
     <tr><td><strong>Total</strong></td><td><strong>100%</strong></td><td></td></tr>
   </tbody>
 </table>
+</div>
+<p>
+  Areas may be curved to ensure grades align with student successes toward learning objectives. We expect any curve would be "up" rather than "down". Grades follow the official NYCU policies (e.g., scoring B- and above are passing grades for graduate students, and C- for undergraduate students).
+</p>
+
+<h2 id="late-work">Late Work</h2>
+<p>
+  Late <strong>individual assignments</strong> will be assessed a 10% penalty for each 24-hour period after the due date. Assignments more than <strong>three days late</strong> will not be accepted without advance permission.
+</p>
+<p>
+ <strong>No late submissions for team checkpoints</strong> — these have downstream dependencies (peer review, instructor feedback) that cannot be rescheduled.
+</p>
+
+<h2>Re-grading</h2>
+<p>
+  Regrades for an assignment can be submitted by emailing me up to 48 hours after a grade is posted. Regrade requests should articulate, in a paragraph or less, what points are being requested and why the grade should be higher according to the rubric. This could be that the grade was mis-entered, did not realize that a student's work matched the rubric, or that the student provided a correct response which was not on the rubric.
+</p>
+<p>
+  Our experience is that about 10% of grades result in a grade change and a lower percentage have any effect on overall grades. In a large class such as this one, regrade requests can create substantial additional work for the course staff. We are likely to delay responding to any regrade requests until the end of the quarter and may only address those which could impact a student's final grade.
+</p>
 
 <h2>The Prompt Engineering Log</h2>
 <p>
@@ -86,17 +163,26 @@ permalink: /syllabus/
 </p>
 
 <h2>AI Use Policy</h2>
-<p>
-  You may use AI tools for all work in this course. If you do, document the interaction in your
-  prompt engineering log. The analysis, judgment, and reasoning in your submissions must be your own.
-  Assignments that clearly consist of unexamined AI output without genuine engagement will not receive credit.
-</p>
 
-<h2>Late Work</h2>
 <p>
-  Individual assignments: late submissions accepted up to 72 hours after the deadline with a
-  10% deduction per 24-hour period. No late submissions for team checkpoints — these have downstream
-  dependencies (peer review, instructor feedback) that cannot be rescheduled.
+  As this course covers topics including using Generative AI Models in programming and software development, usage of generative AI in stated lab exercises, assignments, and project checkpoints is essential in this course. However, we would also like to state what we explicitly welcome and prohibit in this course. 
+  <ul>
+    <li>We <strong>require</strong> understanding and the ability to explain all submitted code and documents at a reasonably high level. </li>
+    <li>We <strong>require</strong> you to represent your work and your submissions with thorough transparency and proper attributions. </li>
+    <li>We <strong>require</strong> you to follow the specific policy for using the Generative AI model that will be noted in each assignment. </li>
+    <li>We <strong>do not take negligence or uncertainty as an excuse for violation</strong>. If you are in doubt, ask the course staff if something is acceptable. </li>
+    <li>We <strong>encourage</strong> usage of AI for learning, and believe that using AI could in some ways benefit learners in engaging with course concepts and help address challenging topics.</li>
+  </ul>
+</p>
+<p>
+  Following are a list of cases where we consider as violations of our Generative AI Policy:
+  <ul>
+    <li>Submitting code you don't understand at a reasonable level</li>
+    <li>Copying from others (human or AI) without attribution</li>
+    <li>Misrepresenting your use of AI tools</li>
+    <li>Using any prohibited tools or resources on labs or assignments</li>
+    <li>Any other form of deliberate dishonesty or misrepresentation</li>
+  </ul> 
 </p>
 
 <h2>Academic Integrity</h2>
@@ -104,4 +190,16 @@ permalink: /syllabus/
   All work is subject to the university's academic integrity policy. Submitting another student's
   work as your own, fabricating prompt outputs, or misrepresenting AI-generated content as human
   analysis constitutes a violation.
+</p>
+
+<h2>Accommodations</h2>
+<p>
+  If you think you need accommodations for a documented disability, religious observance, or other
+  circumstance should contact the instructor as early in the semester as possible so appropriate
+  arrangements can be made. Some aspects of the course including assignments, in-class activities, and teaching style may be modified to facilitate your participation and progress.
+</p>
+
+<h2>Acknowledgement</h2>
+<p>
+  The course's structure and materials draws on ideas from AI-assisted software engineering practice, research, and prior course offerings, specifically the following courses: <a href="https://johnguerra.co/classes/aiCoding_spring_2026/">CS 7180 (Northeastern)</a>, <a href="https://www.cs.cmu.edu/~113/index.html">15-113 (CMU)</a>, <a href="https://www.cs.cmu.edu/~breaux/prompting/syllabus.html">17-630 (CMU)</a>, <a href="https://cornell-tech-vibe-coding-summer-2026.github.io/website/">TECHIE 1121 (Cornell)</a>, <a href="https://themodernsoftware.dev/fall2025">CS146S (Stanford)</a>. Generative AI was used for revising the course material across different components and the overall course planning. 
 </p>

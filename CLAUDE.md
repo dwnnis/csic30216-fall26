@@ -27,7 +27,7 @@ files is rare; editing the YAML is the normal path.
 
 - `_config.yml` — course identity (name, code, semester, instructor, office hours),
   which links appear in the nav (`nav_pages`) and which external links show up
-  (`link_github`, `link_gradescope`, `link_discussion` — blank hides them).
+  (`link_github`, `link_discussion` — blank hides them; the E3 link reuses `course_platform`).
 - `_data/schedule.yml` — one entry per week, rendered as the homepage schedule table.
   `status: normal | holiday | async | online` controls row styling and a badge next to
   the topic. `slides_url`/`lab_url` are optional — when empty the topic/lab render as

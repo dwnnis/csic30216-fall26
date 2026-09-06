@@ -1,0 +1,59 @@
+# ─────────────────────────────────────────────────────────────
+# Upcoming deadlines — shown on the home page, soonest first.
+# `date` must be ISO (YYYY-MM-DD); past entries are filtered out automatically.
+# ─────────────────────────────────────────────────────────────
+
+- title: "Course ADD/DROP Deadline"
+  date: "2026-09-21"
+  due_text: "Monday at 10 am"
+  url: ""
+
+- title: "Team Formation"
+  date: "2026-09-21"
+  due_text: "Week 3 — end of Monday"
+  url: "/project/team-formation/"
+
+# - title: "Course Initiation Survey"
+#   date: "2026-09-25"
+#   due_text: "Week 3 — end of week"
+#   url: ""
+
+# - title: "Assignment 1: Technique Practice and Prompt Diagnosis"
+#   date: "2026-10-05"
+#   due_text: "Week 5 — start of class"
+#   url: "/assignments/a1/"
+
+# - title: "Checkpoint 1 (CP1)"
+#   date: "2026-10-12"
+#   due_text: "Week 6 (async)"
+#   url: "/project/cp1/"
+
+# - title: "Assignment 2: Prompt System Design and Test Suite"
+#   date: "2026-11-16"
+#   due_text: "Week 11 — start of class"
+#   url: "/assignments/a2/"
+
+# - title: "Checkpoint 2 (CP2)"
+#   date: "2026-11-23"
+#   due_text: "Week 12"
+#   url: "/project/cp2/"
+
+# - title: "Assignment 3: Engineering Decision Portfolio"
+#   date: "2026-12-14"
+#   due_text: "Week 15 — start of class"
+#   url: "/assignments/a3/"
+
+# - title: "Checkpoint 3 (CP3)"
+#   date: "2026-12-14"
+#   due_text: "Week 15"
+#   url: "/project/cp3/"
+
+# - title: "Final Project Presentation"
+#   date: "2026-12-21"
+#   due_text: "Week 16"
+#   url: "/project/cp3/"
+
+# - title: "Peer Evaluation of Collaboration"
+#   date: "2026-12-23"
+#   due_text: "Within 48h of Week 16 class"
+#   url: "/assignments/peer/"

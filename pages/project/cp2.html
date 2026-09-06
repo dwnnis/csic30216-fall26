@@ -1,0 +1,81 @@
+---
+layout: default
+title: Checkpoint 2
+permalink: /project/cp2/
+---
+
+{% assign cp = site.data.checkpoints | where: "id", "CP2" | first %}
+
+<div class="page-header">
+  <h1>Checkpoint {{ cp.number }} ({{ cp.id }})</h1>
+  <p class="page-subtitle">{{ cp.phase }} &middot; Due {{ cp.due }} &middot; {{ cp.weight }}</p>
+</div>
+
+<div class="callout">
+  <strong>Due: Week 12, November 23rd</strong> — submitted to E3 by end of day. Weight: 15%.
+</div>
+
+<h2>Overview</h2>
+<p>
+  CP2 closes Phase 2 — the main build phase. <strong>It is the most substantial checkpoint of the
+  semester</strong>. Unlike CP1, which was about direction, CP2 is about evidence: evidence that
+  you built something real, that multiple people built it together, and that you have begun to
+  evaluate whether it works.
+</p>
+<div class="callout note">
+  <strong>Grading philosophy:</strong> CP2 is split approximately equally between product quality
+  and collaboration process quality. A team with a modest prototype but genuine collaboration
+  evidence — real PR conversations, substantive code steward comments, DECISIONS.md entries for
+  significant choices, contributions from all four members — will score well. A team with an
+  impressive prototype built primarily by one person will not score well on CP2 regardless of the
+  product quality. How you built it matters as much as what you built.
+</div>
+
+<h2>What to Submit</h2>
+
+<h3>Main Components</h3>
+<ol>
+  <li><strong>Working prototype</strong> — something two people can interact with together. Core interaction only — it does not need to be polished or feature-complete. It needs to work well enough for a real user to attempt the primary task.</li>
+  <li><strong>Design rationale</strong> — a brief document covering the key interaction design decisions your team made and what shaped them. Must include findings from at least two user testing sessions with real users outside your team.</li>
+  <li><strong>Updated evaluation report</strong> — a summary of the evaluation evidence you have collected so far. This is interim — be honest about what you have not yet tested. An honest interim report is more valuable than an optimistic one.</li>
+</ol>
+
+<h3>AI-Relevant Components</h3>
+<ol start="4">
+  <li><strong>System prompt (CLAUDE.md) and prompt documentation card</strong> — documentation of your AI integration sufficient for a new engineer to understand what the AI does, what it was prompted to do, and what its known failure modes are. Only required if your tool uses AI.</li>
+  <li><strong>AI usage guidelines</strong> — your team's AI usage guidelines, refined from the Week 3 draft to reflect how the team actually worked during Phase 2.</li>
+  <li><strong>Prompt test suite</strong> — if your tool contains an AI interaction, submit a minimum of ten test cases for the core interaction. Must include typical inputs, edge cases, and at least one revision cycle showing a failure found and fixed. This draws directly from Assignment 3 work. Only required if your tool uses AI.</li>
+</ol>
+
+<h3>Collaboration-Related Documents</h3>
+<ol start="7">
+  <li><strong>DECISIONS.md</strong> — complete through Phase 2. Must contain entries for all significant decisions made during Phase 1 and Phase 2, cross-referenceable with your PR history.</li>
+  <li><strong>GitHub contributor graph</strong> — a screenshot or link showing substantive code contributions from all four team members.</li>
+  <li><strong>Walking skeleton artifact</strong> — a link to the merged PR from your Week 9 walking skeleton session.</li>
+  <li><strong>Merge day artifact</strong> — the DECISIONS.md merge plan entry from your Week 11 merge day session.</li>
+</ol>
+
+<h2>Important Timing Note</h2>
+<div class="callout warning">
+  The peer review happens during the Week 12 lab on November 23rd — the same day CP2 is due. Your
+  prototype must be in a demonstrable state before you arrive at class, not by the end of the day.
+  Plan accordingly.
+</div>
+<p>
+  Teams should complete the merge day session during Week 11 (outside class) so the codebase is
+  stable before the peer review.
+</p>
+
+<h2>Rubrics</h2>
+<div class="callout note">
+  Rubrics will be updated by the due date of CP1, in preparation for the work of CP2.
+</div>
+
+<h2>Submission</h2>
+<p>
+  Submit one zip file per group to E3 under &ldquo;CP2.&rdquo; File name:
+  <code>GroupXX_CP2</code>. Include all deliverables listed above. The GitHub repository link
+  should be included in the zip as a plain text file.
+</p>
+
+<p><a href="{{ '/project/' | relative_url }}">&larr; Back to Final Project</a></p>

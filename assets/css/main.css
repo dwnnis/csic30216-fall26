@@ -239,7 +239,6 @@ p {
   color: var(--slate-600);
   margin-bottom: 0.9rem;
   line-height: 1.7;
-  max-width: 66ch;
 }
 
 li {
@@ -277,6 +276,19 @@ strong { color: var(--navy); }
 .callout.note    { border-left-color: var(--slate-400); background: var(--slate-100); }
 
 /* ─────────────────────────────────────────────────────────────
+   Objectives box
+   ───────────────────────────────────────────────────────────── */
+.objectives-box {
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  background: var(--slate-50);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.objectives-box p:first-child { margin-top: 0; }
+.objectives-box ul { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────────────────────────
    Announcements
    ───────────────────────────────────────────────────────────── */
 .announcements { margin-bottom: 2rem; }
@@ -302,6 +314,34 @@ strong { color: var(--navy); }
 .ann-text { color: var(--slate-600); line-height: 1.55; }
 
 /* ─────────────────────────────────────────────────────────────
+   Upcoming deadlines
+   ───────────────────────────────────────────────────────────── */
+.deadline-list { margin-bottom: 2rem; }
+
+.deadline-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--slate-100);
+  font-size: 0.875rem;
+  align-items: baseline;
+}
+.deadline-item:last-child { border-bottom: none; }
+
+.deadline-date {
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 88px;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.deadline-title { font-weight: 600; }
+.deadline-due { color: var(--text-muted); font-size: 0.8rem; }
+.deadline-empty { color: var(--text-muted); font-size: 0.875rem; }
+
+/* ─────────────────────────────────────────────────────────────
    Course info bar (home page)
    ───────────────────────────────────────────────────────────── */
 .course-info-bar {
@@ -317,6 +357,32 @@ strong { color: var(--navy); }
   color: var(--text-muted);
 }
 .info-item strong { color: var(--navy); }
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.person-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+}
+.person-role {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--blue);
+}
+.person-name { font-weight: 600; color: var(--navy); }
+.person-detail { color: var(--text-muted); }
 
 /* ─────────────────────────────────────────────────────────────
    Schedule table
@@ -387,85 +453,80 @@ strong { color: var(--navy); }
 /* ─────────────────────────────────────────────────────────────
    Generic data table (syllabus grading, project phases)
    ───────────────────────────────────────────────────────────── */
-.data-table {
+.grading-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
   margin: 0.75rem 0 1.5rem;
 }
-.data-table thead th {
+.grading-table thead th {
   text-align: left;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--text-muted);
-  padding: 0.45rem 0.75rem;
+  padding: 0.7rem 1rem;
   border-bottom: 2px solid var(--slate-200);
 }
-.data-table tbody td {
-  padding: 0.5rem 0.75rem;
+.grading-table tbody td {
+  padding: 0.85rem 1rem;
   border-bottom: 1px solid var(--slate-100);
   color: var(--slate-600);
   vertical-align: top;
-  line-height: 1.5;
+  line-height: 1.6;
 }
-.data-table tbody tr:last-child td { border-bottom: none; }
-.data-table tbody tr:hover { background: var(--slate-50); }
-.data-table tfoot td {
-  padding: 0.5rem 0.75rem;
+.grading-table tbody tr:last-child td { border-bottom: none; }
+.grading-table tbody tr:hover { background: var(--slate-50); }
+.grading-table tfoot td {
+  padding: 0.85rem 1rem;
   border-top: 2px solid var(--slate-200);
   font-weight: 600;
   color: var(--navy);
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Assignment cards
+   Assignment list
    ───────────────────────────────────────────────────────────── */
-.assignment-list { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 1rem; }
+.assignment-list { display: flex; flex-direction: column; margin-top: 1rem; }
 
-.assignment-card {
-  border: 1px solid var(--slate-200);
-  border-radius: var(--radius);
-  padding: 1rem 1.25rem;
-  transition: box-shadow 0.12s;
+.assignment-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--slate-100);
 }
-.assignment-card:hover { box-shadow: var(--shadow); }
+.assignment-item:last-child { border-bottom: none; }
 
-.acard-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.2rem;
-}
-.acard-id {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--blue);
-}
-.acard-weight {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-.acard-title {
+.assignment-item-title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--navy);
   margin-bottom: 0.15rem;
 }
-.acard-due {
+.assignment-item-title a { color: var(--blue); }
+
+.assignment-meta {
   font-size: 0.78rem;
   color: var(--text-muted);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
 }
-.acard-desc {
+.assignment-desc {
   font-size: 0.855rem;
   color: var(--slate-600);
   line-height: 1.6;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Checkpoint list
+   ───────────────────────────────────────────────────────────── */
+.checkpoint-list {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+}
+.checkpoint-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--slate-600);
+}
+.checkpoint-list a { font-weight: 600; color: var(--blue); }
 
 /* ─────────────────────────────────────────────────────────────
    Resource list
@@ -500,7 +561,7 @@ strong { color: var(--navy); }
 
   .footer-inner { flex-direction: column; gap: 0.25rem; }
 
-  .data-table { font-size: 0.82rem; }
+  .grading-table { font-size: 0.82rem; }
   .acard-top  { flex-direction: column; align-items: flex-start; gap: 0.1rem; }
 }
 

@@ -7,13 +7,13 @@
   date: "Sep 7"
   status: normal
   topic: "Introduction to AI-Assisted SE"
-  topic_url: ""
+  topic_url: "asd"
   slides_url: ""
   lab: "AI Telephone — experiencing the intent-output gap"
   lab_url: ""
   self_paced: "History of language models"
   assigned: ""
-  due: "Baseline survey"
+  due: ""
 
 - week: 2
   date: "Sep 14"
@@ -25,7 +25,7 @@
   lab_url: ""
   self_paced: "In-context learning and instruction tuning"
   assigned: ""
-  due: "Baseline survey"
+  due: ""
 
 - week: 3
   date: "Sep 21"
@@ -37,7 +37,7 @@
   lab_url: ""
   self_paced: "How engineering teams adopt AI tooling"
   assigned: ""
-  due: ""
+  due: "Team Formation (by 9/25) | Course Initiation Survey"
 
 - week: 4
   date: "Sep 28"
@@ -54,7 +54,7 @@
 - week: 5
   date: "Oct 5"
   status: normal
-  topic: "Prompt Engineering I: Core Techniques"
+  topic: "Prompt Engineering — Writing Prompts Well"
   topic_url: ""
   slides_url: ""
   lab: "Writing prompts well — code generation focus"
@@ -78,7 +78,7 @@
 - week: 7
   date: "Oct 19"
   status: online
-  topic: "Prompt Engineering II: Making Prompts More Capable"
+  topic: "Tool use, function calling, and MCP"
   topic_url: ""
   slides_url: ""
   lab: "Self-correcting pipeline (online)"
@@ -102,7 +102,7 @@
 - week: 9
   date: "Nov 2"
   status: normal
-  topic: "Tool Use, Function Calling, and MCP"
+  topic: "Context Management and Grounding (RAG)"
   topic_url: ""
   slides_url: ""
   lab: "Two-tool agent + prompt system sketch"
@@ -114,7 +114,7 @@
 - week: 10
   date: "Nov 9"
   status: normal
-  topic: "Context Management and Grounding (RAG)"
+  topic: "Prompt testing and reliability"
   topic_url: ""
   slides_url: ""
   lab: "Build a minimal RAG pipeline"
@@ -126,14 +126,14 @@
 - week: 11
   date: "Nov 16"
   status: normal
-  topic: "Prompt Testing and Reliability"
+  topic: "AI-assisted code generation and debugging"
   topic_url: ""
   slides_url: ""
   lab: "Prompt test suite with PromptFoo"
   lab_url: ""
   self_paced: "How researchers evaluate LLM outputs at scale"
   assigned: ""
-  due: "Assignment 3 (15%)"
+  due: "Assignment 2 (12%)"
 
 - week: 12
   date: "Nov 23"
@@ -150,7 +150,7 @@
 - week: 13
   date: "Nov 30"
   status: normal
-  topic: "SE Practices + Making AI Work Legible"
+  topic: "When Is an Agent the Right Tool?"
   topic_url: ""
   slides_url: ""
   lab: "PR review workshop + evaluation methodology revisit"
@@ -162,7 +162,7 @@
 - week: 14
   date: "Dec 7"
   status: normal
-  topic: "When Is an Agent the Right Tool?"
+  topic: "Ethics, Safety, and Professional Responsibility"
   topic_url: ""
   slides_url: ""
   lab: "Minimum viable agent"
@@ -174,23 +174,23 @@
 - week: 15
   date: "Dec 14"
   status: normal
-  topic: "Ethics, Safety, and Professional Responsibility"
+  topic: "Guest Lecture (TBA)"
   topic_url: ""
   slides_url: ""
   lab: "Case study discussion"
   lab_url: ""
   self_paced: "Super-alignment research and open problems"
   assigned: ""
-  due: "Assignment 5 (10%) | CP3 (12%)"
+  due: "Assignment 3 (10%) | CP3 (12%)"
 
 - week: 16
   date: "Dec 21"
   status: normal
-  topic: "Guest Lecture + Final Presentations"
+  topic: "Final Presentations"
   topic_url: ""
   slides_url: ""
   lab: "Lightning talks + poster/demo session"
   lab_url: ""
   self_paced: "Assigned by guest speaker"
   assigned: ""
-  due: "Video (24h) | Essay + Peer eval (48h)"
+  due: "Video | Peer eval "

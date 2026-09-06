@@ -35,7 +35,7 @@
 - category: "Setup Guides"
   items:
     - title: "Anthropic SDK Setup"
-      url: ""
+      url: "https://platform.claude.com/docs/en/get-started"
       note: "Installing the Python SDK and configuring your API key"
     - title: "Claude Code Installation"
       url: "https://docs.anthropic.com/claude-code"

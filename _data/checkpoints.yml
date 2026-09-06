@@ -1,0 +1,39 @@
+# ─────────────────────────────────────────────────────────────
+# Checkpoints — team project milestones
+# ─────────────────────────────────────────────────────────────
+
+- id: "TeamFormation"
+  slug: "team-formation"
+  title: "Team Formation"
+  due: "Week 3 (see Upcoming Deadlines for the exact date)"
+  description: "Groups of four are finalized and submitted to E3, with a one-sentence starting direction for the collaboration problem the team wants to explore."
+
+- id: "CP1"
+  number: 1
+  slug: "cp1"
+  phase: "Phase 1 — Discovery"
+  weight: "5%"
+  due: "Week 6 (async)"
+  description: "Problem framing, user research, initial prototype, and evaluation plan."
+
+- id: "CP2"
+  number: 2
+  slug: "cp2"
+  phase: "Phase 2 — Building"
+  weight: "15%"
+  due: "Week 12"
+  description: "Walking skeleton, prototype build, test suite, and peer review."
+
+- id: "CP3"
+  number: 3
+  slug: "cp3"
+  phase: "Phase 3 — Synthesising"
+  weight: "12%"
+  due: "Week 15"
+  description: "Refinement, evaluation evidence, final report, and presentation prep."
+
+- id: "FinalDeliverables"
+  slug: "final-deliverables"
+  title: "Final Deliverables"
+  due: "After Week 16 class (Dec 21)"
+  description: "5-minute team demo video and individual peer evaluation, due asynchronously after the Week 16 presentations."

@@ -12,7 +12,7 @@ permalink: /assignments/
 <p>
   Three individual assignments across the semester, plus the reflection essay, peer evaluation,
   and check-in surveys. The assignments form a deliberate arc:
-  use techniques (A1) → design and verify a system (A3) → demonstrate growth with evidence (A5).
+  use techniques (A1) → design and verify a system (A2) → demonstrate growth with evidence (A3).
 </p>
 
 <div class="callout">
@@ -23,19 +23,16 @@ permalink: /assignments/
 
 <div class="assignment-list">
   {% for a in site.data.assignments %}
-  <div class="assignment-card">
-    <div class="assignment-card-header">
-      <span class="assignment-id">{{ a.id }}</span>
-      <span class="assignment-weight">{{ a.weight }}</span>
-    </div>
-    <div class="assignment-title">
-      {% if a.url != "" and a.url %}
-        <a href="{{ a.url }}">{{ a.title }}</a>
+  {% capture a_label %}{% if a.number %}Assignment {{ a.number }}: {% endif %}{{ a.title }}{% endcapture %}
+  <div class="assignment-item">
+    <div class="assignment-item-title">
+      {% if a.slug != "" and a.slug %}
+        <a href="{{ '/assignments/' | append: a.slug | append: '/' | relative_url }}">{{ a_label }}</a>
       {% else %}
-        {{ a.title }}
+        {{ a_label }}
       {% endif %}
     </div>
-    <div class="assignment-due">Due: {{ a.due }}</div>
+    <div class="assignment-meta">{{ a.weight }} &middot; Due: {{ a.due }}</div>
     <div class="assignment-desc">{{ a.description }}</div>
   </div>
   {% endfor %}
@@ -51,12 +48,14 @@ permalink: /assignments/
   Lab guides are posted on the course portal before each class.
   Some labs require software installed before class — check the schedule for setup instructions.
 </p>
+<p>
+  Please check the <a href="{{ '/calendar/' | relative_url }}">calendar</a> page for each week's lab information and the submission criteria. 
+</p>
 
 <h2>Prompt Engineering Log</h2>
 <p>
   The prompt engineering log is an individual running record maintained throughout the semester.
-  It is not submitted as a standalone deliverable — it provides the evidence base for Assignment 5
-  and the reflection essay.
+  It is not submitted as a standalone deliverable — it provides the evidence base for Assignment 5.
 </p>
 <p>Each entry has four fields:</p>
 <ul>

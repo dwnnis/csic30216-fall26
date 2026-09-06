@@ -1,0 +1,104 @@
+---
+layout: default
+title: Checkpoint 1
+permalink: /project/cp1/
+---
+
+{% assign cp = site.data.checkpoints | where: "id", "CP1" | first %}
+
+<div class="page-header">
+  <h1>Checkpoint {{ cp.number }} ({{ cp.id }})</h1>
+  <p class="page-subtitle">{{ cp.phase }} &middot; Due {{ cp.due }} &middot; {{ cp.weight }}</p>
+</div>
+
+<div class="callout">
+  <strong>Due: Week 6, October 12th</strong> — submitted asynchronously to E3. Weight: 5%.
+</div>
+
+<h2>Overview</h2>
+<p>
+  CP1 establishes your team's shared direction and evaluation thinking before serious building
+  begins. It is a light deliverable by design — the goal is alignment, not exhaustive
+  documentation. A focused, honest CP1 is more valuable than a polished but vague one.
+</p>
+
+<h2>What to Submit</h2>
+
+<h3>1. Team Charter</h3>
+<p>Your team's agreed working norms. Include:</p>
+<ul>
+  <li>How your team makes decisions when there is disagreement</li>
+  <li>Your definition of done for a piece of work</li>
+  <li>How your team communicates outside of class (frequency, channel, expectations)</li>
+</ul>
+
+<h3>2. Problem Statement with Evidence</h3>
+<p>A clear description of the collaboration pain point you are addressing. Include:</p>
+<ul>
+  <li>What the problem is, and who specifically experiences this problem</li>
+  <li>How you know the problem is real — you must have spoken with at least two people outside your team who actually experience this problem. Summarize what they told you.</li>
+  <li>Why existing tools or approaches do not adequately solve it</li>
+</ul>
+
+<h3>3. Initial Interaction Design Sketch</h3>
+<p>A description or diagram of what your tool does. Include:</p>
+<ul>
+  <li>What the tool does at a high level</li>
+  <li>What the inputs and outputs are</li>
+  <li>How two people would interact with it together</li>
+</ul>
+<p>This does not have to be finalized. Your design could change across the semester.</p>
+
+<h3>4. Draft Evaluation Plan</h3>
+<p>How you will know whether your tool works. Include:</p>
+<ul>
+  <li><strong>Success definition:</strong> &ldquo;We will know our tool works if...&rdquo; — something observable and measurable</li>
+  <li><strong>Target users:</strong> who you will test with, and how you will access them</li>
+  <li><strong>Method:</strong> which evaluation approach (structured observation, pre/post survey, or brief interview) and roughly when you plan to conduct the evaluation</li>
+  <li><strong>Minimum evidence threshold:</strong> what would convince someone skeptical of your idea?</li>
+  <li><strong>Human-AI boundary</strong> (if your tool uses AI): what does the AI decide, and what does the human decide?</li>
+</ul>
+
+<h3>5. Repository Link</h3>
+<p>Confirm that your GitHub repository is set up with:</p>
+<ul>
+  <li>Branch protection on main</li>
+  <li>PR template in place (<code>.github/PULL_REQUEST_TEMPLATE.md</code>)</li>
+  <li>DECISIONS.md started with at least one entry</li>
+  <li>Current code steward recorded in DECISIONS.md</li>
+</ul>
+
+<h2>What Makes a Strong CP1</h2>
+<p>
+  A strong CP1 is <strong>specific</strong>. &ldquo;Teams have trouble communicating&rdquo; is not
+  a problem statement. &ldquo;Engineering teams reviewing pull requests asynchronously lose
+  context about why a decision was made, leading to redundant back-and-forth in code review&rdquo;
+  is a problem statement.
+</p>
+<p>
+  A strong CP1 is <strong>honest</strong>. If you are not sure about something — your target
+  users, your evaluation method, whether your tool idea will work — say so. Uncertainty
+  acknowledged now is easier to address than uncertainty hidden until CP2.
+</p>
+<p>
+  A strong CP1 is <strong>grounded in real evidence</strong>. The minimum is two conversations with
+  real users. Teams that conduct more conversations at this stage consistently build better tools.
+</p>
+
+<h2>Rubrics</h2>
+<div class="callout note">
+  Rubrics will be updated by the end of Week 2.
+</div>
+
+<h2>Submission</h2>
+<p>
+  Submit one PDF or zip file per group to E3 under &ldquo;CP1.&rdquo; File name:
+  <code>GroupXX_CP1</code>.
+</p>
+<div class="callout warning">
+  CP1 is due on October 12th, the Week 6 async session — there is no in-person class that week.
+  We might hold a drop-in session for addressing questions your team has before submitting. Time
+  will be posted on the course website and announced on E3/email.
+</div>
+
+<p><a href="{{ '/project/' | relative_url }}">&larr; Back to Final Project</a></p>

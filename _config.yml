@@ -3,19 +3,41 @@
 # ─────────────────────────────────────────────────────────────
 
 # Course identity
-course_code:      "CS 5XXX"
-course_name:      "AI-Assisted Software Engineering"
+course_code:      "CSIC30216"
+course_name:      "AI-in-the-Loop in Software Project Cycle"
+course_name_zh:   "AI 導入軟體專案流程"
 course_semester:  "Fall 2026"
-course_university: "National Taiwan University"
-course_location:  "Room XXX"
-course_time:      "Mondays, 9:00–11:00 AM"
+course_university: "National Yang Ming Chiao Tung University"
+course_location:  "ED117"
+course_time:      "Mondays, 10:10–11:00 AM"
 course_units:     "3 credits"
 
-# Instructor
-instructor_name:  "Your Name"
-instructor_url:   "https://yourwebsite.com"
-instructor_office_hours: "By appointment"
-instructor_email: "your@email.edu"
+# Instructors (supports any number)
+instructors:
+  - name:  "Dennis Wang 王邦任"
+    url:   "https://denniswang.net"
+    email: "dennis [at] nycu.edu.tw"
+    office_hours: "By appointment"
+  - name:  "Yu-Chun (Grace) Yen 顏羽君"
+    url:   "https://gracetfg2.github.io/"
+    email: "yyen [at] cs.nycu.edu.tw"
+    office_hours: "By appointment"
+
+# Teaching assistants (supports any number)
+tas:
+  - name:  "Chi-Hong Huang 黃頎閎"
+    email: "noahhuang.cs14 [at] nycu.edu.tw"
+  - name:  "Sky Shih-Kai Hong 洪軾凱"
+    email: "sky.cs14 [at] nycu.edu.tw"
+  - name:  "Bo-Yu Shen 沈伯宇"
+    email: "ary110359 [at] gmail.com"
+  - name:  "Cheng-Hao Yang 楊正豪"
+    email: "kenny103089 [at] gmail.com"
+
+# Course website, platform, and mailing list — shown on the home page, leave blank to hide
+course_website:      "https://denniswang.net"
+course_platform:     "https://e3p.nycu.edu.tw/course/view.php?id=27454"
+course_mailing_list:  "TBA"
 
 # Course links — leave blank to hide the link
 link_syllabus:    "/syllabus"
@@ -23,7 +45,6 @@ link_assignments: "/assignments"
 link_project:     "/project"
 link_resources:   "/resources"
 link_github:      ""
-link_gradescope:  ""
 link_discussion:  ""
 
 # Jekyll settings — do not change
@@ -38,6 +59,8 @@ nav_pages:
     url:   "/"
   - title: "Syllabus"
     url:   "/syllabus"
+  - title: "Calendar"
+    url:   "/calendar"
   - title: "Assignments"
     url:   "/assignments"
   - title: "Final Project"
