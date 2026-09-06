@@ -65,11 +65,20 @@ bundle exec jekyll serve
 
 Visit `http://localhost:4000` to preview.
 
+If `_config.yml` has `baseurl` set (as it does once you're hosting on GitHub Pages under a
+repo name, not a custom domain), the site is served under that path locally too — e.g.
+`http://localhost:4000/repo-name/`. To preview at the plain root instead, override it:
+
+```bash
+bundle exec jekyll serve --baseurl ""
+```
+
 ## Hosting on GitHub Pages
 
 1. Push to a GitHub repository
-2. Go to Settings → Pages → Source: Deploy from branch → main → / (root)
-3. Your site appears at `https://yourusername.github.io/repo-name/`
+2. Set `baseurl: "/repo-name"` in `_config.yml` to match your repository's name
+3. Go to Settings → Pages → Source: Deploy from branch → main → / (root)
+4. Your site appears at `https://yourusername.github.io/repo-name/`
 
 To host under your personal site (e.g. `yoursite.com/cs5xxx/`):
 set `baseurl: "/cs5xxx"` in `_config.yml` and push to a subfolder repo.
