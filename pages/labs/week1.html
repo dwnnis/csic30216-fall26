@@ -1,0 +1,147 @@
+---
+layout: default
+title: Week 1 Lab
+permalink: /labs/week1/
+---
+
+<div class="page-header">
+  <h1>Week 1 Lab — Experiencing the Intent-Output Gap</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>What This Lab Is For</h2>
+<p>
+  You will experience — personally and concretely — the gap between what you intend to say and
+  what a model interprets from what you wrote. This gap is the core engineering challenge of the
+  course. Everything from prompt engineering to agent design is ultimately about closing it.
+</p>
+<div class="callout note">
+  No code. No API keys. No setup required.
+</div>
+
+<h2>The Function</h2>
+<p>
+  This function will be displayed on the screen throughout the lab. Read it carefully before
+  writing anything.
+</p>
+<pre class="code-block"><code>def mystery(items):
+    if not items:
+        return []
+    pivot = items[0]
+    smaller = [x for x in items[1:] if x &lt;= pivot]
+    larger  = [x for x in items[1:] if x &gt; pivot]
+    return mystery(smaller) + [pivot] + mystery(larger)</code></pre>
+<p>
+  Before you write your prompt: form your own understanding of what this function does. What
+  does it produce? What happens on an unusual input? What would a junior engineer need to know
+  about it?
+</p>
+<p>That understanding is your benchmark. It is what you are trying to get the model to produce.</p>
+
+<h2>Part 1 — Write Your First Prompt <span class="lab-timing">(10 minutes, individual)</span></h2>
+<p>Write a prompt asking the model to explain what this function does.</p>
+<p>
+  Write it the way you naturally would. Do not overthink it. Do not discuss with the person next
+  to you — your instinct is the point.
+</p>
+<p>Write it down and keep it. You will need it for your log entry at the end.</p>
+<p>
+  Then submit your prompt to the class document using the link on the screen. You can submit
+  anonymously or with your name — your choice.
+</p>
+
+<h2>Part 2 — Observe <span class="lab-timing">(10 minutes)</span></h2>
+<p>The instructor will run three or four submitted prompts live on the projector.</p>
+<p>For each output, ask yourself one question:</p>
+<div class="callout">
+  <strong>What did the model interpret differently from what the student intended?</strong>
+</div>
+<p>Not: was this good or bad? Not: do you like it?</p>
+<p>Specifically: what decision did the model make that the student did not make explicitly?</p>
+<p>Things to watch for:</p>
+<ul>
+  <li>Did the model choose an audience without being told who would read the explanation?</li>
+  <li>Did it choose a level of technical detail without knowing the reader's background?</li>
+  <li>Did it explain what the function does mechanically, or what it is for?</li>
+  <li>Did it mention the recursion explicitly, or describe the behaviour without naming the technique?</li>
+  <li>Did it notice the empty list edge case — and if so, did it explain why that matters?</li>
+</ul>
+<p>
+  Every one of these is a decision the student implicitly delegated to the model. The model is
+  not wrong — it made the most probable interpretation of what was written. The gap is between
+  what was written and what was meant.
+</p>
+
+<h2>Part 3 — Revise Your Prompt <span class="lab-timing">(10 minutes, individual)</span></h2>
+<p>Write a second version of your prompt.</p>
+<div class="callout warning">
+  <strong>Rule:</strong> change only one thing.
+</div>
+<p>
+  Not a complete rewrite. Identify the single most important gap you observed — the decision the
+  model made that you most disagreed with — and address that one thing explicitly.
+</p>
+<p>
+  If you are not sure what to change, ask yourself: what was the one thing in the output that
+  most surprised or disappointed you? That is your one thing.
+</p>
+<p>Some examples of what a one-thing change might look like:</p>
+<ul>
+  <li><strong>Adding an audience:</strong> &ldquo;...for a junior engineer who has never seen recursion before&rdquo;</li>
+  <li><strong>Adding a format:</strong> &ldquo;...in exactly three sentences&rdquo;</li>
+  <li><strong>Adding a focus:</strong> &ldquo;...paying particular attention to what happens when the input list is empty&rdquo;</li>
+  <li><strong>Adding a level:</strong> &ldquo;...without using any technical vocabulary&rdquo;</li>
+  <li><strong>Adding a purpose:</strong> &ldquo;...so they know when to use this function and when not to&rdquo;</li>
+</ul>
+<p>These are not the right answers — they are examples. Your gap may be something completely different.</p>
+
+<h2>Part 4 — Observe Again <span class="lab-timing">(10 minutes)</span></h2>
+<p>The instructor will run the revised versions of the same prompts.</p>
+<p>For each pair of outputs (original and revised), ask yourself:</p>
+<ul>
+  <li>Did the gap narrow? What specifically fixed it?</li>
+  <li>Did a new gap appear? What did the revision leave ambiguous that the original did not?</li>
+</ul>
+<p>
+  Both outcomes are equally interesting. Closing one implicit decision often reveals another you
+  had not noticed. That is not failure — that is how prompt engineering actually works. It is
+  iterative, not a one-shot fix.
+</p>
+
+<h2>Part 5 — Prompt Engineering Log Entry <span class="lab-timing">(5 minutes)</span></h2>
+<p>Write your first prompt engineering log entry.</p>
+<p>
+  You will maintain this log all semester. It is an individual record of significant AI
+  interactions and the engineering judgments you made about them — what you asked, what it
+  produced, what you decided, and why.
+</p>
+<p>Your first entry has four fields:</p>
+<ul>
+  <li><strong>What I asked the model to do</strong> — one sentence: your original prompt, verbatim or closely paraphrased.</li>
+  <li><strong>What it produced</strong> — one sentence: not the full output, just the kind of thing it was. For example: &ldquo;a technical explanation assuming the reader knows Python&rdquo; or &ldquo;a plain-English description that did not mention recursion.&rdquo;</li>
+  <li><strong>What I decided to change and why</strong> — one to two sentences: what gap you identified and what your one-thing revision was.</li>
+  <li><strong>What this tells me about the gap between intent and output</strong> — one sentence: your personal takeaway from observing both outputs.</li>
+</ul>
+<div class="callout warning">
+  Submit your log entry as a text file, in the format <code>[your-student-id]-lab-1.txt</code>, to
+  E3 under &ldquo;Week 1 Lab&rdquo; before the end of week (September 11th).
+</div>
+
+<h2>If You Finish Early</h2>
+<p>
+  Try a third version of your prompt — one more one-thing change, based on what you observed in
+  Part 4. Add a second observation to your log entry noting what happened.
+</p>
+<p>
+  If you have access to a model (Claude.ai, ChatGPT, Gemini, or anything else), try running your
+  own prompts and add those observations to your log. You do not need API access — any web
+  interface works.
+</p>
+
+<h2>Grading</h2>
+<div class="callout note">
+  This lab will not be graded. It is for you to get a sense of what might be coming in this
+  semester, and get familiar with lab submissions.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

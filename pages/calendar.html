@@ -49,7 +49,7 @@ permalink: /calendar/
 
       <td>
         {% if row.lab_url != "" and row.lab_url %}
-          <a href="{{ row.lab_url }}">{{ row.lab }}</a>
+          <a href="{{ row.lab_url | relative_url }}">{{ row.lab }}</a>
         {% else %}
           {{ row.lab }}
         {% endif %}

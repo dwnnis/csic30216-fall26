@@ -257,6 +257,28 @@ code {
   color: var(--navy);
 }
 
+.code-block {
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.code-block code {
+  background: none;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--navy);
+  white-space: pre;
+}
+
+.lab-timing {
+  font-weight: 400;
+  font-size: 0.75em;
+  color: var(--text-muted);
+}
+
 strong { color: var(--navy); }
 
 /* ─────────────────────────────────────────────────────────────
