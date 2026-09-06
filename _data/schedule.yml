@@ -8,7 +8,7 @@
   status: normal
   topic: "Introduction to AI-Assisted SE"
   topic_url: "asd"
-  slides_url: ""
+  slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=230457"
   lab: "Experiencing the intent-output gap"
   lab_url: "/labs/week1/"
   self_paced: "History of language models"
