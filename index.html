@@ -14,10 +14,10 @@ title: Home
   <span class="info-item"><strong>Time</strong> {{ site.course_time }}</span>
   <span class="info-item"><strong>Location</strong> {{ site.course_location }}</span>
   {% if site.course_website != "" and site.course_website %}
-  <span class="info-item"><a href="{{ site.course_website }}">Course website</a></span>
+  <span class="info-item"><a href="{{ '/' | relative_url }}">Course website</a></span>
   {% endif %}
   {% if site.course_platform != "" and site.course_platform %}
-  <span class="info-item"><a href="{{ site.course_platform }}">Course platform</a></span>
+  <span class="info-item"><a href="{{ site.course_platform }}">Course E3</a></span>
   {% endif %}
   {% if site.course_mailing_list != "" and site.course_mailing_list %}
   <span class="info-item"><strong>Mailing list</strong> {{ site.course_mailing_list }}</span>
