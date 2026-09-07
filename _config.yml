@@ -37,7 +37,7 @@ tas:
 # Course website, platform, and mailing list — shown on the home page, leave blank to hide
 course_website:      "https://csic30216-fall26.denniswang.net"
 course_platform:     "https://e3p.nycu.edu.tw/course/view.php?id=27454"
-course_mailing_list:  "TBA"
+course_mailing_list:  "csic30216-fall26@courses.cs.nycu.edu.tw"
 
 # Course links — leave blank to hide the link
 link_syllabus:    "/syllabus"
