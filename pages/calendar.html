@@ -55,7 +55,13 @@ permalink: /calendar/
         {% endif %}
       </td>
 
-      <td>{{ row.self_paced }}</td>
+      <td>
+        {% if row.self_paced_url != "" and row.self_paced_url %}
+          <a href="{{ row.self_paced_url | relative_url }}">{{ row.self_paced }}</a>
+        {% else %}
+          {{ row.self_paced }}
+        {% endif %}
+      </td>
 
       <td class="{% if row.due != '' %}col-due{% endif %}">{{ row.due }}</td>
 
