@@ -25,6 +25,7 @@
   lab: "Tokens, system prompts, context"
   lab_url: "/labs/week2/"
   self_paced: "In-context learning and instruction tuning"
+  self_paced_url: "/self-paced/week2/"
   assigned: ""
   due: ""
 

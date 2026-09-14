@@ -1,0 +1,71 @@
+---
+layout: default
+title: Week 2 Self-Paced Module
+permalink: /self-paced/week2/
+---
+
+<div class="page-header">
+  <h1>Week 2 Self-Paced Module: In-Context Learning and Instruction Tuning</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  This module answers a question Week 2's lecture raised but left open: if the model is
+  just predicting tokens, why does it follow instructions at all? And why do examples in
+  the prompt work without retraining? Neither in-context learning nor instruction following
+  is magic — both have specific mechanisms, and understanding those mechanisms changes how
+  you design prompts and systems.
+</p>
+
+<h2>Why This Matters</h2>
+<p>
+  Understanding why few-shot examples work tells you how to choose better examples.
+  Understanding why instruction tuning is not a hard constraint tells you when and why your
+  system prompt might fail — including to adversarial input from users. These are practical,
+  not just theoretical, engineering concerns for the systems you'll build this semester.
+</p>
+
+<h2>Format and Timing</h2>
+<ul>
+  <li><strong>Slide deck</strong> (8 slides, ~8 minutes, posted on E3) — walks through in-context learning, why raw pre-trained models don't follow instructions, and three approaches to instruction tuning (FLAN, RLHF, Constitutional AI).</li>
+  <li><strong>Required readings</strong> — Lilian Weng's &ldquo;Prompt Engineering&rdquo; and the Hugging Face RLHF post (~30 minutes combined). Linked below.</li>
+  <li><strong>Multiple choice questions</strong> (單一選擇題) — four questions on E3, about 10 minutes. Submit before Week 3 class to mark the module complete.</li>
+  <li><strong>Total estimated time:</strong> ~60 minutes</li>
+</ul>
+
+<h2>What You'll Learn</h2>
+<ul>
+  <li><strong>In-context learning</strong> — giving a model examples doesn't change its weights; it shifts the probability distribution over what comes next. This is why example quality matters more than example quantity, and why output can be sensitive to example order and phrasing.</li>
+  <li><strong>Why raw models don't follow instructions</strong> — a model trained to predict internet text learns to produce internet text, not to answer questions. Instruction following has to be introduced deliberately through fine-tuning.</li>
+  <li><strong>Three approaches to instruction tuning</strong> — FLAN (fine-tuning on diverse tasks phrased as instructions), InstructGPT/RLHF (training on human preference rankings), and Constitutional AI (using the model's own self-critique against written principles instead of human rankers).</li>
+  <li><strong>Engineering implications</strong> — how to write more effective few-shot examples and system prompts, why RLHF training produces sycophancy (covered further in Week 6), and why instruction following being learned rather than hardcoded creates prompt injection risk for any system that processes user-supplied text.</li>
+</ul>
+
+<h2>Required Materials</h2>
+<ul>
+  <li><strong>Slide deck:</strong> posted on E3 under Week 2 Self-paced Modules.</li>
+  <li><strong>Reading:</strong> <a href="http://lilianweng.github.io/posts/2023-03-15-prompt-engineering">Prompt Engineering</a>, by Lilian Weng — read the &ldquo;Basic Prompting&rdquo; and &ldquo;Instruction Tuning&rdquo; sections (stop before &ldquo;Automatic Prompt Design&rdquo;).</li>
+  <li><strong>Reading:</strong> <a href="https://huggingface.co/blog/rlhf">Illustrating Reinforcement Learning from Human Feedback</a>, Hugging Face — read from the beginning through &ldquo;RLHF: Let's take it step by step&rdquo; (stop before &ldquo;Open-source tools for RLHF&rdquo;).</li>
+  <li><strong>Multiple choice questions:</strong> posted on E3 under Week 2 Self-paced Modules.</li>
+</ul>
+
+<h2>Optional Materials</h2>
+<p>If you want to go deeper on any of these topics (not required, but helpful if you're curious):</p>
+<ul>
+  <li><strong>Chip Huyen, &ldquo;<a href="https://huyenchip.com/2023/05/02/rlhf.html">RLHF: Reinforcement Learning from Human Feedback</a>,&rdquo; 2023</strong> — explains why raw pre-trained models don't follow instructions, and discusses InstructGPT in real depth.</li>
+  <li><strong>Anthropic, &ldquo;<a href="https://www.anthropic.com/research/claude-character">Claude's Character</a>,&rdquo; 2024</strong> — a readable explanation of how Constitutional AI shapes Claude's behaviour; connects instruction tuning to what you will observe in the API.</li>
+  <li><strong>Jason Wei et al., &ldquo;<a href="https://arxiv.org/abs/2109.01652">Finetuned Language Models Are Zero-Shot Learners</a>&rdquo; (FLAN), 2021</strong> — the original FLAN paper (read just the abstract and introduction); shows what instruction tuning looked like in practice at the research level.</li>
+  <li><strong>Riley Goodside, via Simon Willison, &ldquo;<a href="http://simonwillison.net/2022/Sep/12/prompt-injection">prompt injection examples</a>,&rdquo; 2022</strong> — short and practical; makes the security implication of instruction tuning immediately concrete.</li>
+</ul>
+
+<h2>Completion and Assessment</h2>
+<div class="callout warning">
+  This module is graded on completion. Submit your answers to the 4 questions on E3 before
+  <strong>Week 3 class (Sep 21)</strong>. You'll receive full credit for completing all
+  questions; partial credit is not available. The questions test whether you understood the
+  mechanism, not whether you memorised definitions — read carefully, the distractors are
+  plausible.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>
