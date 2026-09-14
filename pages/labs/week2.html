@@ -1,0 +1,387 @@
+---
+layout: default
+title: Week 2 Lab
+permalink: /labs/week2/
+---
+
+<div class="page-header">
+  <h1>Week 2 Lab — Tokens, System Prompts, and Context</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<div class="callout note">
+  <strong>Code for today:</strong> download or clone the lab files (<code>task1.py</code>,
+  <code>task1_file/</code>, and the optional appendix scripts) from
+  <a href="TODO-ADD-GITHUB-LINK" target="_blank" rel="noopener">the GitHub repo</a> before you
+  start.
+</div>
+
+<h2>Goal</h2>
+<p>
+  Build concrete intuition for the three invisible constraints governing every API call —
+  tokenization, system prompt grounding, and context window limits.
+</p>
+<p><strong>Working style:</strong> Individual &middot; <strong>Total time:</strong> ~60 minutes</p>
+
+<div class="callout note">
+  <strong>Provider note:</strong> All three tasks below now default to a path that needs no API
+  key, no account setup, and no billing risk of any kind. If you already have working, funded
+  Anthropic or Google API access and want to see each task done exactly the way it's described in
+  lecture, an optional appendix follows every task with that version. Neither path affects your
+  grade.
+</div>
+
+<h2>Setup — Do This Once, Before You Start</h2>
+
+<p><strong>If you're using the primary path (recommended, no account needed):</strong></p>
+<pre class="code-block"><code>pip install tiktoken</code></pre>
+<p>That's it — no key, no signup, no config file. Skip straight to Task 1 below.</p>
+
+<p><strong>If you're using the optional API appendices instead (only if you already have working, funded access):</strong></p>
+<pre class="code-block"><code>pip install anthropic google-genai python-dotenv</code></pre>
+<p>
+  Create a file named <code>.env</code> in the same folder as your script, and add whichever
+  key(s) you're using:
+</p>
+<pre class="code-block"><code>ANTHROPIC_API_KEY=sk-ant-your-key-here
+GOOGLE_API_KEY=your-gemini-key-here</code></pre>
+<p>
+  You don't need to write any client setup code — <code>claude_client.py</code> and
+  <code>gemini_client.py</code> are already provided in this folder and read your key(s) from
+  <code>.env</code> for you:
+</p>
+<pre class="code-block"><code># claude_client.py
+from dotenv import load_dotenv
+import anthropic
+
+load_dotenv()  # loads ANTHROPIC_API_KEY from a .env file in your project root
+client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env</code></pre>
+<pre class="code-block"><code># gemini_client.py
+from dotenv import load_dotenv
+from google import genai
+import os
+
+load_dotenv()  # loads GOOGLE_API_KEY from a .env file in your project root
+client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])</code></pre>
+<p>
+  Just add <code>from claude_client import client</code> or
+  <code>from gemini_client import client</code> to the top of your script — the appendix scripts
+  referenced below already do this.
+</p>
+<div class="callout warning">
+  Never commit your <code>.env</code> file or paste your key directly into code you share — if
+  you're using version control, add <code>.env</code> to your <code>.gitignore</code> before your
+  first commit.
+</div>
+
+<h2>Task 1 — Token Counting and Cost Estimation <span class="lab-timing">(15 minutes)</span></h2>
+<p>
+  Use the fixed inputs below (the same for every student, so results are comparable across the
+  class) — <strong>except</strong> the Mandarin translation, which you will produce yourself.
+</p>
+
+<h3>The Inputs</h3>
+<p><strong>Sentence:</strong></p>
+<blockquote>"Our team deployed the new authentication service to production this morning."</blockquote>
+
+<p><strong>Paragraph (~200 words):</strong></p>
+<blockquote>
+  "The team spent the last three weeks redesigning the onboarding flow for new users joining the
+  platform. The original flow required seven separate steps before a user could reach the main
+  dashboard, and internal data showed that nearly forty percent of new signups abandoned the
+  process before completing it. After reviewing session recordings and interviewing a sample of
+  recent users, the team identified that the account verification step and the initial
+  preference-setting step were the two biggest sources of drop-off. The redesigned flow reduces
+  the process to three steps: account creation, email verification, and a single optional
+  preferences screen that users can skip entirely and configure later from their settings page.
+  Engineers also added a progress indicator at the top of each screen so users always know how
+  many steps remain. Early testing with a small group of beta users showed a noticeable
+  improvement in completion rates, though the team is still waiting on a full week of production
+  data before drawing firm conclusions. The next phase of this work will focus on localizing the
+  onboarding flow for non-English-speaking users, starting with Mandarin and Japanese."
+</blockquote>
+
+<p>
+  <strong>Mandarin translation:</strong> Translate the paragraph above yourself. It doesn't need
+  to be professional quality — a reasonable good-faith translation of the same content is fine.
+</p>
+
+<p><strong>Python function (~20 lines):</strong></p>
+<pre class="code-block"><code>def find_duplicate_orders(orders):
+    """Return order IDs that appear more than once in the list."""
+    seen = {}
+    duplicates = []
+
+    for order in orders:
+        order_id = order["id"]
+        if order_id in seen:
+            seen[order_id] += 1
+        else:
+            seen[order_id] = 1
+
+    for order_id, count in seen.items():
+        if count > 1:
+            duplicates.append(order_id)
+
+    return duplicates
+
+
+def summarize_duplicates(orders):
+    dupes = find_duplicate_orders(orders)
+    if not dupes:
+        return "No duplicate orders found."
+    return f"Found {len(dupes)} duplicate order ID(s): {dupes}"</code></pre>
+
+<p><strong>JSON object (5 nested keys):</strong></p>
+<pre class="code-block"><code>{
+  "project": {
+    "name": "onboarding-redesign",
+    "status": "in_review",
+    "owner": {
+      "name": "Priya N.",
+      "team": "Growth Engineering"
+    },
+    "metrics": {
+      "completion_rate": 0.72,
+      "drop_off_step": "email_verification"
+    }
+  }
+}</code></pre>
+
+<h3>Primary Path — Offline Tokenizer, No Account or API Needed</h3>
+<p>(Uses the <code>tiktoken</code> install from Setup above — no key, no signup, no internet call at runtime.)</p>
+<p>
+  Open <code>task1_file/mandarin.txt</code> and replace its placeholder with your own translation
+  of the paragraph above — that's the one input you produce yourself. Everything else in
+  <code>task1_file/</code> (sentence, paragraph, function, JSON) is already filled in and fixed
+  across the class.
+</p>
+<p>Then run the provided script, which reads all five inputs from <code>task1_file/</code> and prints the char/token table:</p>
+<pre class="code-block"><code>python task1.py</code></pre>
+
+<div class="callout note">
+  <strong>Important — read before you run this:</strong> <code>tiktoken</code> is not an
+  approximation or a simulator. It is OpenAI's real, exact production tokenizer. The "estimate"
+  only enters because we're borrowing it to stand in for Claude's or Gemini's tokenizer, which
+  aren't public — Anthropic and Google don't release their tokenizer vocabularies the way OpenAI
+  does. So the count you get is a real, exact count — just for a different provider than the one
+  you'd actually be billed by. The reason this is still a valid exercise: every major provider's
+  tokenizer is some form of byte-pair encoding, and BPE tokenizers share the same general behavior
+  regardless of vendor — English prose compresses efficiently, code and structured data compress
+  less efficiently than prose, and CJK-script languages compress markedly less efficiently than
+  English almost universally, because every major vocabulary is trained on corpora dominated by
+  English and Latin-script text. The <em>relative pattern</em> across your five inputs is valid
+  and transferable; the <em>exact numbers</em> would differ somewhat if run against Claude's or
+  Gemini's real tokenizer.
+</div>
+
+<p>
+  Then calculate the cost of each input using a real provider's published per-token rate (e.g.,
+  Claude Sonnet 4.6 or Gemini Flash's rate card) applied to your tiktoken-estimated count — you're
+  calculating what it would plausibly cost, using a stand-in count, not measuring an exact bill.
+</p>
+
+<h3>Expected Outcome</h3>
+<p>
+  Plain English should land close to 1 token per word (a high chars/token ratio). Code and JSON
+  should show a noticeably lower chars/token ratio than prose. Your Mandarin translation should
+  show the lowest ratio of all — significantly more tokens for the same meaning as the English
+  paragraph.
+</p>
+<div class="callout">
+  <strong>Answer in your log:</strong> which result surprised you most, and what does it imply for
+  Mandarin-language users? Also note: given that tiktoken is a stand-in for a different provider's
+  tokenizer, do you expect the actual Claude/Gemini numbers to be higher, lower, or about the same
+  as what you found — and why?
+</div>
+
+<h3>Appendix (Optional) — Real API Token Counting</h3>
+<p>
+  If you have working, funded Anthropic or Google API access and want Claude's or Gemini's actual
+  token count rather than a stand-in (see Setup above for installing the SDKs and configuring your
+  <code>.env</code> file first), run the provided scripts — they read the same five inputs from
+  <code>task1_file/</code>:
+</p>
+<pre class="code-block"><code>python task1_claude.py   # uses claude-sonnet-4-6
+python task1_gemini.py   # uses gemini-3.5-flash</code></pre>
+<p>
+  If you run this version, compare your real Claude/Gemini numbers against your tiktoken estimate
+  from the primary path and note how close the pattern actually was. Not required, not the primary
+  path.
+</p>
+
+<h2>Task 2 — System Prompt Sensitivity: Standard-Library-Only Constraint <span class="lab-timing">(15–20 minutes)</span></h2>
+<p>
+  <strong>Setup:</strong> Open <strong>three separate new chats</strong> in claude.ai or
+  gemini.google.com (either is fine — no API key needed). Each chat tests one phrasing. Don't
+  reuse the same chat for more than one phrasing, since you want each one tested clean, without
+  the model having seen the other two.
+</p>
+
+<h3>The Three Phrasings</h3>
+<p>In <strong>Chat 1</strong>, as your first message, send:</p>
+<blockquote>
+  "You may only use Python's standard library. Never import third-party packages such as
+  <code>requests</code>, <code>numpy</code>, or <code>pandas</code>. Now, write a Python function
+  that fetches the contents of a URL and returns the response as a string."
+</blockquote>
+
+<p>In <strong>Chat 2</strong>, as your first message, send:</p>
+<blockquote>
+  "You should generally try to stick to Python's standard library where possible. Now, write a
+  Python function that fetches the contents of a URL and returns the response as a string."
+</blockquote>
+
+<p>In <strong>Chat 3</strong>, as your first message, send:</p>
+<blockquote>
+  "You are a Python assistant operating in a locked-down environment where only the standard
+  library is installed. Third-party packages are not available to you. Now, write a Python
+  function that fetches the contents of a URL and returns the response as a string."
+</blockquote>
+
+<h3>What to Check</h3>
+<p>
+  Look at the <code>import</code> statement in each of the three responses. Did it reach for
+  <code>urllib.request</code> (standard library, compliant) or <code>requests</code> (third-party,
+  non-compliant)? No special Python-version knowledge needed — just check whether the import
+  belongs to the standard library.
+</p>
+
+<h3>Expected Outcome</h3>
+<p>
+  All three phrasings express the same underlying rule, but you should notice a real compliance
+  gap: the direct phrasing (Chat 1) typically produces strict standard-library-only code, while
+  the softened phrasing (Chat 2 — "generally," "where possible") is more likely to reach for
+  <code>requests</code> anyway, treating the constraint as a suggestion rather than a rule.
+</p>
+<div class="callout">
+  <strong>Answer in your log:</strong> where does information that must govern every response
+  belong, and what does the gap between these three outputs tell you about writing system prompts
+  for your own project?
+</div>
+
+<h3>A Note on What's Different Here vs. the API</h3>
+<p>
+  Bundling the instruction into your first chat message isn't quite the same mechanism as the
+  API's separate <code>system</code> field described in lecture — it's a user turn, not an
+  architecturally distinct instruction channel. In practice it still tests the same underlying
+  sensitivity phenomenon well, since the instruction is still the first, most prominent thing in
+  the conversation. Worth naming this distinction in your log answer if you want to connect it
+  back to the lecture's message-structure content.
+</p>
+
+<h3>Appendix (Optional) — API/Code Version</h3>
+<p>
+  If you have working, funded API access already (see Setup at the top for installing the SDK and
+  configuring your <code>.env</code> file), you can run the same test with a literal
+  <code>system</code>/<code>system_instruction</code> parameter instead of a first chat message —
+  both providers are provided:
+</p>
+<pre class="code-block"><code>python task2_claude.py
+python task2_gemini.py</code></pre>
+<p>
+  Both scripts loop over the same three phrasings and print each response so you can check the
+  import statement, same as the chat version above.
+</p>
+
+<h2>Task 3 — Instruction Dilution: Push Until It Breaks <span class="lab-timing">(20–25 minutes)</span></h2>
+<p>
+  <strong>Working style:</strong> Open-ended conversation, not a fixed script. You're trying to
+  find the point where the model stops following an instruction it was given at the very start.
+</p>
+
+<h3>Setup</h3>
+<p>
+  Open a <strong>new chat</strong> in either claude.ai or gemini.google.com. As your
+  <strong>very first message</strong>, set a strict rule:
+</p>
+<blockquote>
+  "For the rest of this conversation, you must respond only in bullet points. Never write full
+  sentences or paragraphs, under any circumstances, no matter what I ask — even if I ask you to
+  explain something or tell a story."
+</blockquote>
+<p>
+  Confirm the first response actually follows the rule before continuing. If it doesn't comply
+  immediately, that's already a finding worth logging — note it and move on.
+</p>
+
+<h3>The Exercise</h3>
+<p>
+  Now just talk to it. Ask real questions, one at a time, and keep going. Don't ask it to break
+  the rule directly — the point is to see whether it <em>drifts</em> away from the rule on its own
+  over an ordinary conversation, not whether you can trick it.
+</p>
+<p>A few kinds of questions tend to apply more pressure than others:</p>
+<ul>
+  <li><strong>Neutral chat</strong> (low pressure): "What's a good weekend activity?" "What's your favorite season?"</li>
+  <li><strong>Narrative/explanatory</strong> (higher pressure — these naturally pull toward prose): "Tell me a short story about two old friends reuniting." "Walk me through how a caterpillar becomes a butterfly." "Describe a bustling night market scene in detail."</li>
+</ul>
+<p>
+  Mix both kinds as you go. If you get stuck for what to ask next, here's a list to pull from —
+  you don't need to use all of them, or use them in this order:
+</p>
+<div class="callout note">
+  Tell me about your favorite season &middot; What makes a good movie &middot; Tell me a short
+  story about a lighthouse keeper &middot; What's a good book for a rainy day &middot; Walk me
+  through how bread rises when baked &middot; What's an underrated programming language &middot;
+  Explain, like a story, how a seed becomes a tree &middot; What's a nice way to spend a day off
+  &middot; Describe a perfect morning in vivid detail &middot; What's your take on morning
+  routines &middot; Walk me through the history of the printing press &middot; Tell me a story
+  about two old friends reuniting after years apart &middot; What's an interesting fact about how
+  bees communicate &middot; Describe what it might feel like to summit a mountain at sunrise
+  &middot; Tell me the story of how coffee was first discovered &middot; Walk me through how a
+  caterpillar becomes a butterfly &middot; Describe a bustling night market scene in detail
+  &middot; Can you explain how photosynthesis works
+</div>
+
+<h3>What to Log</h3>
+<ul>
+  <li>
+    <strong>How many messages in did compliance first slip?</strong> (a full sentence sneaking in,
+    a paragraph instead of bullets, etc.) Note the approximate turn number and paste the message
+    where it happened.
+  </li>
+  <li><strong>What kind of question triggered it?</strong> Was it a neutral question or a narrative/explanatory one?</li>
+  <li><strong>Did it recover on its own</strong>, or once it broke the rule once, did it stay broken for the rest of the conversation?</li>
+  <li>If you reach the end of the provided question list and it <em>still</em> hasn't broken, keep going with your own questions — note how many total turns it took, or if it never broke at all.</li>
+</ul>
+
+<h3>Expected Outcome</h3>
+<p>
+  This is open-ended by design — there isn't one correct place where it should break, and "it
+  never broke" is itself a valid, useful result to report. The interesting thing to notice is
+  <em>what kind of pressure</em> it was that eventually got through, if anything did — is it
+  accumulated length alone, or does it specifically take a narrative/explanatory question to crack
+  it?
+</p>
+<div class="callout">
+  <strong>Answer in your log:</strong> what would this mean for a long-running agent given a
+  strict instruction at the very start of its task? What would you do about it as an engineer?
+</div>
+
+<h3>Appendix (Optional) — API/Code Version</h3>
+<p>
+  If you already have working, funded API access and want to see the mechanism exactly as
+  described in lecture (a literal <code>system</code>/<code>system_instruction</code> parameter
+  rather than a first chat message), the provided scripts send the rule as the system prompt and
+  loop through an extended, pressure-tagged question list, printing the final response so you can
+  check whether it's still holding to bullet points:
+</p>
+<pre class="code-block"><code>python task3_claude.py
+python task3_gemini.py</code></pre>
+<p>This is not required and is not the primary path for this task.</p>
+
+<h2>Grading Checklist <span class="lab-timing">(1%, binary completion)</span></h2>
+<ul>
+  <li>Token/char count table for all five inputs (including your own Mandarin translation), with chars/token ratio noted, and your prediction of how a real Claude/Gemini count would compare</li>
+  <li>Three system-prompt-phrasing outputs for Task 2, with a written observation on which import statement each one used</li>
+  <li>Task 3 log: approximate turn where compliance first slipped (or a clear note that it never did), plus what kind of question triggered it</li>
+  <li>Written answers to all three log questions</li>
+  <li>Wrap up all of the above in <strong>a single text file (.txt)</strong> or <strong>markdown (.md) file</strong></li>
+</ul>
+<div class="callout warning">
+  Reminder: which tool or provider you used for each task does not affect your grade. Note what
+  you used at the top of your submission.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

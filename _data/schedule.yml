@@ -7,7 +7,7 @@
   date: "Sep 7"
   status: normal
   topic: "Introduction to AI-Assisted SE"
-  topic_url: "asd"
+  topic_url: ""
   slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=230457"
   lab: "Experiencing the intent-output gap"
   lab_url: "/labs/week1/"
@@ -19,11 +19,11 @@
 - week: 2
   date: "Sep 14"
   status: normal
-  topic: "How LLMs Actually Work"
+  topic: "How LLMs Actually Work" 
   topic_url: ""
-  slides_url: ""
-  lab: "API exploration — tokens, system prompts, context"
-  lab_url: ""
+  slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=235512&scope=document"
+  lab: "Tokens, system prompts, context"
+  lab_url: "/labs/week2/"
   self_paced: "In-context learning and instruction tuning"
   assigned: ""
   due: ""

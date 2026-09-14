@@ -3,6 +3,16 @@
 # `date` must be ISO (YYYY-MM-DD); past entries are filtered out automatically.
 # ─────────────────────────────────────────────────────────────
 
+- title: "Week 2 Lab"
+  date: "2026-09-14"
+  due_text: "Week 2 — end of Monday"
+  url: "https://e3p.nycu.edu.tw/mod/assign/view.php?id=235515"
+
+- title: "Week 2 Self-paced Module Response"
+  date: "2026-09-20"
+  due_text: "Week 2 — end of week"
+  url: ""
+
 - title: "Course ADD/DROP Deadline"
   date: "2026-09-21"
   due_text: "Monday at 10 am"
