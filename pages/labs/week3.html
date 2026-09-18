@@ -1,0 +1,379 @@
+---
+layout: default
+title: Week 3 Lab
+permalink: /labs/week3/
+---
+
+<div class="page-header">
+  <h1>Week 3 Lab — Team Norms and Evaluation Methodology</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Goal</h2>
+<p>
+  Establish team norms and shared AI guidelines before building begins, and draft an evaluation
+  plan that shapes your design decisions from the start.
+</p>
+<p><strong>Working style:</strong> Project teams throughout &middot; <strong>Total time:</strong> ~70 minutes</p>
+
+<div class="callout note">
+  <strong>No fixed roles.</strong> Every part below is completed by the team together, not led by a
+  named role.
+</div>
+
+<div class="callout">
+  <strong>Where this goes:</strong> both the draft guidelines and the evaluation plan feed directly
+  into <strong>Checkpoint 1</strong> (due Week 6). What you write today is a first draft you will
+  build on, not a throwaway exercise.
+</div>
+
+<h2>Part 1 — Repository Setup <span class="lab-timing">(15 minutes)</span></h2>
+<p>
+  The team works through this together — TA-guided, whole class at the same pace.
+  <strong>Follow this order exactly.</strong> It is not the same order a quick summary might
+  suggest, and doing it out of order can lock your team out of its own setup (see the note at
+  Step 5).
+</p>
+
+<div class="callout warning">
+  <strong>Repos are public this semester</strong>, not private. This avoids a real GitHub
+  limitation: branch protection on private repositories requires a paid GitHub Pro account, which
+  we can't assume everyone has set up in time for today. Public repos get full branch protection on
+  the free tier. One consequence worth knowing: your code and PR history will be visible to anyone,
+  including future semesters' students — reusing another team's work, past or present, is still
+  subject to the same academic integrity policy as anything else in this course.
+</div>
+
+<h3>Before Step 1 — Don't Have a GitHub Account Yet?</h3>
+<p>
+  If you've never used GitHub before, do this first — ideally before class, since it only takes a
+  few minutes but you don't want to be doing it while your team waits on you.
+</p>
+<ol>
+  <li>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and click <strong>Sign up</strong> (top right).</li>
+  <li>
+    Enter an email address, create a password, and choose a username. Pick a username you're fine
+    having attached to your work for the rest of the semester and beyond — it'll show up on every
+    commit and PR.
+  </li>
+  <li>Verify your email address (check your inbox for a confirmation link/code from GitHub).</li>
+  <li>
+    Use the same email here that you'll use in Step 2 below (<code>git config --global
+    user.email</code>) — keeping them consistent avoids confusing mismatches later between what
+    git logs locally and what GitHub shows online.
+  </li>
+</ol>
+
+<!-- SCREENSHOT: the GitHub sign-up page with email, password, and username fields visible -->
+
+<div class="callout note">
+  No credit card or paid plan needed for anything in this course — everything here works on a free
+  GitHub account.
+</div>
+
+<h3>Before Step 1 — One-Time Git Setup</h3>
+<p>
+  If anyone on your team has never used git from the command line before, do this first. It only
+  needs to be done once per computer, not once per repository.
+</p>
+<ol>
+  <li>
+    Open a terminal (Terminal on Mac/Linux, Git Bash or PowerShell on Windows) and check whether
+    git is already installed:
+    <pre class="code-block"><code>git --version</code></pre>
+    If you see a version number, you're set. If you get an error, install git from
+    <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git-scm.com/downloads</a>
+    and re-run the check.
+  </li>
+  <li>
+    Tell git who you are — also once per computer:
+    <pre class="code-block"><code>git config --global user.name "Your Name"
+git config --global user.email "the-email-you-used-for-github@example.com"</code></pre>
+  </li>
+  <li>
+    The first time you push to GitHub from this computer, you'll likely be prompted to
+    authenticate — usually a browser sign-in window, or a request for a personal access token. If
+    this fails or looks confusing, flag a TA immediately rather than troubleshooting alone. It's a
+    common first-time hiccup and much faster to fix with help than to debug solo.
+  </li>
+</ol>
+
+<!-- SCREENSHOT: terminal showing a successful `git --version` output, followed by the two `git config --global` commands with no errors -->
+
+<h3>Step 1 — Create the Repository</h3>
+<ul>
+  <li>One team member goes to github.com and clicks the <strong>+</strong> icon (top right) &rarr; <strong>New repository</strong>.</li>
+  <li>Name it (use your team's naming convention from the course portal, if one is specified).</li>
+  <li>Set visibility to <strong>Public</strong>.</li>
+  <li>Check <strong>Add a README file</strong> — this gives you an initial commit to work from.</li>
+  <li>Click <strong>Create repository</strong>.</li>
+</ul>
+
+<!-- SCREENSHOT: the GitHub "Create a new repository" page, with visibility set to Public and "Add a README file" checked, just before clicking Create -->
+
+<h3>Step 2 — Add Teammates as Collaborators</h3>
+<ul>
+  <li>Go to <strong>Settings &rarr; Collaborators and teams</strong>.</li>
+  <li>Click <strong>Add people</strong>, and enter each teammate's GitHub username or the email tied to their GitHub account.</li>
+  <li>Give each person <strong>Write</strong> access — not Admin. Admin stays with whoever set up the repo, unless your team decides otherwise.</li>
+  <li>
+    Each teammate needs to accept the invite (by email or GitHub notification) before they have
+    access — tell everyone to check right away, since this can take a minute to arrive.
+  </li>
+</ul>
+
+<!-- SCREENSHOT: Settings → Collaborators and teams page, showing the "Add people" button and the invite dialog with a username typed in -->
+
+<h3>Step 3 — Clone the Repository to Your Computer</h3>
+<p>
+  "Cloning" downloads a full local copy of the repo onto your computer, already connected to GitHub
+  so you can push changes back later. <strong>Every team member does this individually</strong> —
+  you each need your own local copy, not a shared one.
+</p>
+<ul>
+  <li>On the repo's GitHub page, click the green <strong>Code</strong> button.</li>
+  <li>
+    Make sure the <strong>HTTPS</strong> tab is selected, and copy the URL shown — it looks like
+    <code>https://github.com/your-team/your-repo.git</code>.
+  </li>
+</ul>
+
+<!-- SCREENSHOT: the green "Code" button clicked open, HTTPS tab selected, showing the copyable URL -->
+
+<p>In your terminal, navigate to wherever you keep coding projects, then run:</p>
+<pre class="code-block"><code>git clone https://github.com/your-team/your-repo.git
+cd your-repo</code></pre>
+
+<!-- SCREENSHOT: terminal output of a successful `git clone`, showing the repo folder now exists -->
+
+<h3>Step 4 — Add the PR Template and <code>DECISIONS.md</code> <em>Before</em> Turning On Branch Protection</h3>
+<div class="callout warning">
+  <strong>This order matters.</strong> Once branch protection is on, every change — including these
+  setup files — has to go through a pull request, and if you've also required an approval, you can
+  get stuck needing a second reviewer before anyone else has even accepted their invite. Doing this
+  step first avoids that entirely.
+</div>
+<p>Easiest done through the GitHub website directly, not your local clone.</p>
+<ul>
+  <li>On the repo's main page, click <strong>Add file &rarr; Create new file</strong>.</li>
+  <li>
+    For the filename, type <code>.github/PULL_REQUEST_TEMPLATE.md</code> exactly — typing the
+    <code>/</code> creates the folder automatically.
+  </li>
+  <li>Paste in the template:</li>
+</ul>
+<pre class="code-block"><code>## What this PR does
+[One sentence]
+
+## Decision (required if a significant choice was made)
+Decision: [what was chosen]
+Why: [what problem this solves or what alternative it beat]
+Alternative rejected: [optional]
+Led by: [name]</code></pre>
+
+<!-- SCREENSHOT: "Create new file" page with the filename field showing .github/PULL_REQUEST_TEMPLATE.md and the template pasted into the body -->
+
+<ul>
+  <li>Scroll down and commit directly to <code>main</code> (this still works — branch protection isn't on yet).</li>
+  <li>
+    Repeat <strong>Add file &rarr; Create new file</strong> for <code>DECISIONS.md</code>, with a
+    first entry recording who the initial code steward is and why, in two sentences:
+  </li>
+</ul>
+<pre class="code-block"><code># Decisions Log
+
+## 2026-09-21 — Initial code steward
+**What:** [Name] is the initial code steward for the team.
+**Why:** [one sentence — e.g. "volunteered," "has the most git experience so far," "assigned by team agreement"]</code></pre>
+
+<!-- SCREENSHOT: the same "Create new file" flow for DECISIONS.md, showing the first entry filled in -->
+
+<p>Back in your terminal, pull these new files into your local clone so everyone's copy is up to date:</p>
+<pre class="code-block"><code>git pull origin main</code></pre>
+
+<h3>Step 5 — Now Enable Branch Protection on <code>main</code></h3>
+<ul>
+  <li>
+    Go to <strong>Settings &rarr; Branches &rarr; Add branch protection rule</strong>. GitHub may
+    label this "Add rule" or present it under "Rulesets" depending on your account's UI version —
+    the TA can help locate it if it's not where these steps say.
+  </li>
+  <li>Branch name pattern: <code>main</code>.</li>
+  <li>Check <strong>Require a pull request before merging</strong>.</li>
+  <li>
+    Check <strong>Require approvals</strong>, set to <strong>1</strong> — this is what makes "code
+    steward reviews and approves" (from lecture) an actual technical requirement, not just a norm.
+  </li>
+  <li>Click <strong>Create</strong> (or <strong>Save changes</strong>).</li>
+</ul>
+
+<!-- SCREENSHOT: the branch protection rule form, filled in with pattern "main", "Require a pull request before merging" checked, and "Require approvals" set to 1, just before clicking Create -->
+
+<p>The TA walks the room and confirms this is done before any team moves on.</p>
+
+<h3>Step 6 — Practice the Real Workflow</h3>
+<p>
+  Rather than just checking that protection works, everyone does one real practice PR — this
+  doubles as your first hands-on rep with the workflow you'll use for the rest of the semester.
+</p>
+<ol>
+  <li>
+    In your terminal, inside your cloned repo folder, create your own branch:
+    <pre class="code-block"><code>git checkout -b your-name-test</code></pre>
+  </li>
+  <li>
+    Make a small, harmless change — for example, add your name to a new file:
+    <pre class="code-block"><code>echo "- Your Name" &gt;&gt; CONTRIBUTORS.md</code></pre>
+  </li>
+  <li>
+    Stage, commit, and push your branch:
+    <pre class="code-block"><code>git add CONTRIBUTORS.md
+git commit -m "Add my name to CONTRIBUTORS.md"
+git push origin your-name-test</code></pre>
+  </li>
+</ol>
+
+<!-- SCREENSHOT: terminal output after `git push origin your-name-test`, including GitHub's suggested link to open a pull request -->
+
+<ol start="4">
+  <li>
+    On GitHub, you should see a banner suggesting you open a pull request from your new branch.
+    Click <strong>Compare &amp; pull request</strong>.
+  </li>
+</ol>
+
+<!-- SCREENSHOT: the GitHub banner with the "Compare & pull request" button, right after pushing a new branch -->
+
+<ol start="5">
+  <li>Fill in the PR template your team added in Step 4, and click <strong>Create pull request</strong>.</li>
+</ol>
+
+<!-- SCREENSHOT: the PR creation page, showing the template pre-filled in the description box -->
+
+<ol start="6">
+  <li>
+    <strong>Optional, if time allows — prove the rejection directly.</strong> Try pushing straight
+    to <code>main</code> instead of through a branch:
+    <pre class="code-block"><code>git checkout main
+echo "test" &gt;&gt; CONTRIBUTORS.md
+git add CONTRIBUTORS.md
+git commit -m "direct push test"
+git push origin main</code></pre>
+    This should be rejected, with an error along the lines of
+    <code>remote: error: GH006: Protected branch update failed</code>. Exact wording varies slightly
+    by GitHub version — a rejection of some kind is what you're looking for.
+  </li>
+</ol>
+
+<!-- SCREENSHOT: terminal output showing the rejected direct push to main -->
+
+<ol start="7">
+  <li>
+    Have one teammate — ideally the code steward — review and merge at least one of the team's
+    practice PRs, so everyone also sees what a merge looks like from the reviewer's side.
+  </li>
+  <li>Do not move on until the TA has confirmed at least one successful practice PR merge for your team.</li>
+</ol>
+
+<div class="callout note">
+  <strong>Timing:</strong> if your team has git beginners, budget 20–25 minutes rather than 15. The
+  one-time setup and the six-step practice rep are the parts most likely to run long for a
+  first-time user.
+</div>
+
+<h2>Part 2 — Draft AI Usage Guidelines <span class="lab-timing">(25 minutes)</span></h2>
+<p>The team works through this together. Produce a first draft using a simplified three-section template.</p>
+
+<h3>Section 1 — What AI tools we plan to use, and what we will use each for</h3>
+<p>A specific tool-to-task mapping, not "we will use Claude." Examples of the level of specificity to aim for:</p>
+<ul>
+  <li>"We will use Claude Sonnet (via the API) for generating boilerplate CRUD endpoints and first-draft unit tests — not for anything touching authentication or payment logic, which a human writes from scratch."</li>
+  <li>"We will use Claude Haiku for quick syntax checks and one-off debugging questions — not for code that gets merged to main without review."</li>
+  <li>"We will use GitHub Copilot's inline autocomplete while typing — not as a substitute for writing the PR description or <code>DECISIONS.md</code> entry ourselves."</li>
+  <li>"We will use Claude to brainstorm and compare architecture options before we commit to a design — not to make the final call; that's a team discussion, recorded in <code>DECISIONS.md</code>."</li>
+  <li>"We will use Claude to draft the first pass of docstrings and API documentation — a human always reviews and edits before it's merged."</li>
+  <li>"We will use Claude to generate an initial test skeleton for a new module — a human adds edge cases and confirms coverage before it counts as done."</li>
+</ul>
+<div class="callout">
+  Notice the pattern in each: name the <strong>specific tool</strong> (not just "AI"), name the
+  <strong>specific task</strong>, and name what it is <strong>not</strong> for. That last part is
+  what most vague guidelines skip — "we will use Claude for code" doesn't tell a new teammate where
+  the line is.
+</div>
+
+<h3>Section 2 — How we will document AI interactions</h3>
+<p>What goes in the prompt engineering log, and what goes in the collaboration log. Examples:</p>
+<ul>
+  <li>"Every prompt used to generate code that ends up in the repo goes in the prompt engineering log: the prompt text, the model used, and what we kept vs. changed."</li>
+  <li>"One-off debugging questions or syntax lookups don't need a log entry — only prompts that produced code, text, or decisions that ended up in the repo."</li>
+  <li>"The PR description's 'what this PR does' field always names whether AI was involved, even in one sentence — it's not a copy of the full log entry, just a pointer to it."</li>
+  <li>"If an AI suggestion changed our actual approach — for example, it proposed a different data model than we'd planned — that's a <code>DECISIONS.md</code> entry, not just a prompt log entry."</li>
+</ul>
+<div class="callout">
+  The pattern here: name what <strong>triggers</strong> a log entry, what doesn't, and which of the
+  three places (prompt log, <code>DECISIONS.md</code>, PR description) each kind of AI interaction
+  belongs in. A guideline that just says "we'll log our AI use" doesn't tell anyone what counts as
+  "use." A decision is different from an interaction — it needs the reasoning to survive, not just
+  the transcript.
+</div>
+
+<h3>Section 3 — How we will handle disagreements about AI output quality</h3>
+<p>Who has final say, and what evidence is required. Examples:</p>
+<ul>
+  <li>"If two engineers disagree about whether AI-generated code is good enough to merge, the code steward has final say — not whoever wrote the prompt, and not whoever has more experience."</li>
+  <li>"Evidence required before a merge decision: passes the existing test suite, passes the PR review checklist, and can be explained by someone other than whoever generated it."</li>
+  <li>"If the disagreement is about style or preference rather than correctness, we defer to the team's existing style guide and linter config rather than debating it case by case."</li>
+  <li>"A vote is not evidence. If the team can't resolve it using the criteria above, the code steward's call is final, and gets one sentence in <code>DECISIONS.md</code> explaining why."</li>
+</ul>
+<div class="callout">
+  The pattern here: name a <strong>specific person or role</strong> who breaks the tie (not "the
+  team decides," which is where disagreements come from in the first place), and name the actual
+  <strong>evidence</strong> that counts — not "if it looks good," which is exactly the vague
+  standard Slide 9 warned against.
+</div>
+
+<div class="callout note">
+  <strong>This is a first draft, not the finished product.</strong> The full five-section guidelines
+  are produced in the Week 12 lab. The goal today is to establish norms <em>before</em> your team
+  starts making AI-assisted decisions together.
+</div>
+
+<h2>Part 3 — Draft Evaluation Plan <span class="lab-timing">(25 minutes)</span></h2>
+<p>The team works through this together.</p>
+
+<h3>Problem Grounding <span class="lab-timing">(10 minutes)</span></h3>
+<p>Three questions:</p>
+<ul>
+  <li>Who specifically has the collaboration problem you are addressing? Name a real type of person, not a generic "user."</li>
+  <li>What do they currently do instead of your tool?</li>
+  <li>What would be observably different about their collaboration if your tool worked?</li>
+</ul>
+
+<h3>Evaluation Plan Draft <span class="lab-timing">(15 minutes)</span></h3>
+<p>Four fields:</p>
+<ul>
+  <li>
+    <strong>Success definition</strong> — "We will know our tool works if…", something observable
+    and measurable. <em>If your tool uses AI, also state here what the AI decides versus what the
+    human decides</em> — this shapes what "success" actually means. If the AI decides autonomously,
+    success has to include "the AI's decisions are correct." If a human stays in the loop, success
+    has to include "the AI's suggestions are useful enough to be worth the interruption." Those are
+    different things to measure, so name which one applies. If you haven't decided yet whether your
+    tool uses AI, write <code>TBD — to be determined by CP1</code> for this part; that's an
+    acceptable answer at this stage.
+  </li>
+  <li><strong>Target users</strong> — who you will test with, and how you will access them.</li>
+  <li><strong>Method</strong> — structured observation, pre/post survey, or brief interview: which one, and roughly when.</li>
+  <li><strong>Minimum evidence threshold</strong> — what is the smallest amount of evidence that would be convincing?</li>
+</ul>
+
+<h2>Grading Checklist <span class="lab-timing">(2%)</span></h2>
+<ul>
+  <li>Repository setup completed: branch protection verified, PR template added, <code>DECISIONS.md</code> created with an initial steward entry</li>
+  <li>Three-section draft guidelines completed</li>
+  <li>Three problem-grounding questions answered with specificity</li>
+  <li>All four evaluation plan fields completed, including the human-AI boundary question addressed within the success definition (or marked <code>TBD — to be determined by CP1</code>)</li>
+  <li>Cross-team feedback exchange completed</li>
+</ul>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>
