@@ -63,7 +63,7 @@
   lab_url: ""
   self_paced: "Chain-of-thought variations"
   assigned: ""
-  due: "Assignment 1 (10%)"
+  due: ""
 
 - week: 6
   date: "Oct 12"
@@ -99,7 +99,7 @@
   lab_url: ""
   self_paced: "Optional enrichment reading"
   assigned: ""
-  due: ""
+  due: "Assignment 1 (10%)"
 
 - week: 9
   date: "Nov 2"

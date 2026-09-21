@@ -7,7 +7,7 @@
   slug: ""
   title: "Technique Practice and Prompt Diagnosis"
   weight: "10%"
-  due: "Week 5 — Oct 5, start of class"
+  due: "Week 8 — Oct 26, End of day"
   description: "This assignment consists of two parts: practicing multiple prompting techniques to generate codes, and diagnose and rewrite \"broken\" prompts. The core question to address through finishing this assignment is: \"can you use prompting techniques on purpose, and can you recognise when they are failing?\""
   # "Part 1: practice five prompting techniques on a code generation task. Part 2: diagnose and rewrite three provided broken prompts."
 
