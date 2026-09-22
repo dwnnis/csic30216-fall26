@@ -3,25 +3,25 @@
 # `date` must be ISO (YYYY-MM-DD); past entries are filtered out automatically.
 # ─────────────────────────────────────────────────────────────
 
-# - title: "Week 2 Lab"
-#   date: "2026-09-14"
-#   due_text: "Week 2 — end of Monday"
-#   url: "https://e3p.nycu.edu.tw/mod/assign/view.php?id=235515"
+# - title: "Course ADD/DROP Deadline"
+#   date: "2026-09-21"
+#   due_text: "Monday at 10 am"
+#   url: ""
 
-# - title: "Week 2 Self-paced Module Response"
-#   date: "2026-09-20"
-#   due_text: "Week 2 — end of week"
-#   url: "https://e3p.nycu.edu.tw/mod/quiz/view.php?id=236092&scope=quiz"
+# - title: "Team Formation"
+#   date: "2026-09-21"
+#   due_text: "Week 3 — end of Monday"
+#   url: "/project/team-formation/"
 
-- title: "Course ADD/DROP Deadline"
-  date: "2026-09-21"
-  due_text: "Monday at 10 am"
-  url: ""
+- title: "Week 3 Lab"
+  date: "2026-09-25"
+  due_text: "Week 3 — <strike>end of Monday</strike> end of Friday (extended)"
+  url: "https://e3p.nycu.edu.tw/mod/assign/view.php?id=235515"
 
-- title: "Team Formation"
-  date: "2026-09-21"
-  due_text: "Week 3 — end of Monday"
-  url: "/project/team-formation/"
+- title: "Week 3 Self-paced Module Response"
+  date: "2026-09-27"
+  due_text: "Week 3 — end of week"
+  url: "https://e3p.nycu.edu.tw/mod/quiz/view.php?id=239149&scope=quiz"
 
 - title: "Course Start Survey"
   date: "2026-09-25"

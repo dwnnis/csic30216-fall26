@@ -38,8 +38,9 @@
   lab: "Repository setup + team norms + evaluation plan (2%)"
   lab_url: "/labs/week3/"
   self_paced: "How engineering teams adopt AI tooling"
+  self_paced_url: "/self-paced/week3/"
   assigned: ""
-  due: "Team Formation (by 9/21) | Course Initiation Survey"
+  due: "Team Formation (by 9/21) | Course Start Survey (9/25)"
 
 - week: 4
   date: "Sep 28"
@@ -75,7 +76,7 @@
   lab_url: ""
   self_paced: "RLHF, Constitutional AI, and calibration"
   assigned: ""
-  due: "CP1 (5%)"
+  due: ""
 
 - week: 7
   date: "Oct 19"
@@ -87,7 +88,7 @@
   lab_url: ""
   self_paced: "APE and self-consistency"
   assigned: ""
-  due: ""
+  due: "CP1 (5%)"
 
 - week: 8
   date: "Oct 26"
@@ -111,7 +112,7 @@
   lab_url: ""
   self_paced: "Evolution of tool use"
   assigned: ""
-  due: "T1 Survey"
+  due: ""
 
 - week: 10
   date: "Nov 9"
@@ -123,7 +124,7 @@
   lab_url: ""
   self_paced: "Vector databases and RAG evaluation in depth"
   assigned: ""
-  due: "T1 Survey"
+  due: ""
 
 - week: 11
   date: "Nov 16"
@@ -147,7 +148,7 @@
   lab_url: ""
   self_paced: "Code evaluation benchmarks and AI pair programming patterns"
   assigned: ""
-  due: "CP2 (15%)"
+  due: "CP2 (15%) | T1 Survey"
 
 - week: 13
   date: "Nov 30"
@@ -159,7 +160,7 @@
   lab_url: ""
   self_paced: "Engineering team culture around AI"
   assigned: ""
-  due: "T2 Survey"
+  due: ""
 
 - week: 14
   date: "Dec 7"
@@ -171,7 +172,7 @@
   lab_url: ""
   self_paced: "Agents in production"
   assigned: ""
-  due: "T2 Survey"
+  due: ""
 
 - week: 15
   date: "Dec 14"
@@ -183,7 +184,7 @@
   lab_url: ""
   self_paced: "Super-alignment research and open problems"
   assigned: ""
-  due: "Assignment 3 (10%) | CP3 (12%)"
+  due: "Assignment 3 (10%) | CP3 (12%) | T2 Survey"
 
 - week: 16
   date: "Dec 21"
@@ -195,4 +196,4 @@
   lab_url: ""
   self_paced: "Assigned by guest speaker"
   assigned: ""
-  due: "Video | Peer eval "
+  due: "Video | Peer eval | Post-Course Survey"
