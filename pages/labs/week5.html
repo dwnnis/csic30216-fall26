@@ -132,9 +132,125 @@ permalink: /labs/week5/
 
 <h3>Technique 2: Few-shot</h3>
 <p>
-  Three (function, docstring) example pairs are provided on the <strong>Course Website</strong>.
-  Download them before the session. Use all three as examples before your task prompt.
+  Use the three (function, docstring) examples below. Copy all three into your prompt, in order,
+  and then add your own task for <code>process_records</code>.
 </p>
+<p>
+  Each example follows the same format: a Google-style docstring with <code>Args</code>,
+  <code>Returns</code>, and an extra <strong><code>Edge cases</code></strong> section. A
+  <code>Raises</code> section appears only where the code raises an exception explicitly. Read
+  all three before you write your prompt — notice what they include and at what level of detail,
+  since the model will learn from them, so whatever they show is what it is likely to copy.
+</p>
+
+<p><strong>Example 1</strong></p>
+<pre class="code-block"><code>Function:
+def group_by_key(records, key):
+    groups = {}
+    for r in records:
+        value = r.get(key)
+        if value not in groups:
+            groups[value] = []
+        groups[value].append(r)
+    return groups
+
+Docstring:
+"""
+Group a list of dictionaries by the value stored under a given key.
+
+Args:
+    records (list[dict]): The records to group.
+    key (str): The key whose value determines each record's group.
+
+Returns:
+    dict: A mapping from each distinct value of ``key`` to the list of
+        records that have that value. Groups appear in order of first
+        occurrence, and records keep their original order within a group.
+
+Edge cases:
+    - A record without ``key`` is placed in the group ``None``, together
+      with any record whose value for ``key`` is explicitly ``None``.
+    - The records are not copied, so changing a returned record also
+      changes the input list.
+    - An empty ``records`` list returns an empty dict.
+"""</code></pre>
+
+<p><strong>Example 2</strong></p>
+<pre class="code-block"><code>Function:
+def normalize_scores(scores, lo=0.0, hi=1.0):
+    if not scores:
+        return []
+    smallest = min(scores)
+    largest = max(scores)
+    if smallest == largest:
+        return [lo] * len(scores)
+    span = largest - smallest
+    return [lo + (s - smallest) / span * (hi - lo) for s in scores]
+
+Docstring:
+"""
+Rescale a list of numbers linearly so they fall between ``lo`` and ``hi``.
+
+Args:
+    scores (list[float]): The numbers to rescale.
+    lo (float): The value assigned to the smallest score. Defaults to 0.0.
+    hi (float): The value assigned to the largest score. Defaults to 1.0.
+
+Returns:
+    list[float]: A new list, in the same order as ``scores``, where the
+        smallest score becomes ``lo`` and the largest becomes ``hi``.
+
+Edge cases:
+    - An empty list returns an empty list.
+    - If every score is the same, there is no range to scale, so every
+      element of the result is ``lo`` (not the midpoint).
+    - ``lo`` and ``hi`` are not validated: if ``lo`` is greater than
+      ``hi``, the ordering of the scores is reversed.
+"""</code></pre>
+
+<p><strong>Example 3</strong></p>
+<pre class="code-block"><code>Function:
+import time
+
+def call_with_retry(func, attempts=3, delay=1.0):
+    if attempts &lt; 1:
+        raise ValueError("attempts must be at least 1")
+    for i in range(attempts):
+        try:
+            return func()
+        except Exception:
+            if i == attempts - 1:
+                raise
+            time.sleep(delay)
+
+Docstring:
+"""
+Call a function, retrying if it raises an exception.
+
+Args:
+    func (Callable[[], Any]): The function to call. It takes no arguments;
+        use ``functools.partial`` or a lambda to supply them.
+    attempts (int): The maximum number of calls to make. Defaults to 3.
+    delay (float): Seconds to wait between attempts. Defaults to 1.0.
+
+Returns:
+    Any: Whatever ``func`` returns on its first successful call.
+
+Raises:
+    ValueError: If ``attempts`` is less than 1.
+    Exception: The exception raised by the final attempt, if every
+        attempt fails.
+
+Edge cases:
+    - Every ``Exception`` subclass is retried, including errors that can
+      never succeed on retry (such as a bad argument), so those still wait
+      ``delay`` seconds between attempts.
+    - There is no wait after the final failed attempt; the last exception
+      is re-raised immediately.
+    - ``KeyboardInterrupt`` and ``SystemExit`` are not caught and stop the
+      retry loop at once.
+"""</code></pre>
+
 <p><strong>Record:</strong></p>
 <ul>
   <li>Your full prompt including examples (verbatim — include the examples)</li>
