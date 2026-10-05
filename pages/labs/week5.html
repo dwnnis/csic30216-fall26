@@ -1,0 +1,252 @@
+---
+layout: default
+title: Week 5 Lab
+permalink: /labs/week5/
+---
+
+<div class="page-header">
+  <h1>Week 5 Lab — Writing Prompts Well</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Goal</h2>
+<p>
+  Apply the four core techniques from today's lecture to the same function, evaluated against a
+  specification you write first. The specification step is the most important part — do not skip
+  it.
+</p>
+<p><strong>Working style:</strong> Individual work, pair submission &middot; <strong>Total time:</strong> ~60 minutes</p>
+
+<div class="callout warning">
+  <strong>Delivery format:</strong> in-person, second half of Monday's class session — runs
+  immediately after the Week 5 lecture. This lab is graded (1%). Submit <strong>one document per
+  pair</strong> on E3 by the end of <strong>Wednesday, October 7 (23:59)</strong>.
+</div>
+
+<h2>Overview</h2>
+<p>
+  You work on your own through Step 0 and the four techniques, then pair up to compare outputs,
+  pick one docstring to approve, write one shared paragraph, and submit together. You write the
+  prompts, the model writes the docstring, and you judge it.
+</p>
+
+<h2>Timeline</h2>
+<table class="lab-timeline">
+  <thead>
+    <tr><th>Minutes</th><th>What you do</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0–5</td><td>Step 0: write your specification</td></tr>
+    <tr><td>5–12</td><td>Technique 1: zero-shot</td></tr>
+    <tr><td>12–20</td><td>Technique 2: few-shot</td></tr>
+    <tr><td>20–28</td><td>Technique 3: chain-of-thought</td></tr>
+    <tr><td>28–40</td><td>Technique 4: self-correction</td></tr>
+    <tr><td>40–50</td><td>Pair discussion, pick one docstring, write a shared paragraph</td></tr>
+    <tr><td>50–60</td><td>Buffer: assemble your pair submission</td></tr>
+  </tbody>
+</table>
+
+<h2>The Function</h2>
+<p>This is a different function from the one in the lecture demonstrations.</p>
+<pre class="code-block"><code>def process_records(records, threshold):
+    result = []
+    seen = {}
+    for r in records:
+        key = r.get('id')
+        val = r.get('score', 0)
+        if key in seen:
+            continue
+        seen[key] = True
+        if val &gt;= threshold:
+            result.append({'id': key, 'score': val, 'status': 'pass'})
+        else:
+            result.append({'id': key, 'score': val, 'status': 'fail'})
+    return result</code></pre>
+<p>
+  Read this carefully before writing anything. Understand what it does, what each parameter
+  means, what it returns, and what might surprise a new engineer reading this for the first time.
+</p>
+
+<h2>Your Task and What You Produce</h2>
+<p>
+  <strong>Task:</strong> get the model to write a docstring for <code>process_records</code> that
+  meets your own specification. You write the prompts, the model writes the docstring, and your
+  job is to judge it.
+</p>
+<p><strong>You produce:</strong></p>
+<ul>
+  <li>Your specification (Step 0)</li>
+  <li>Four docstrings, one per technique, each with the prompt that produced it and your analysis</li>
+  <li>
+    At the end, your pair's approved docstring: the one you would approve as code steward (you
+    may edit it, and note what you changed), with a shared paragraph explaining the choice
+  </li>
+</ul>
+<p>
+  <strong>Which docstring counts for each technique:</strong> for zero-shot and few-shot, the
+  model's output; for chain-of-thought, the docstring after the reasoning steps; for
+  self-correction, the revised docstring.
+</p>
+
+<h2>Step 0 — Write Your Specification <span class="lab-timing">(5 minutes)</span></h2>
+<p>
+  Before you write any prompt, write a specification for what a good docstring for this function
+  should contain. Use these five fields:
+</p>
+<ul>
+  <li><strong>What the function does:</strong> one sentence describing the overall behaviour.</li>
+  <li><strong>Parameters:</strong> for each parameter, its name, expected type, and what it represents.</li>
+  <li><strong>Returns:</strong> what the function returns, including the structure of each item and what each field means.</li>
+  <li><strong>Edge cases:</strong> at least two behaviours a new engineer might not anticipate from reading the code.</li>
+  <li><strong>Format:</strong> which docstring style (Google, NumPy, plain prose) and any length constraint.</li>
+</ul>
+<p>
+  Keep this visible throughout the lab. Every output you evaluate gets checked against it — not
+  against a general sense of quality.
+</p>
+
+<h2>Part 1 — Four Techniques <span class="lab-timing">(35 minutes)</span></h2>
+<p>
+  Run each technique on the function above. For each one: the prompt verbatim, the full output,
+  and a short analysis.
+</p>
+<p>
+  Use whichever model and interface you have access to — Claude.ai, ChatGPT, Gemini, or the API.
+  The lab works on any interface.
+</p>
+
+<h3>Technique 1: Zero-shot</h3>
+<p>
+  Write a prompt asking the model to write a docstring for this function. Write it naturally —
+  no examples, no reasoning scaffold.
+</p>
+<p><strong>Record:</strong></p>
+<ul>
+  <li>Your prompt (verbatim)</li>
+  <li>The full model output</li>
+  <li>
+    Analysis (2–3 sentences): which fields from your specification did this satisfy? Which did it
+    miss or handle inaccurately? Name the field and describe the gap specifically.
+  </li>
+</ul>
+
+<h3>Technique 2: Few-shot</h3>
+<p>
+  Three (function, docstring) example pairs are provided on the <strong>Course Website</strong>.
+  Download them before the session. Use all three as examples before your task prompt.
+</p>
+<p><strong>Record:</strong></p>
+<ul>
+  <li>Your full prompt including examples (verbatim — include the examples)</li>
+  <li>The full model output</li>
+  <li>
+    Analysis (2–3 sentences): what changed compared to zero-shot? Did format improve? Did the
+    examples help with the edge case fields from your specification? Did anything get worse?
+  </li>
+</ul>
+
+<h3>Technique 3: Chain-of-thought</h3>
+<p>
+  Write a prompt that asks the model to reason explicitly before writing the docstring. Use the
+  explicit CoT structure from the lecture: instruct the model to first describe what the function
+  does, then identify the parameters, then identify the return value, then identify at least one
+  non-obvious edge case, and then write the docstring.
+</p>
+<p><strong>Record:</strong></p>
+<ul>
+  <li>Your prompt (verbatim)</li>
+  <li>The full model output including the reasoning steps</li>
+  <li>
+    Analysis (2–3 sentences): did the reasoning steps improve the docstring? Point to a specific
+    place where the reasoning led to a better or worse result than zero-shot. Did the model
+    identify the edge cases from your specification?
+  </li>
+</ul>
+
+<h3>Technique 4: Self-correction</h3>
+<p>
+  Generate an initial docstring using any prompt. Then write a critique prompt that evaluates the
+  output against your specification using specific criteria — at least one criterion per field in
+  your specification. Then run the revision.
+</p>
+<p><strong>Record:</strong></p>
+<ul>
+  <li>Your generation prompt (verbatim)</li>
+  <li>The initial output</li>
+  <li>Your critique prompt (verbatim) — must contain at least three specific criteria, each checkable as pass/fail</li>
+  <li>The critique output</li>
+  <li>The revised output</li>
+  <li>
+    Analysis (2–3 sentences): did the critique identify a genuine problem from your specification?
+    Did the revision address it? Did the critique approve anything your specification would have
+    failed?
+  </li>
+</ul>
+
+<h2>Part 2 — Pair Discussion, Approved Docstring, and Exit Ticket <span class="lab-timing">(10 minutes)</span></h2>
+<p>
+  Pair with the person next to you. Spend five minutes comparing your four docstrings and
+  discussing, then five minutes picking one and writing one paragraph together.
+</p>
+<p>
+  <strong>Discussion:</strong> if you were the code steward reviewing a PR that added a docstring
+  to this function, which of your docstrings would you approve? Which would you send back for
+  revision, and with what comment?
+</p>
+<p>
+  <strong>Approved docstring (one per pair):</strong> pick the one docstring your pair would
+  approve, from either partner's four. You may edit it before approving; if you do, note what you
+  changed and why.
+</p>
+<p>
+  <strong>Shared paragraph (one per pair):</strong> 4–6 sentences explaining your choice. Which
+  technique produced the docstring you would most trust in production, and why? Your reasoning
+  must reference your specifications and must address cost — if this were a system generating
+  thousands of docstrings, does your answer change?
+</p>
+
+<h2>Submission</h2>
+<div class="callout warning">
+  Submit on E3 under &ldquo;<a href="https://e3p.nycu.edu.tw/mod/assign/view.php?id=242752">Week 5 Lab</a>&rdquo; by the end of Wednesday, October 7 (23:59).
+  <strong>Only one partner needs to upload.</strong>
+</div>
+<p><strong>One document per pair</strong> (PDF, Word, or plain text, or paste into the E3 text field), containing:</p>
+<ol>
+  <li>Both partners' names and student IDs, at the top</li>
+  <li>Each partner's specification (the five Step 0 fields), labelled with the partner's name</li>
+  <li>Each partner's four technique records: that partner's own prompt verbatim, full output, the docstring produced, and 2–3 sentence analysis for each technique</li>
+  <li>Your pair's approved docstring (edits noted) and the one shared exit-ticket paragraph explaining the choice</li>
+</ol>
+<p>
+  <strong>Graded on:</strong> completion. Both partners receive the credit, and each partner's
+  section should show that partner's own work. We encourage you to write detailed analyses that
+  reference your actual specification and actual outputs — the more specific you are about what
+  changed and why, the more useful the lab will be for Assignment 1.
+</p>
+
+<h2>Notes</h2>
+<p>
+  <strong>The function is intentionally non-trivial.</strong> <code>process_records</code> has
+  several behaviours worth documenting. It deduplicates by <code>id</code>, keeping only the
+  first occurrence. It uses <code>0</code> as the score when the <code>score</code> key is
+  missing. Each returned item is a dictionary with <code>id</code>, <code>score</code>, and
+  <code>status</code>. It raises no error for records without an <code>id</code> — instead it
+  treats them all as having <code>id</code> <code>None</code>, so only the first such record is
+  kept and the rest are silently dropped as duplicates. A good docstring addresses at least two
+  of these.
+</p>
+<div class="callout note">
+  <strong>If you finish early:</strong> try step-back prompting — ask the model &ldquo;what makes a
+  good docstring for a function that filters and transforms records?&rdquo; first, then use that
+  answer as context before asking for the specific docstring. Step-back appears in Assignment 1
+  Part 1. This is optional and not required for the submission.
+</div>
+<p>
+  <strong>Connection to Assignment 1:</strong> Assignment 1 Part 1 uses the same structure — five
+  techniques on a code generation task (you add step-back), prompt verbatim, full output,
+  analysis. Students who write specific, specification-driven analyses here write better
+  Assignment 1 submissions. The habit of checking against a written specification rather than a
+  general sense of quality is exactly what the assignment grades.
+</p>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

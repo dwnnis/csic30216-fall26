@@ -13,15 +13,15 @@
 #   due_text: "Week 3 — end of Monday"
 #   url: "/project/team-formation/"
 
-- title: "Week 3 Lab"
-  date: "2026-09-25"
-  due_text: "Week 3 — <strike>end of Monday</strike> end of Friday (extended)"
+- title: "Week 5 Lab"
+  date: "2026-10-07"
+  due_text: "Week 5 — <strong>end of Wednesday</strong>"
   url: "https://e3p.nycu.edu.tw/mod/assign/view.php?id=235515"
 
-- title: "Week 3 Self-paced Module Response"
-  date: "2026-09-27"
-  due_text: "Week 3 — end of week"
-  url: "https://e3p.nycu.edu.tw/mod/quiz/view.php?id=239149&scope=quiz"
+- title: "Week 5 Self-paced Module Response (link to be updated)"
+  date: "2026-10-11"
+  due_text: "Week 5 — end of week"
+  url: ""
 
 - title: "Course Start Survey"
   date: "2026-09-25"

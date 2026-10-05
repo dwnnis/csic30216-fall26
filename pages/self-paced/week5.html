@@ -1,0 +1,139 @@
+---
+layout: default
+title: Week 5 Self-Paced Module
+permalink: /self-paced/week5/
+---
+
+<div class="page-header">
+  <h1>Week 5 Self-Paced Module: Advanced Techniques</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  This module develops three things today's lecture introduced but didn't have time to cover in
+  depth: self-correction, task decomposition, and a pair of techniques that work above the level
+  of a single prompt — Automatic Prompt Engineering (APE) and self-consistency. You saw
+  self-correction work in the lab; this module explains what makes the loop reliable and where it
+  breaks. Task decomposition covers what to do when a task is too complex for a single prompt.
+  APE and self-consistency are qualitatively different from everything else covered so far: with
+  APE the model participates in writing its own prompt, and with self-consistency you run the same
+  prompt many times and treat the outputs statistically rather than individually.
+</p>
+
+<h2>Why This Matters</h2>
+<p>
+  Self-correction's most common failure is sycophantic approval — a vague critique produces a
+  model that says &ldquo;this looks great&rdquo; and changes nothing. Week 6 explains why this
+  happens at the training level; this module gives you the practical fix now, so you can design
+  around it before you've built a system that depends on it. Task decomposition matters because
+  any project with a multi-step AI process is almost certainly better off decomposed — it is the
+  difference between &ldquo;the AI got the wrong answer&rdquo; and &ldquo;step 2 of the AI pipeline
+  got the wrong answer,&rdquo; which is the difference between a demo and something you can debug.
+  APE and self-consistency are higher-cost techniques you won't use in most places, but knowing
+  precisely when they help — and, just as importantly, when they actively mislead you — is what
+  lets you reach for them deliberately instead of hoping they work.
+</p>
+
+<h2>Format and Timing</h2>
+<ul>
+  <li><strong>Framing video</strong> (~20 minutes, posted on E3) — link coming soon; check back before starting the module.</li>
+  <li><strong>Required reading</strong> — two short sections of Lilian Weng's &ldquo;Prompt Engineering&rdquo; plus one Claude model card (~25 minutes combined). Linked below.</li>
+  <li><strong>Multiple choice questions</strong> (單一選擇題) — four questions on E3, about 10 minutes. Submit by the end of this Sunday to mark the module complete.</li>
+  <li><strong>Total estimated time:</strong> ~60 minutes</li>
+</ul>
+
+<h2>What You'll Learn</h2>
+<ul>
+  <li>
+    <strong>Self-correction in depth</strong> — three requirements for a loop that produces
+    genuine improvement instead of sycophantic approval: specific, binary critique criteria; a
+    critique prompt that's harder to approve than to reject (&ldquo;identify the most significant
+    problem, assuming there is one&rdquo;); and a narrow revision instruction (&ldquo;fix only the
+    identified issue&rdquo;). Always cap the iteration count — after two cycles, the output is
+    either done or needs human review, not a third attempt.
+  </li>
+  <li>
+    <strong>Where self-correction fails</strong> — four failure modes: sycophantic critique, a
+    revision that fixes one thing and breaks another, a problem the model genuinely can't solve
+    regardless of iterations, and systematic errors that the same model can't catch in itself
+    because it doesn't know what it doesn't know.
+  </li>
+  <li>
+    <strong>Task decomposition</strong> — least-to-most prompting (you pre-define the sub-steps:
+    requirements &rarr; edge cases &rarr; implementation) versus successive prompting (each step is
+    determined by what the previous one produced, with a human checkpoint in between). The signs
+    you need it: &ldquo;it gets the first part right and the second part wrong,&rdquo; or
+    &ldquo;I can't tell why it got the wrong answer.&rdquo; Decomposition's biggest gift isn't
+    better outputs — it's knowing exactly which step failed.
+  </li>
+  <li>
+    <strong>APE in depth</strong> — treating prompt-writing as a search problem: the model
+    generates candidate instructions from input/output examples, scores them, and refines the
+    best ones. The step most people skip: testing the winning candidate on a held-out set it
+    wasn't selected on, for the same train/test reason this matters in machine learning generally.
+  </li>
+  <li>
+    <strong>Self-consistency in depth</strong> — sampling the same chain-of-thought prompt many
+    times at temperature &gt; 0 and taking the majority answer, because correct reasoning paths
+    tend to converge while wrong ones scatter. This only works when errors are random — if the
+    model makes the same systematic mistake every time, majority vote just gives you confident
+    agreement on the wrong answer.
+  </li>
+  <li>
+    <strong>Reliability vs. performance</strong> — two different goals that call for different
+    techniques. Reliability means consistent, acceptable output across the real range of inputs
+    (sensitivity testing, regression testing, decomposition). Performance means the best possible
+    output on a specific input (self-correction, APE, self-consistency) — and performance tuned on
+    a narrow set of examples can quietly degrade reliability everywhere else.
+  </li>
+</ul>
+
+<h2>Required Materials</h2>
+<ul>
+  <li><strong>Framing video:</strong> link coming soon — posted on E3 under Week 5 Self-paced Modules once available.</li>
+  <li>
+    <strong>Reading:</strong> Lilian Weng, &ldquo;<a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Prompt Engineering</a>&rdquo; — read only the
+    <strong>&ldquo;Self-Consistency Sampling&rdquo;</strong> and <strong>&ldquo;Automatic Prompt
+    Design&rdquo;</strong> sections. In Automatic Prompt Design, focus on the APE description and
+    its three numbered steps; the gradient-based methods at the start and the CoT-construction
+    methods at the end are context you can skim.
+  </li>
+  <li>
+    <strong>Reading:</strong> <a href="https://www.anthropic.com/claude/model-card">Claude model card</a> — pick one model (e.g., Claude Opus 5.5 System Card) and
+    focus on the training section.
+  </li>
+  <li><strong>Multiple choice questions:</strong> link coming soon — posted on E3 under Week 5 Self-paced Modules once available.</li>
+</ul>
+
+<h2>Optional Materials</h2>
+<p>If you want to go deeper on any of these topics (not required, but helpful if you're curious):</p>
+<ul>
+  <li>
+    <strong>Anthropic, &ldquo;<a href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview">Prompt Engineering Overview</a>&rdquo;</strong> — Anthropic's own documentation on
+    XML tags, system prompts, and Claude-specific techniques. A practical reference you'll likely
+    return to all semester for your project work.
+  </li>
+  <li>
+    <strong>Zhou et al., &ldquo;Large Language Models Are Human-Level Prompt Engineers&rdquo; (2022)</strong> — the original APE paper; read just the abstract and
+    introduction. Shows the experimental setup and the finding that model-generated instructions
+    outperformed human-written ones on several benchmarks, with the caveat about which tasks this
+    applies to.
+  </li>
+  <li>
+    <strong>Wang et al., &ldquo;Self-Consistency Improves Chain of Thought Reasoning in Language Models&rdquo; (2022)</strong> — the original self-consistency
+    paper; read just the abstract and results. The results section shows performance curves across
+    different numbers of sampled paths, useful for calibrating how many samples are worth running.
+  </li>
+</ul>
+
+<h2>Completion and Assessment</h2>
+<div class="callout warning">
+  This module is graded on completion. Submit your answers to the 4 questions on E3 before
+  <strong>11:59 PM on Sunday, October 11</strong>. You'll receive full credit for completing all
+  questions; partial credit is not available. Two questions reward careful reading of the Weng
+  sections, and two ask you to connect that reading to the cautions raised in the framing video —
+  the held-out test for APE, and when majority vote misleads. Read the sections before you answer.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

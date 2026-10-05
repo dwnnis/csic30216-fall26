@@ -59,10 +59,11 @@
   status: normal
   topic: "Prompt Engineering — Writing Prompts Well"
   topic_url: ""
-  slides_url: ""
+  slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=242751"
   lab: "Writing prompts well — code generation focus"
-  lab_url: ""
+  lab_url: "/labs/week5/"
   self_paced: "Chain-of-thought variations"
+  self_paced_url: "/self-paced/week5/"
   assigned: ""
   due: ""
 
