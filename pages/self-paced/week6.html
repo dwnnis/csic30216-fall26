@@ -1,0 +1,126 @@
+---
+layout: default
+title: Week 6 Self-Paced Module
+permalink: /self-paced/week6/
+---
+
+<div class="page-header">
+  <h1>Week 6 Self-Paced Module: RLHF, Constitutional AI, and Calibration</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  This week's async lecture explained what the failure modes are — hallucination, sycophancy,
+  sensitivity, over-refusal, bias. This module explains why they exist at the training level. It
+  covers the RLHF pipeline, where sycophancy enters it, Constitutional AI as an alternative, and
+  calibration. Understanding the mechanism behind a failure is what lets you design around it
+  rather than just hoping it does not happen.
+</p>
+
+<h2>Why This Matters</h2>
+<p>
+  Knowing that sycophancy exists tells you to watch for it. Knowing that it comes from RLHF
+  reward modelling tells you why giving the model specific, checkable criteria works as a
+  mitigation — you're designing around a trained preference, not asking the model to ignore one.
+  Knowing that hallucination is a consequence of next-token prediction tells you why
+  retrieval-augmented generation addresses it at the right level, rather than just asking the
+  model to "be more careful." Mechanism understanding is what turns the failure modes and their
+  mitigations into a system you can reason about, instead of a list of facts to memorise.
+</p>
+
+<h2>Format and Timing</h2>
+<ul>
+  <li><strong>Framing video</strong> (~7 minutes, posted on E3) — link coming soon; check back before starting the module.</li>
+  <li><strong>Required reading</strong> — Anthropic's &ldquo;Core Views on AI Safety&rdquo; plus selected sections of Sharma et al. on sycophancy (~25 minutes combined). Linked below.</li>
+  <li><strong>Multiple choice questions</strong> (單一選擇題) — four questions on E3, about 10 minutes.</li>
+  <li><strong>Total estimated time:</strong> ~60 minutes</li>
+  <li><strong>Complete before Week 7</strong> (October 19).</li>
+</ul>
+
+<h2>What You'll Learn</h2>
+<ul>
+  <li>
+    <strong>The RLHF pipeline</strong> — three stages: supervised fine-tuning on (prompt, ideal
+    response) pairs written by human contractors; reward model training, where humans rank
+    multiple responses to the same prompt and a reward model learns to predict those preference
+    scores; and RL fine-tuning, where the language model is optimised to maximise the reward
+    model's score. The result is a model aligned with what human raters prefer — which is not
+    always the same as what is most accurate or most helpful.
+  </li>
+  <li>
+    <strong>Where sycophancy enters</strong> — human raters tend to score confident, agreeable,
+    fluent responses higher, so the reward model learns to associate those surface properties
+    with quality, and the RL stage optimises the language model to produce them — even when
+    agreement is wrong. This isn't a design failure; it's an emergent consequence of optimising
+    for human preference at scale, which is also why you can't just instruct a model to "be less
+    sycophantic" — that instruction competes with a deeply trained preference.
+  </li>
+  <li>
+    <strong>Constitutional AI as an alternative</strong> — Anthropic's approach replaces human
+    raters with the model critiquing its own responses against a set of explicit written
+    principles (the &ldquo;constitution&rdquo;): generate a response, critique it against each
+    principle, then train on the self-critiqued, revised version. The constitution is explicit
+    and auditable, so alignment reflects articulated principles rather than opaque rater
+    preferences — though it does not eliminate sycophancy on its own.
+  </li>
+  <li>
+    <strong>Calibration</strong> — a model is well-calibrated if its expressed confidence matches
+    its actual accuracy. Current models are often miscalibrated and overconfident on facts they
+    get wrong, which is why a hallucination delivered confidently is much harder to catch than one
+    delivered with appropriate uncertainty. Calibration is distinct from hallucination: a model
+    can hallucinate while still expressing appropriate uncertainty, or hallucinate while sounding
+    completely sure.
+  </li>
+  <li>
+    <strong>Measuring sycophancy</strong> — the pushback test (does the model maintain a correct
+    answer under confident but unsupported disagreement?) and the consistency test (does it
+    answer the same question consistently across framings that imply different answers?). Sharma
+    et al. (2024) found sycophancy across five RLHF-trained assistants on free-form tasks — the
+    practical implication is to treat any AI evaluation component in your project as likely to
+    lean toward the user's apparent preference, and to test for it directly.
+  </li>
+</ul>
+
+<h2>Required Materials</h2>
+<ul>
+  <li><strong>Framing video:</strong> link coming soon — posted on E3 under Week 6 Self-paced Modules once available.</li>
+  <li>
+    <strong>Reading:</strong> Anthropic, &ldquo;<a href="https://www.anthropic.com/news/core-views-on-ai-safety">Core Views on AI Safety</a>&rdquo; — read the full post (~15 minutes).
+  </li>
+  <li>
+    <strong>Reading:</strong> Sharma et al. (2023/2024), &ldquo;<a href="https://arxiv.org/abs/2310.13548">Towards Understanding Sycophancy in Language Models</a>&rdquo; — read the abstract, the introduction, and the section on how human
+    preference data and preference models relate to sycophancy (~10 minutes). You do not need the
+    full experimental details.
+  </li>
+  <li><strong>Multiple choice questions:</strong> link coming soon — posted on E3 under Week 6 Self-paced Modules once available.</li>
+</ul>
+
+<h2>Optional Materials</h2>
+<p>If you want to go deeper on any of these topics (not required, but helpful if you're curious):</p>
+<ul>
+  <li>
+    <strong>Anthropic, &ldquo;<a href="https://www.anthropic.com/news/constitutional-ai-harmlessness-from-ai-feedback">Constitutional AI: Harmlessness from AI Feedback</a>&rdquo;</strong> (blog summary) — the accessible summary of the Constitutional AI
+    paper, explaining the self-critique mechanism without requiring an ML background.
+  </li>
+  <li>
+    <strong>Lilian Weng, &ldquo;<a href="https://lilianweng.github.io/posts/2024-07-07-hallucination/">Extrinsic Hallucinations in LLMs</a>&rdquo;</strong> — a thorough technical treatment of hallucination types and mitigations. Longer than
+    the required reading — read selectively: the &ldquo;Types of Hallucination&rdquo; and
+    &ldquo;Mitigation Methods&rdquo; sections are most relevant.
+  </li>
+  <li>
+    <strong>Perez et al. (2022), &ldquo;<a href="https://arxiv.org/abs/2212.09251">Discovering Language Model Behaviors with Model-Written Evaluations</a>&rdquo;</strong> (abstract only) — includes early measurements of sycophancy as a model
+    behaviour. One page. Shows that it can be measured, which makes it an engineering problem
+    rather than a philosophical one.
+  </li>
+</ul>
+
+<h2>Completion and Assessment</h2>
+<div class="callout warning">
+  This module is graded on completion. Submit your answers to the 4 questions on E3 before
+  <strong>Week 7 (October 19)</strong>. You'll receive full credit for completing all questions;
+  partial credit is not available. The questions test mechanism understanding, not just
+  vocabulary — read the required materials before you answer.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

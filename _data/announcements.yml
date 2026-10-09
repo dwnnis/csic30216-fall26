@@ -3,11 +3,15 @@
 # Rendered on the home page. Add new entries at the top.
 # ─────────────────────────────────────────────────────────────
 
-- date: "Sep 22"
-  text: '<a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=239179">Week 3 Self-paced Module</a> have been updated to E3. Please fill in the <a href="https://forms.gle/S1uK9hwnUbvqgu819">course start survey</a> by <b>Friday, September 25th</b>.'
+- date: "Oct 10"
+  text: "Week 6 material has been updated both here and on E3."
+- date: "Oct 09"
+  text: 'For those who haven not joined the Claude Team, please <a href="https://e3p.nycu.edu.tw/blocks/dcpc_news/news/news_view.php?in=1&d=132269">join the team</a> as soon as possible.'
+# - date: "Sep 22"
+  # text: '<a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=239179">Week 3 Self-paced Module</a> have been updated to E3. Please fill in the <a href="https://forms.gle/S1uK9hwnUbvqgu819">course start survey</a> by <b>Friday, September 25th</b>.'
 # - date: "Sep 14"
 #   text: '<a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=236098">Week 2 Self-paced Module</a> have been updated to E3. Remember to <a href="/project/team-formation/">form your team</a> by <b>Monday, September 21th</b>; if you want to sign up for <a href="https://forms.gle/dcC3ytSdhFVJzyEQ9">course audit</a> please do so by <b>Friday, September 25th</b>.'
 # - date: "Sep 8"
 #   text: 'Course Staff Mailing List is ready and updated on the website; also, all materials for week 1 has been uploaded - the <a href="https://csic30216-fall26.denniswang.net/self-paced/week1/">Self-paced Module</a>, the <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=232321">week 1 course recording</a> (only week 1 & 2 recordings will be available for those who enrolled late)'
-- date: "Sep 7"
-  text: "Welcome to AI-in-the-Loop in Software Project Cycle, Fall 2026! Please read the course syllabus and start forming your project teams as early as possible."
+# - date: "Sep 7"
+#   text: "Welcome to AI-in-the-Loop in Software Project Cycle, Fall 2026! Please read the course syllabus and start forming your project teams as early as possible."

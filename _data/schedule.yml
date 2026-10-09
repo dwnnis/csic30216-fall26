@@ -72,11 +72,12 @@
   status: async
   topic: "Understanding Why Prompts Fail"
   topic_url: ""
-  slides_url: ""
-  lab: "Hallucination red-team notebook (async)"
-  lab_url: ""
+  slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=244560"
+  lab: "Hallucination and Sycophancy (async)"
+  lab_url: "/self-paced/week5/"
   self_paced: "RLHF, Constitutional AI, and calibration"
-  assigned: ""
+  self_paced_url: "/self-paced/week6/"
+  assigned: 
   due: ""
 
 - week: 7
