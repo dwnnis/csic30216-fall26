@@ -74,7 +74,7 @@
   topic_url: ""
   slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=244560"
   lab: "Hallucination and Sycophancy (async)"
-  lab_url: "/self-paced/week5/"
+  lab_url: "/labs/week6/"
   self_paced: "RLHF, Constitutional AI, and calibration"
   self_paced_url: "/self-paced/week6/"
   assigned: 
