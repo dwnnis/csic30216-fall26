@@ -11,6 +11,379 @@ permalink: /assignments/a1/
   <p class="page-subtitle">{{ a.weight }} &middot; Due: {{ a.due }}</p>
 </div>
 
-<p>{{ a.description }}</p>
+<div class="callout warning">
+  <strong>Due:</strong> end of Week 8 — Sunday, November 1, by the end of day (23:59).
+  <strong>Weight:</strong> 10%.
+</div>
+
+<h2>The Engineer's Role in Agentic Engineering</h2>
+<p>
+  The engineer's job is to be the decision-maker at every level: specifying intent clearly enough
+  for the agent to execute, evaluating the agent's trajectory (not just its individual outputs) to
+  detect when things are going wrong, and knowing when to take back control. This framing applies
+  whether you are writing a single prompt, building a RAG pipeline, or directing a multi-step
+  agent. The tool changes; the engineer's responsibility does not.
+</p>
+<p>
+  This is the first of three individual assignments across the semester. They form a progressive
+  arc: use techniques deliberately (A1), design and verify a system (A2), demonstrate growth in
+  engineering judgment with evidence (A3).
+</p>
+
+<h2>Note on AI Assistance</h2>
+<p>
+  In this assignment, you are required to use AI to work on this assignment — leveraging the
+  prompt techniques that you learned from the lecture to use AI tools to debug, build, and
+  document in a simulated software engineering task.
+</p>
+<p>
+  In addition to the prompt engineering practice, you may also use AI tools to help with this
+  assignment. If you do, document this in the assignment as the <strong>AI usage log</strong>. The
+  reflection and diagnosis requirements are where the learning is — these require you to actually
+  run prompts and read outputs carefully. Generating reflections through AI without doing the
+  underlying work will be evident in the specificity of your analysis.
+</p>
+
+<h2>Overview</h2>
+<p>There are two parts in this assignment:</p>
+<ul>
+  <li><strong>Part 1:</strong> use prompting techniques deliberately and articulate what each adds.</li>
+  <li><strong>Part 2:</strong> diagnose broken prompts and fix them with documented reasoning.</li>
+</ul>
+<p>
+  Together, the two parts help you examine: can you specify intent precisely, and recognise when a
+  specification is failing?
+</p>
+
+<h3>Score Distribution (100 points)</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Question</th><th>Points</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Part 1: Deliberate Technique Practice</strong></td><td><strong>50</strong></td></tr>
+    <tr><td>Task 1: Debug <code>get_overdue_tasks</code> (Chain-of-Thought: 10 points, Step-back: 10 points)</td><td>20</td></tr>
+    <tr><td>Task 2: Build <code>sort_tasks_by_priority</code> (Zero-shot: 10 points, Self-correction: 10 points)</td><td>20</td></tr>
+    <tr><td>Task 3: Document <code>calculate_completion_rate</code> (Few-shot: 10 points)</td><td>10</td></tr>
+    <tr><td><strong>Part 2: Prompt Diagnosis and Rewrite</strong></td><td><strong>50</strong></td></tr>
+    <tr><td>Prompt 1</td><td>15</td></tr>
+    <tr><td>Prompt 2</td><td>15</td></tr>
+    <tr><td>Prompt 3</td><td>15</td></tr>
+    <tr><td>Integrity of evidence across Part 2</td><td>5</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td><strong>Total</strong></td><td><strong>100</strong></td></tr>
+  </tfoot>
+</table>
+</div>
+<p>How each question is scored is described under <em>Grading Criteria</em> below.</p>
+
+<h3>Submission Format (Parts 1 and 2)</h3>
+<p>
+  Submit your work for <strong>both parts</strong> as a single Markdown file using the sample
+  submission template, which provides the headings for Part 1, Part 2 and the AI usage log. Keep
+  the headings and replace the grey instructions with your own work.
+</p>
+<div class="callout warning">
+  Your final submission file must be named <code>assignment_1_studentid_name.md</code>.
+</div>
+<div class="callout note">
+  <strong>Assignment 1 materials</strong> (including the sample submission template): posted on
+  <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=246973">E3</a>.
+</div>
+
+<h2>Part 1 — Deliberate Technique Practice <span class="lab-timing">(50%)</span></h2>
+<p>
+  All three tasks below share one small module, <code>task_manager.py</code>. The assignment is a
+  small project rather than three disconnected exercises. Five techniques are spread across three
+  task types — each mirroring a different kind of real programming work — rather than one
+  technique repeated five times on the same task.
+</p>
+
+<p><strong>Provided module</strong> (<code>task_manager.py</code>):</p>
+<pre class="code-block"><code>from datetime import date
+
+def add_task(tasks, title, due_date=None, priority="medium"):
+    """Add a new task to the task list.
+
+    Args:
+        tasks (list): The list of existing task dictionaries.
+        title (str): The task's title.
+        due_date (date, optional): The task's due date. Defaults to None.
+        priority (str): One of "high", "medium", "low". Defaults to "medium".
+
+    Returns:
+        list: The updated list of tasks.
+    """
+    tasks.append({"title": title, "due_date": due_date, "priority": priority, "completed": False})
+    return tasks
+
+def mark_complete(tasks, title):
+    """Mark a task as completed by title.
+
+    Args:
+        tasks (list): The list of task dictionaries.
+        title (str): The title of the task to mark complete.
+
+    Returns:
+        bool: True if a matching task was found and updated, False otherwise.
+    """
+    for task in tasks:
+        if task["title"] == title:
+            task["completed"] = True
+            return True
+    return False
+
+def get_overdue_tasks(tasks, current_date):
+    overdue = []
+    for task in tasks:
+        if task["due_date"] &lt; current_date and not task["completed"]:
+            overdue.append(task)
+    return overdue
+
+def calculate_completion_rate(tasks):
+    if not tasks:
+        return 0.0
+    completed = sum(1 for t in tasks if t["completed"])
+    return completed / len(tasks)</code></pre>
+
+<h3>Task 1 — Debug <code>get_overdue_tasks</code> <em>(techniques: Chain-of-Thought, Step-back)</em></h3>
+<p>
+  <code>get_overdue_tasks</code> crashes with
+  <code>TypeError: '&lt;' not supported between instances of 'NoneType' and 'datetime.date'</code>
+  the moment it's given any task created without a due date — which <code>add_task</code>
+  explicitly allows by default. This is a verified, deterministic bug, not a hypothetical one.
+</p>
+<p>
+  <strong>Your task:</strong> write the Chain-of-Thought prompt and Step-back prompt to help debug
+  and produce code that will resolve the issue.
+</p>
+
+<h3>Task 2 — Build <code>sort_tasks_by_priority</code> <em>(techniques: Zero-shot, Self-correction)</em></h3>
+<p>
+  Spec (verified against a reference solution): return a new list sorted so higher-priority tasks
+  come first, earlier due dates come first within the same priority, and tasks with no due date
+  sort last within their priority tier.
+</p>
+<p>
+  <strong>Your task:</strong> write the Zero-shot prompt and Self-correction prompts to produce
+  code that will successfully run the case.
+</p>
+
+<h3>Task 3 — Document <code>calculate_completion_rate</code> <em>(technique: Few-shot)</em></h3>
+<p>
+  <strong>Your task:</strong> write the Few-shot prompt to produce documentation (the docstring)
+  for the function.
+</p>
+
+<h3>What to Submit for Part 1</h3>
+<p>
+  For each of the five technique applications above: the prompt verbatim, the full model response,
+  and two to three sentences on what the technique added or failed to add for that specific task.
+  Please see the sample submission template for the detailed format.
+</p>
+
+<h2>Part 2 — Prompt Diagnosis and Rewrite <span class="lab-timing">(50%)</span></h2>
+<p>
+  Imagine you are working with others for a software project within a team. Below are three
+  prompts written by a teammate of yours. Each one leaves something out, so the code the model
+  returns does not do what the author wanted. <strong>You decide what went wrong.</strong>
+</p>
+
+<h3>How to Run Each Prompt</h3>
+<ol>
+  <li>
+    <strong>Original run.</strong> Open a fresh conversation. Paste the full
+    <code>task_manager.py</code>, then the prompt. For this first run, do <strong>not</strong>
+    paste <code>CONVENTIONS.md</code> or <code>utils.py</code> or the author's intent: the teammate
+    wrote the prompt as if the model already had them, and whether it did is part of what you are
+    diagnosing. Read <code>CONVENTIONS.md</code> and <code>utils.py</code> only after this first
+    run.
+  </li>
+  <li>
+    <strong>Check it.</strong> Copy the code the model gives you into <code>my_solutions.py</code>
+    (using the function name in the prompt) and run <code>python check_my_work.py</code>. Save the
+    code and the checker output. FAIL lines here are expected: they are your evidence of what went
+    wrong, not a mistake on your part.
+  </li>
+  <li>
+    <strong>Diagnose and rewrite.</strong> Work out <em>why</em> the model produced what it did,
+    then write an improved prompt. Your rewrite may use anything in <code>CONVENTIONS.md</code>,
+    <code>utils.py</code> or the author's intent below.
+  </li>
+  <li>
+    <strong>Rewrite run.</strong> Run your rewrite in a fresh conversation, replace the code in
+    <code>my_solutions.py</code>, run the checker again, and save the output.
+  </li>
+</ol>
+
+<p>For each prompt, submit:</p>
+<ul>
+  <li><strong>Failure mode:</strong> name it precisely. &ldquo;It is vague&rdquo; is not a failure mode; the specific thing that went wrong is.</li>
+  <li><strong>Mechanism:</strong> explain <em>why</em> it happened, using course vocabulary from Weeks 1–7 and pointing to something in your own output and checker results.</li>
+  <li><strong>Rewritten prompt:</strong> your improved version.</li>
+  <li><strong>Evidence:</strong> for both the original and the rewritten prompt, the full code the model gave you and the checker output.</li>
+  <li><strong>Personal connection:</strong> one sentence. Have you seen a similar failure in your own AI use?</li>
+</ul>
+
+<div class="callout note">
+  <strong>If the model asks you a question instead of writing code,</strong> that is a real result.
+  Say so, then reply &ldquo;Please proceed using your best assumptions&rdquo; and use the code it
+  gives you. Your diagnosis should say what it asked about and why the prompt left that gap.
+</div>
+<div class="callout note">
+  <strong>If the original code passes every check,</strong> that is also a real result. Say so,
+  show the output, and explain what the model assumed and why those assumptions happened to be
+  right. Run the original prompt twice more in fresh chats and report whether the model made the
+  same assumptions each time. Then rewrite the prompt so it no longer depends on the model
+  guessing.
+</div>
+
+<h3>Prompt 1 <span class="lab-timing">(15 points)</span></h3>
+<blockquote>
+  <p><em>&ldquo;Write a function <code>add_subtask(tasks, parent_title, subtask_title)</code> that adds a subtask to an existing task.&rdquo;</em></p>
+</blockquote>
+<p>
+  <em>What the author wanted:</em> the team has a file called <code>CONVENTIONS.md</code>, and
+  every function must follow it. The author wrote the prompt as if everyone had read it.
+</p>
+
+<h3>Prompt 2 <span class="lab-timing">(15 points)</span></h3>
+<blockquote>
+  <p><em>&ldquo;Write a function <code>format_task_line(task, today)</code> that returns a one-line display string for a task, showing its title, priority and due date. Use our existing date-formatting helper in <code>utils.py</code> for the due date.&rdquo;</em></p>
+</blockquote>
+<p>
+  <em>What the author wanted:</em> the due-date wording to come from the team's own helper, so that
+  every screen words due dates the same way.
+</p>
+
+<h3>Prompt 3 <span class="lab-timing">(15 points)</span></h3>
+<blockquote>
+  <p><em>&ldquo;Write a function <code>get_urgent_tasks(tasks, today)</code> that returns the urgent tasks, most urgent first.&rdquo;</em></p>
+</blockquote>
+<p>
+  <em>What the author wanted:</em> a task is <strong>urgent</strong> if it is not completed and at
+  least one of these is true: it is overdue; it is due within the next 3 days, counting today; or
+  its priority is <code>"high"</code> (even with no due date). &ldquo;Most urgent first&rdquo; meant
+  earliest due date first, with undated high-priority tasks last. The function must not modify the
+  list it is given.
+</p>
+
+<h2>Grading Criteria (100 points)</h2>
+<p>
+  Each criterion below shows what earns full credit, partial credit and no credit. The checker
+  (<code>check_my_work.py</code>) helps you see whether your code works, but it does not award
+  points. Points come from your prompts, the model's responses, your reflections and your
+  diagnoses.
+</p>
+
+<h3>Part 1 (50 points): five technique applications, 10 points each</h3>
+<p>Applies to each of: Chain-of-Thought, Step-back, Zero-shot, Self-correction and Few-shot.</p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Criterion</th><th>Pts</th><th>Full credit</th><th>Partial credit</th><th>No credit</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Technique used as specified</strong></td>
+      <td>4</td>
+      <td>The prompt you submit contains the technique's defining feature (below). Where two techniques share a task, the two prompts are meaningfully different from each other.</td>
+      <td>The technique is recognisable but diluted, or the two prompts on the same task are near-duplicates (2).</td>
+      <td>Wrong technique, or the prompt is not shown (0).</td>
+    </tr>
+    <tr>
+      <td><strong>Full response included</strong></td>
+      <td>2</td>
+      <td>The full, unedited model response is shown. For self-correction, all three turns (generate, critique, revise).</td>
+      <td>The response is truncated or paraphrased (1).</td>
+      <td>The response is missing (0).</td>
+    </tr>
+    <tr>
+      <td><strong>Reflection</strong></td>
+      <td>4</td>
+      <td>2–3 sentences, specific to this task and this output; says what the technique added <em>or failed to add</em>; every claim matches the response you show.</td>
+      <td>Plausible but generic, could describe any task (2). Or one claim contradicts the response you show (2).</td>
+      <td>Generic filler, or contradicts the response you show throughout (0).</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>What each technique must contain</strong></p>
+<ul>
+  <li><strong>Chain-of-Thought:</strong> the prompt asks the model to reason or trace step by step before answering.</li>
+  <li><strong>Step-back:</strong> the prompt asks the model for the general principle first, then applies it to the specific case.</li>
+  <li><strong>Zero-shot:</strong> no examples and no reasoning scaffold, just a plain, complete specification.</li>
+  <li><strong>Self-correction:</strong> three turns are shown: generate, a <em>specific</em> critique (not just &ldquo;is this good?&rdquo;), and a revision.</li>
+  <li><strong>Few-shot:</strong> both provided docstrings (<code>add_task</code>, <code>mark_complete</code>) are used as examples.</li>
+</ul>
+<p>
+  A reflection that says a technique added nothing, when that is true, earns full credit. Generic
+  reflections that could describe any task score lower.
+</p>
+
+<h3>Part 2 (50 points): three prompts, 15 points each, plus 5</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Criterion</th><th>Pts per prompt</th><th>Full credit</th><th>Partial credit</th><th>No credit</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Failure mode</strong></td>
+      <td>3</td>
+      <td>Named precisely (not &ldquo;vague&rdquo; or &ldquo;bad prompt&rdquo;) and consistent with your own transcript and checker output. If the model asked a question, or your original code passed every check, you say so plainly and follow the instructions in Part 2.</td>
+      <td>Correct category but imprecise name (2). Or an unusual outcome reported without the explanation Part 2 asks for (1).</td>
+      <td>Contradicts your checker output, or only says &ldquo;it was bad&rdquo; (0).</td>
+    </tr>
+    <tr>
+      <td><strong>Mechanism</strong></td>
+      <td>4</td>
+      <td>A causal link from the specific gap in the prompt to what the model produced, using course vocabulary from Weeks 1–7 accurately and pointing to something in your own output.</td>
+      <td>Correct vocabulary but no causal link, or only restates the symptom (2). Or one term used loosely (3).</td>
+      <td>Vocabulary absent or wrong (0–1).</td>
+    </tr>
+    <tr>
+      <td><strong>Rewritten prompt</strong></td>
+      <td>3</td>
+      <td>Fixes the cause you diagnosed (supplies the missing information, or states it explicitly), not just rewording or &ldquo;be careful&rdquo;.</td>
+      <td>Partly addresses the cause (1–2).</td>
+      <td>Reworded only (0).</td>
+    </tr>
+    <tr>
+      <td><strong>Evidence</strong></td>
+      <td>4</td>
+      <td>The full code and the checker output from <strong>both</strong> the original and the rewrite, from real runs and consistent with each other; the rewrite's checker output is better in the way your diagnosis predicts.</td>
+      <td>One output missing or truncated (2). The difference is real but not connected to your diagnosis (2–3).</td>
+      <td>No outputs, or outputs that contradict your claim (0).</td>
+    </tr>
+    <tr>
+      <td><strong>Personal connection</strong></td>
+      <td>1</td>
+      <td>One sentence naming a concrete, plausible experience of a similar failure.</td>
+      <td></td>
+      <td>Missing (0).</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Integrity of evidence (5 points, across all of Part 2):</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (5)</th><th>Partial credit (2–4)</th><th>No credit (0)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Your diagnoses match your transcripts and checker output, the outputs look like genuine model output, and where a prompt did not fail for you, you say so.</td>
+      <td>One diagnosis or output is inconsistent with its transcript, or part of the evidence is missing.</td>
+      <td>Fabricated outputs, or diagnoses that describe failures your outputs do not show.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 <p><a href="{{ '/assignments/' | relative_url }}">&larr; Back to Assignments</a></p>

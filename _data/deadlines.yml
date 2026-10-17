@@ -38,10 +38,10 @@
   due_text: "Week 3 — end of week"
   url: "https://forms.gle/S1uK9hwnUbvqgu819"
 
-# - title: "Assignment 1: Technique Practice and Prompt Diagnosis"
-#   date: "2026-10-05"
-#   due_text: "Week 5 — start of class"
-#   url: "/assignments/a1/"
+- title: "Assignment 1: Technique Practice and Prompt Diagnosis"
+  date: "2026-11-01"
+  due_text: "End of Week 8 — <strong>Sunday, 23:59</strong>"
+  url: "/assignments/a1/"
 
 # - title: "Checkpoint 1 (CP1)"
 #   date: "2026-10-12"

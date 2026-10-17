@@ -102,7 +102,7 @@
   lab_url: ""
   self_paced: "Optional enrichment reading"
   assigned: ""
-  due: "Assignment 1 (10%)"
+  due: '<a href="/assignments/a1/">Assignment 1</a> (10%, due Nov 1)'
 
 - week: 9
   date: "Nov 2"
