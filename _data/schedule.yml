@@ -85,12 +85,12 @@
   status: normal
   topic: "Tool use, function calling, and MCP"
   topic_url: ""
-  slides_url: ""
-  lab: "Self-correcting pipeline (online)"
-  lab_url: ""
-  self_paced: "APE and self-consistency"
+  slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=247245"
+  lab: "Diagnose and fix a three-tool agent (online)"
+  lab_url: "/labs/week7/"
+  self_paced: "Evolution of tool use - Toolformer to function calling"
   assigned: ""
-  due: "CP1 (5%)"
+  due: '<a href="/project/cp1/">CP1</a> (5%, due Oct 25)'
 
 - week: 8
   date: "Oct 26"

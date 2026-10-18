@@ -13,14 +13,19 @@
 #   due_text: "Week 3 — end of Monday"
 #   url: "/project/team-formation/"
 
+- title: "Week 7 Lab"
+  date: "2026-10-21"
+  due_text: "Week 7 — <strong>end of Wednesday</strong>"
+  url: "https://e3p.nycu.edu.tw/mod/assign/view.php?id=247247"
+
 - title: "Week 6 Lab"
   date: "2026-10-14"
   due_text: "Week 6 — <strong>end of Wednesday</strong>"
   url: "https://e3p.nycu.edu.tw/mod/assign/view.php?id=244564"
 
 - title: "Week 6 Self-paced Module Response"
-  date: "2026-10-14"
-  due_text: "Week 5 — <strong>end of Wednesday</strong>"
+  date: "2026-10-18"
+  due_text: "Before end of Week 6 — <strong>Sunday</strong>"
   url: ""
 
 - title: "Week 5 Lab"

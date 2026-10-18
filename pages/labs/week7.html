@@ -1,0 +1,374 @@
+---
+layout: default
+title: Week 7 Lab
+permalink: /labs/week7/
+---
+
+<div class="page-header">
+  <h1>Week 7 Lab — Diagnose and Fix a Three-Tool Agent</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Goal</h2>
+<p>
+  You are given a small agent with three tools whose descriptions are <strong>deliberately
+  weak</strong>. First you make it work. Then you find out how it fails. Then you write better
+  descriptions and show, with evidence, that they help. The goal is <strong>not</strong> a perfect
+  agent. It is to see how tool use goes wrong, and to learn how to tell whether a fix really
+  worked.
+</p>
+<p><strong>Working style:</strong> Online lab, individual &middot; <strong>Total time:</strong> ~60 minutes</p>
+
+<div class="callout note">
+  <strong>Models are good, and sometimes nothing fails.</strong> Newer models often handle tools
+  well even with weak descriptions. If a failure mode does not appear for you, that is a
+  legitimate finding. This lab tells you exactly what to try next and what to report. Read
+  &ldquo;If a failure mode did not fail&rdquo; in Part 2.
+</div>
+
+<h2>What You Submit <span class="lab-timing">(read this first)</span></h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <tbody>
+    <tr><td><strong>Who</strong></td><td>Individual. Each student submits their own file</td></tr>
+    <tr><td><strong>What</strong></td><td><strong>One PDF document</strong> with the contents listed below</td></tr>
+    <tr><td><strong>Where</strong></td><td>E3, under &ldquo;<a href="https://e3p.nycu.edu.tw/mod/assign/view.php?id=247247">Week 7 Lab</a>&rdquo;</td></tr>
+    <tr><td><strong>When</strong></td><td>By the end of <strong>Wednesday, October 21 (23:59)</strong></td></tr>
+    <tr><td><strong>File name</strong></td><td><code>Week7_Lab_&lt;your student ID&gt;.pdf</code></td></tr>
+    <tr><td><strong>Grading</strong></td><td>1% of your grade, graded on completion. We encourage you to be specific and detailed, because the detail is what makes the lab useful to you</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Your PDF should contain, in this order:</strong></p>
+<ol>
+  <li><strong>Header:</strong> your name, student ID, and the model you used</li>
+  <li><strong>Part 1:</strong> your <code>handle_tool_call</code> code, your answer to the design question, and the baseline results</li>
+  <li><strong>Part 2:</strong> a prediction and a record for <strong>each of the four failure modes</strong>, with run counts. For any mode that did <strong>not</strong> fail, the &ldquo;did not fail&rdquo; report</li>
+  <li><strong>Part 3:</strong> your final schemas, a before/after comparison, and a list of the queries you re-tested</li>
+  <li><strong>Part 4:</strong> your written responses to Question 1 and Question 2</li>
+</ol>
+<p>
+  A fillable copy is in <code>week7_lab_submission_template.md</code>, available with the
+  <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=247248">required files</a> on E3. Write
+  in any tool you like (Word, Google Docs, Notion, a Markdown editor) and save as PDF before
+  uploading. Do <strong>not</strong> include your API key anywhere.
+</p>
+
+<h2>Time Plan</h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Part</th><th>What</th><th>Minutes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Setup</td><td>key, install, smoke test</td><td>5</td></tr>
+    <tr><td>Part 1</td><td>wire up the tools (<code>handle_tool_call</code>) and run the baseline</td><td>8</td></tr>
+    <tr><td>Part 2</td><td>diagnose the provided descriptions: find the failures</td><td>20</td></tr>
+    <tr><td>Part 3</td><td>write your own descriptions and show they help</td><td>17</td></tr>
+    <tr><td>Part 4</td><td>written responses</td><td>10</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Setup <span class="lab-timing">(5 minutes)</span></h2>
+<p>You need Python 3.9 or newer and an API key.</p>
+<ol>
+  <li>
+    <strong>Download the starter file</strong> <code>week7_lab_starter.py</code> from the
+    <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=247248">required files</a> on E3.
+  </li>
+  <li><strong>Install the SDK:</strong> <code>pip install anthropic</code></li>
+  <li>
+    <strong>Get your API key</strong> — distribution details are posted on E3; ask a TA if you
+    don't have one yet. Set it in your terminal (do not paste it into the file):
+    <ul>
+      <li>macOS / Linux: <code>export ANTHROPIC_API_KEY=your-key-here</code></li>
+      <li>Windows: <code>setx ANTHROPIC_API_KEY your-key-here</code>, then open a <strong>new</strong> terminal</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Smoke test:</strong> run <code>python week7_lab_starter.py --v0 "Hello"</code>. If you
+    see <code>ANSWER: ...</code>, your key works.
+  </li>
+</ol>
+
+<div class="callout warning">
+  <strong>Protect your key.</strong> Never post it on E3, the course website, in email, in a
+  screenshot, or in your team's GitHub repository. A key in a public repo is usually found and
+  misused within minutes. If you think yours leaked, tell a TA right away so it can be replaced.
+</div>
+
+<p>
+  The lab uses a small, inexpensive model. The class shares a budget, so please keep
+  <code>--repeat</code> at 10 or lower and do not run long loops.
+</p>
+<p>
+  If you do not have a working key yet, tell a TA in the session. You may watch a partner while
+  yours is being fixed, but <strong>write your own answers</strong>.
+</p>
+
+<h2>What the Starter File Gives You</h2>
+<ul>
+  <li>
+    <strong>Three tools that already work:</strong> <code>calculator</code> (a safe parser, no
+    <code>eval</code>), <code>search_knowledge_base</code> (course <strong>content</strong>: what
+    is covered, what is in a deliverable, what a role does) and <code>get_course_calendar</code>
+    (course <strong>dates</strong>: when something is due)
+  </li>
+  <li><strong><code>TOOLS_V0</code>:</strong> a set of provided tool descriptions that are <strong>deliberately flawed</strong>. Do not edit them. You will diagnose them in Part 2</li>
+  <li><strong><code>TOOLS</code>:</strong> where you write <strong>your own</strong> descriptions in Part 3 (placeholders marked <code>TODO</code>)</li>
+  <li><strong><code>run_agent</code>:</strong> the message loop from the lecture. It prints every tool call and result</li>
+  <li><strong>Test lists and flags:</strong> <code>--tests</code>, <code>--modes</code>, <code>--stress</code>, <code>--repeat N</code>, and <code>--v0</code> (use the provided flawed descriptions)</li>
+</ul>
+<p>You write only two things: <code>handle_tool_call</code> (Part 1) and your own descriptions (Part 3).</p>
+
+<h2>Part 1 — Wire Up the Tools <span class="lab-timing">(8 minutes)</span></h2>
+<p>In <code>handle_tool_call(tool_name, tool_input)</code>, write the code that:</p>
+<ul>
+  <li>runs the right function for each of the three tools</li>
+  <li>returns an <strong>error message the model can understand</strong> for an unknown tool name</li>
+  <li>returns <code>(result_text, is_error)</code></li>
+</ul>
+<p>
+  <strong>Design question (one sentence):</strong> <code>run_calculator</code> reports bad input
+  as a string beginning with <code>Error:</code>. Should that count as <code>is_error=True</code>?
+  Decide, and say why.
+</p>
+
+<p><strong>Baseline check.</strong> Run <code>python week7_lab_starter.py --v0 --tests</code>:</p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Query</th><th>Expected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>&ldquo;What is 247 times 38?&rdquo;</td><td>calculator, answer 9386</td></tr>
+    <tr><td>&ldquo;What is covered in Week 6?&rdquo;</td><td>knowledge base</td></tr>
+    <tr><td>&ldquo;When is the Week 7 lab due?&rdquo;</td><td>calendar, Wed Oct 21 23:59</td></tr>
+    <tr><td>&ldquo;What is the capital of France?&rdquo;</td><td>answers directly, no tool</td></tr>
+  </tbody>
+</table>
+</div>
+<p>
+  Record what happened for each. If one did not behave as expected, that is already a finding.
+  Note it and carry on.
+</p>
+
+<h2>Part 2 — Diagnose the Provided Descriptions <span class="lab-timing">(20 minutes)</span></h2>
+
+<h3>Step 1: Read and Predict <span class="lab-timing">(4 minutes)</span></h3>
+<p>
+  Read the descriptions in <code>TOOLS_V0</code> carefully. For <strong>each of the four failure
+  modes below</strong>, write down, <strong>before you run anything</strong>:
+</p>
+<ul>
+  <li>which query you expect to trigger it</li>
+  <li>which part of the V0 description you think would cause it</li>
+</ul>
+<p>Predictions can be wrong. Writing them first is what makes the experiment meaningful.</p>
+
+<h3>Step 2: Run <span class="lab-timing">(6 minutes)</span></h3>
+<pre class="code-block"><code>python week7_lab_starter.py --v0 --modes --repeat 5</code></pre>
+<p>
+  This runs the starter queries for each mode five times and counts what the model did. Results
+  vary from run to run, so counts are more reliable than a single run. Look at the printed tool
+  sequences, errors and first answer.
+</p>
+
+<h3>Step 3: Judge and Record <span class="lab-timing">(10 minutes)</span></h3>
+<p>
+  For each mode, decide whether it <strong>failed</strong>, using these definitions, then fill in
+  one record (template below).
+</p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Mode</th><th>It failed if&hellip;</th><th>Try (starter queries)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Wrong tool</strong></td>
+      <td>the model used a tool that cannot answer the question, or the wrong one of two overlapping tools, or a tool where none was needed</td>
+      <td>&ldquo;How many techniques are covered in Week 5?&rdquo;, &ldquo;What are the deliverables for CP1?&rdquo;, &ldquo;When is the Week 7 lab due?&rdquo;</td>
+    </tr>
+    <tr>
+      <td><strong>2. Wrong parameters</strong></td>
+      <td>the right tool, but arguments that are malformed or not what you meant, so the tool errored or answered the wrong question</td>
+      <td>&ldquo;twenty-four divided by eight, then multiplied by three&rdquo;, &ldquo;square root of 144 plus 15 percent of 240&rdquo;, &ldquo;What is covered in Week6?&rdquo;</td>
+    </tr>
+    <tr>
+      <td><strong>3. Unnecessary call</strong></td>
+      <td>a tool was called when the model could easily have answered directly</td>
+      <td>&ldquo;What does the term 'hallucination' mean...&rdquo;, &ldquo;What is the capital of France?&rdquo;, &ldquo;What is chain-of-thought prompting?&rdquo;</td>
+    </tr>
+    <tr>
+      <td><strong>4. Missed call</strong></td>
+      <td>the model answered from memory when a tool would give the accurate, course-specific answer, or a number that is wrong</td>
+      <td>&ldquo;What does the code steward do?&rdquo;, &ldquo;When is Assignment 1 due?&rdquo;, &ldquo;What is 48273 times 9167?&rdquo;</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>
+  For mode 4, check the answer against the truth: the correct product is 442518591, and the code
+  steward answer should match the knowledge base text. Plausible but wrong is exactly the problem.
+</p>
+
+<p><strong>Three possible outcomes for each mode:</strong></p>
+<ul>
+  <li><strong>A. It failed on the starter queries.</strong> Record it (template below)</li>
+  <li><strong>B. It failed only under stress.</strong> Run <code>python week7_lab_starter.py --v0 --stress --repeat 5</code> and record the failure from there</li>
+  <li><strong>C. It did not fail.</strong> Complete the &ldquo;did not fail&rdquo; report below</li>
+</ul>
+<p>
+  Notice the tension. Mode 3 and mode 4 pull in opposite directions: fixing unnecessary calls
+  pushes toward calling less, and fixing missed calls pushes toward calling more. Keep this in
+  mind for Part 3.
+</p>
+
+<p><strong>Record for each mode:</strong></p>
+<pre class="code-block"><code>Failure mode N: ______________________
+My prediction (query, and the V0 words I expected to cause it):
+Query used:
+Runs: 5.  What the model did (tool sequences and counts, e.g. "calculator x3, no tool x2"):
+Tool errors (n of 5), and an example argument if any:
+Correct answer, and was the final answer correct?
+Outcome:  A failed on starter queries / B failed only under stress / C did not fail
+Which words in the V0 description made this plausible:</code></pre>
+
+<h3>If a Failure Mode Did Not Fail</h3>
+<p>
+  Not failing is a real result. It is <strong>not</strong> a mistake and you do <strong>not</strong>
+  lose credit for it. But &ldquo;it worked once&rdquo; is weak evidence. If a mode did not fail,
+  complete <strong>all four steps</strong> and report them.
+</p>
+<p>
+  <strong>Step A. Show it with numbers.</strong> For that mode, run <strong>at least three
+  different queries</strong>, each with <code>--repeat 5</code>: the starter queries, plus at
+  least <strong>one you wrote yourself</strong>. Put the counts in a table.
+</p>
+<p>
+  <strong>Step B. Try to break it deliberately.</strong> Run <code>--v0 --stress --repeat 5</code>.
+  Then write <strong>two queries of your own</strong> that you predict could trigger the failure.
+  Write your prediction (and why) <strong>before</strong> you run them.
+</p>
+<p><strong>Step C. Change a condition.</strong> Try <strong>at least two</strong> of these and re-run with <code>--repeat 5</code>:</p>
+<ul>
+  <li>ask the same question in <strong>Chinese</strong>, or mix Chinese and English</li>
+  <li>add <strong>a lot of irrelevant context</strong> before the question</li>
+  <li>use a <strong>vague or misspelled</strong> version (&ldquo;wk 6 stuff&rdquo;, &ldquo;cp 1 deadlin&rdquo;)</li>
+  <li>ask a question that needs <strong>two tools</strong> or <strong>two steps</strong></li>
+  <li>in <strong>your own copy</strong> of the file, add a fourth tool whose description <strong>overlaps</strong> one of the existing tools</li>
+  <li>in your own copy, delete one sentence from a V0 description and see if it matters (do not edit <code>TOOLS_V0</code> itself; copy it)</li>
+</ul>
+<p><strong>Step D. Report and reflect (4–6 sentences).</strong> Say:</p>
+<ol>
+  <li><strong>What you tried:</strong> a short table of query, condition, and counts</li>
+  <li><strong>Your verdict:</strong> &ldquo;no failure in N queries across K conditions&rdquo;, or &ldquo;it did fail once, under X&rdquo;</li>
+  <li><strong>Why you think it held up.</strong> Which of these protected it? Pick and justify: self-explanatory tool names, a clear parameter, an easy question, a strong model, a small number of tools, or something else</li>
+  <li><strong>What would make it fail in a real project.</strong> For example: many tools, similar tool names, long conversations, vague user phrasing, a different model, or a model update</li>
+  <li><strong>What you would monitor.</strong> One thing you would log or test regularly so you would notice if it started failing, and why &ldquo;it didn't fail today&rdquo; is not enough to ship</li>
+</ol>
+<p>A complete report on a mode that did not fail counts exactly as much as a record of a mode that did.</p>
+
+<h2>Part 3 — Fix It With Your Own Descriptions <span class="lab-timing">(17 minutes)</span></h2>
+
+<h3>Write Your Schemas <span class="lab-timing">(8 minutes)</span></h3>
+<p>Open <code>week7_lab_starter.py</code> and replace each <code>TODO</code> in <code>TOOLS</code> with your description and parameter description, for all <strong>three</strong> tools.</p>
+<p>Use the six-question checklist from the lecture. A good description says:</p>
+<ol>
+  <li><strong>What</strong> the tool does</li>
+  <li><strong>When</strong> to use it</li>
+  <li><strong>When NOT</strong> to use it (and what to use instead)</li>
+  <li>What each <strong>parameter</strong> means and its format</li>
+  <li>What it <strong>returns</strong></li>
+  <li>Its <strong>limits</strong></li>
+</ol>
+<p>
+  Aim for at least three to four sentences per tool. Pay particular attention to where two tools
+  could be confused, and to what the calculator can and cannot accept.
+</p>
+<div class="callout note">
+  You must fix the failures you found. If a mode did <strong>not</strong> fail, still write the
+  description that you would use to <strong>prevent</strong> it, and test that it holds up.
+</div>
+
+<h3>Rerun and Compare <span class="lab-timing">(9 minutes)</span></h3>
+<p>Run your version on exactly the same queries:</p>
+<pre class="code-block"><code>python week7_lab_starter.py --modes --repeat 5
+python week7_lab_starter.py --stress --repeat 5</code></pre>
+<p>Then:</p>
+<ol>
+  <li><strong>Compare before and after</strong> in a table: for each mode's main query, the V0 counts and your counts</li>
+  <li><strong>Check for new problems.</strong> Did a fix for one mode break another? Re-test <strong>all</strong> the queries you used</li>
+  <li><strong>Explain one fix</strong> in terms of the exact words you changed</li>
+</ol>
+<p>If something still fails, say so. A partial fix with an honest explanation is a good result.</p>
+
+<p><strong>Before/after table:</strong></p>
+<pre class="code-block"><code>Query | V0 result (5 runs) | My result (5 runs) | Better / same / worse</code></pre>
+
+<h2>Part 4 — Written Responses <span class="lab-timing">(10 minutes)</span></h2>
+<p>
+  <strong>Question 1 (3–5 sentences).</strong> Which failure mode was hardest to fix or to
+  provoke, and why? What does this tell you about designing tool descriptions, and about how much
+  evidence you need before you trust an AI component, in your project?
+</p>
+<p>
+  <strong>Question 2 (2–3 sentences).</strong> Imagine your team's AI component could use a tool
+  that <strong>changes something</strong> (sends a message, creates an issue, edits a file,
+  deletes data). Name that tool. Who or what should approve it before it runs, and what would
+  happen if the model called it wrongly?
+</p>
+
+<h2>Submission Checklist</h2>
+<p>Before you upload, check that your PDF:</p>
+<ul>
+  <li>Has your name, student ID and the model you used at the top</li>
+  <li>Shows your <code>handle_tool_call</code> code, your <code>is_error</code> reasoning and the baseline results</li>
+  <li>Has a <strong>prediction and a record</strong> for all four failure modes, with run counts</li>
+  <li>For any mode that did not fail, has the <strong>&ldquo;did not fail&rdquo; report</strong> (numbers, stress, changed conditions, reflection)</li>
+  <li>Shows your final schemas for all three tools, a before/after table and the queries you re-tested</li>
+  <li>Answers Question 1 and Question 2</li>
+  <li>Is specific to what you saw. A reader should be able to tell that you ran the queries yourself</li>
+  <li>Does <strong>not</strong> contain your API key</li>
+  <li>Is saved as a single PDF named <code>Week7_Lab_&lt;your student ID&gt;.pdf</code></li>
+</ul>
+<div class="callout warning">
+  Then upload it on E3 under &ldquo;<a href="https://e3p.nycu.edu.tw/mod/assign/view.php?id=247247">Week 7 Lab</a>&rdquo; by <strong>Wednesday, October 21 (23:59)</strong>. A
+  fillable template is in <code>week7_lab_submission_template.md</code>, in the
+  <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=247248">required files</a> on E3.
+</div>
+
+<h2>If Things Go Wrong</h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Problem</th><th>What to do</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>ModuleNotFoundError: anthropic</code></td><td>Run <code>pip install anthropic</code>. Make sure the terminal uses the same Python you installed it for</td></tr>
+    <tr><td>An authentication error</td><td>The key is missing or wrong. Reset it in the terminal, open a <strong>new</strong> terminal if you used <code>setx</code>, and rerun. Ask a TA if it persists</td></tr>
+    <tr><td>&ldquo;Your credit balance is too low&rdquo;</td><td>The class credit has run out or is not set up for your key. Tell a TA. Do not keep retrying</td></tr>
+    <tr><td>Rate limit or &ldquo;overloaded&rdquo; error</td><td>Wait 30 seconds and retry. Use a smaller <code>--repeat</code>, and do not run many queries in a loop</td></tr>
+    <tr><td><code>NotImplementedError: TODO: implement handle_tool_call</code></td><td>You have not written Part 1 yet</td></tr>
+    <tr><td>&ldquo;Your schemas in TOOLS still contain TODO text&rdquo;</td><td>Normal until Part 3. Use <code>--v0</code> for Parts 1–2</td></tr>
+    <tr><td>The model never calls a tool</td><td>Check that the tool names in your code match the schemas</td></tr>
+    <tr><td>An error about <code>tool_use</code> ids without <code>tool_result</code></td><td>The loop in the starter handles this. If you edited the loop, check that every tool call gets a result in the very next message</td></tr>
+    <tr><td>&ldquo;(stopped after 5 model calls)&rdquo;</td><td>The loop's safety limit. This is a finding. Note which query caused it</td></tr>
+    <tr><td>Different results from a classmate</td><td>Expected. Models vary between runs. Compare counts, and discuss</td></tr>
+    <tr><td>A mode never fails for you</td><td>See &ldquo;If a failure mode did not fail&rdquo; in Part 2</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Optional Extensions <span class="lab-timing">(not submitted)</span></h2>
+<p>If you finish early:</p>
+<ul>
+  <li>Add a fourth tool of your own and see whether your fixes still hold</li>
+  <li>Look up <code>tool_choice</code> in Anthropic's &ldquo;Define tools&rdquo; documentation and see what it changes. Note that some options are restricted on the newest models</li>
+  <li>Wrap your tools as a small MCP server (see lecture slide 32) and compare the schemas</li>
+</ul>
+
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>
