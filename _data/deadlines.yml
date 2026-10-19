@@ -53,10 +53,10 @@
   due_text: "End of Week 8 — <strong>Sunday, 23:59</strong>"
   url: "/assignments/a1/"
 
-# - title: "Checkpoint 1 (CP1)"
-#   date: "2026-10-12"
-#   due_text: "Week 6 (async)"
-#   url: "/project/cp1/"
+- title: "Checkpoint 1 (CP1)"
+  date: "2026-10-25"
+  due_text: "Week 7 — <strong>end of day</strong>"
+  url: "/project/cp1/"
 
 # - title: "Assignment 2: Prompt System Design and Test Suite"
 #   date: "2026-11-16"

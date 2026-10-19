@@ -13,7 +13,7 @@
   slug: "cp1"
   phase: "Phase 1 — Discovery"
   weight: "5%"
-  due: "Week 6 (async)"
+  due: "Week 7"
   description: "Problem framing, user research, initial prototype, and evaluation plan."
 
 - id: "CP2"
