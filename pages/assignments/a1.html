@@ -181,6 +181,8 @@ def calculate_completion_rate(tasks):
 <p>
   For each of the five technique applications above: the prompt verbatim, the full model response,
   and two to three sentences on what the technique added or failed to add for that specific task.
+  Name at least one visible difference in how the response was reached (the reasoning it showed, what it checked, what it noticed), even when the final code is the same as another response. 
+  If you saw no difference, say so.
   Please see the sample submission template for the detailed format.
 </p>
 
@@ -303,7 +305,7 @@ def calculate_completion_rate(tasks):
     <tr>
       <td><strong>Reflection</strong></td>
       <td>4</td>
-      <td>2–3 sentences, specific to this task and this output; says what the technique added <em>or failed to add</em>; every claim matches the response you show.</td>
+      <td>2–3 sentences, specific to this task and this output; says what the technique added <em>or failed to add</em>; names at least one visible difference in how the response was reached (or says there was none); every claim matches the response you show.</td>
       <td>Plausible but generic, could describe any task (2). Or one claim contradicts the response you show (2).</td>
       <td>Generic filler, or contradicts the response you show throughout (0).</td>
     </tr>
@@ -355,7 +357,7 @@ def calculate_completion_rate(tasks):
     <tr>
       <td><strong>Evidence</strong></td>
       <td>4</td>
-      <td>The full code and the checker output from <strong>both</strong> the original and the rewrite, from real runs and consistent with each other; the rewrite's checker output is better in the way your diagnosis predicts.</td>
+      <td>For <b>both</b> the original and the rewrite: the complete run record (full prompt and full, unedited response) and the complete checker output, from real runs and consistent with each other. The rewrite's checker output is better in the way your diagnosis predicts. <b>If the original passed every check:</b> the complete records of three original runs and one rewrite run, the rewrite also passes, and nothing more is required (the number of passes does not have to increase). </td>
       <td>One output missing or truncated (2). The difference is real but not connected to your diagnosis (2–3).</td>
       <td>No outputs, or outputs that contradict your claim (0).</td>
     </tr>
