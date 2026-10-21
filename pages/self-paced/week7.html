@@ -1,0 +1,152 @@
+---
+layout: default
+title: Week 7 Self-Paced Module
+permalink: /self-paced/week7/
+---
+
+<div class="page-header">
+  <h1>Week 7 Self-Paced Module: Evolution of Tool Use</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  This week's lecture showed you how tool use works today. This module answers a different
+  question: why does it look the way it does? Tool use went from a research idea to a standard
+  protocol in about three years — from hand-built, one-off integrations, through ReAct and
+  Toolformer, to function calling and the Model Context Protocol (MCP). Understanding that arc
+  helps you read new announcements critically and anticipate what comes next.
+</p>
+
+<h2>Why This Matters</h2>
+<p>
+  Each step in this history fixed a specific weakness in the one before it, and knowing which
+  weakness tells you what is still your job today. Understanding why function calling moved tool
+  definitions out of training and into the request is exactly why your tool descriptions matter so
+  much — the model was trained to read schemas in general, so your text is the only thing telling
+  it what your tool is actually for. And because the standards are still changing (MCP's
+  specification has already changed significantly since late 2024), this history also helps you
+  judge whether a new announcement is a genuinely new idea or just a new packaging of an old one.
+</p>
+
+<h2>Format and Timing</h2>
+<ul>
+  <li><strong>Framing video</strong> (~12 minutes, 15 slides, posted on E3) — link coming soon; check back before starting the module.</li>
+  <li><strong>Required reading</strong> — three items: Anthropic's tool-use documentation, MCP's architecture overview, and the ReAct/Toolformer paper abstracts (~38 minutes combined). Linked below.</li>
+  <li><strong>Multiple choice questions</strong> (單一選擇題) — four questions on E3, about 10 minutes.</li>
+  <li><strong>Total estimated time:</strong> ~60 minutes</li>
+  <li><strong>Complete by Sunday, October 25.</strong> Week 8 is a holiday, so use it if you need to.</li>
+</ul>
+
+<h2>What You'll Learn</h2>
+<ul>
+  <li>
+    <strong>Before tool use: hand-built systems (2021–2022)</strong> — WebGPT (a GPT-3 model
+    fine-tuned to use a web browser) and MRKL systems (routing requests to separate expert
+    modules) proved that a language model plus outside tools beats a language model alone, but
+    each integration was built by hand for one specific system and task.
+  </li>
+  <li>
+    <strong>ReAct (2022)</strong> — interleaves reasoning traces and actions: reason about what to
+    do, act, observe, reason again. It named the Reason → Act → Observe loop, reduced
+    hallucination and error propagation compared to chain-of-thought alone, and made behaviour
+    more auditable — though a reasoning trace is evidence you can debug with, not proof of what
+    actually drove the decision.
+  </li>
+  <li>
+    <strong>Toolformer (2023)</strong> — trained a model to decide which APIs to call, when, and
+    with what arguments, in a self-supervised way from a handful of demonstrations. The decision
+    to use a tool was <em>learned</em> rather than hard-coded, but the knowledge was baked into the
+    weights: it couldn't chain tool calls, couldn't interact with a tool over multiple turns, and
+    adding a new tool meant retraining.
+  </li>
+  <li>
+    <strong>Function calling (2023): the pivot</strong> — tool definitions move out of training and
+    into the API request. The model is trained once, in general, to read tool schemas and decide
+    whether to call them; you define a tool with a name, description, and input schema, the model
+    returns a structured tool call, and your code runs it and returns the result. This is why
+    description quality is now your responsibility, not the model's training data's.
+  </li>
+  <li>
+    <strong>The next problem: N × M integrations</strong> — with function calling, every
+    application writes its own tool definitions and glue code for its own model. Reusing the same
+    integration across multiple applications means writing it multiple times, or letting copies
+    drift. This is an integration problem, which is exactly the kind of problem a standard solves.
+  </li>
+  <li>
+    <strong>MCP (2024): a standard for tools and context</strong> — Anthropic's open protocol with
+    a host (the AI app), one client per server, and servers that expose tools, resources and
+    prompts over JSON-RPC. Write an integration once as a server, and any compatible host can use
+    it — N × M becomes N + M. MCP changes <em>reuse</em>, not intelligence: schema quality,
+    boundaries, and safety are still engineering responsibilities.
+  </li>
+  <li>
+    <strong>MCP's governance and continued change (2025–2026)</strong> — Anthropic donated MCP to
+    the Agentic AI Foundation (a Linux Foundation directed fund, co-founded with Block and OpenAI)
+    in December 2025, by which point it had roughly 10,000 active servers and support across major
+    AI products. The specification keeps evolving — some earlier features have already been
+    deprecated or replaced — and security has become a first-class topic (confused-deputy attacks,
+    token passthrough, local server compromise). Anything you build on MCP should pin versions and
+    expect to update.
+  </li>
+  <li>
+    <strong>The pattern across all of it</strong> — each step moved something out of one-off code
+    or model weights and into a shared interface. What never moved: designing the interface well,
+    evaluating the trajectory, and deciding what the system is allowed to do. Those remain
+    engineering responsibilities no standard takes off your plate.
+  </li>
+</ul>
+
+<h2>Required Materials</h2>
+<ul>
+  <li><strong>Framing video:</strong> posted on E3 under <a href="https://e3p.nycu.edu.tw/mod/quiz/view.php?id=248567">Week 7 Self-paced Modules</a>.</li>
+  <li>
+    <strong>Reading:</strong> Anthropic, &ldquo;<a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools">Define tools</a>&rdquo; (~15 minutes) — read the sections on
+    descriptions, naming, input schema, input examples, and tool choice. Skim the rest.
+  </li>
+  <li>
+    <strong>Reading:</strong> Model Context Protocol, &ldquo;<a href="https://modelcontextprotocol.io/docs/learn/architecture">Architecture overview</a>&rdquo; (~15 minutes) — read
+    Participants, Layers, and Primitives. You can skim the JSON examples.
+  </li>
+  <li>
+    <strong>Reading:</strong> the two research paper abstracts and introductions only (~8 minutes) — Yao et al. (2022), &ldquo;<a href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and Acting in Language Models</a>&rdquo;, and Schick et al. (2023),
+    &ldquo;<a href="https://arxiv.org/abs/2302.04761">Toolformer: Language Models Can Teach Themselves to Use Tools</a>&rdquo;.
+  </li>
+  <li><strong>Multiple choice questions:</strong> posted on E3 under <a href="https://e3p.nycu.edu.tw/mod/quiz/view.php?id=248567">Week 7 Self-paced Modules Response</a>.</li>
+</ul>
+
+<h2>Optional Materials</h2>
+<p>If you want to go deeper on any of these topics (not required, but helpful if you're curious):</p>
+<ul>
+  <li>
+    <strong>Anthropic Engineering, &ldquo;<a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for agents — with agents</a>&rdquo;</strong> (Sept 2025) — how Anthropic's team builds and evaluates
+    tools: prototype, build evaluations from realistic multi-step tasks, consolidate tools,
+    namespace them, return high-signal results, and write clear descriptions and actionable error
+    messages. Highly recommended for your project.
+  </li>
+  <li>
+    <strong>Anthropic Engineering, &ldquo;<a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a>&rdquo;</strong> (Dec 2024) — distinguishes workflows (predefined code paths) from
+    agents (the model directs its own process), and argues for the simplest solution that works. A
+    preview of Week 13.
+  </li>
+  <li>
+    <strong>Model Context Protocol, &ldquo;<a href="https://modelcontextprotocol.io/specification/draft/basic/security_best_practices">Security best practices</a>&rdquo;</strong> — the project's own account of the main attacks and
+    mitigations. Read the introductions to <em>Local MCP Server Compromise</em>, <em>Confused
+    Deputy</em>, and <em>Scope Minimization</em>.
+  </li>
+  <li>
+    <strong>Model Context Protocol, &ldquo;<a href="https://modelcontextprotocol.io/docs/learn/server-concepts">Understanding MCP servers</a>&rdquo;</strong> — a fuller treatment of tools, resources and prompts,
+    including who controls each.
+  </li>
+</ul>
+
+<h2>Completion and Assessment</h2>
+<div class="callout warning">
+  This module is graded on completion. Submit your answers to the 4 questions on E3 before
+  <strong>Sunday, October 25</strong>. You'll
+  receive full credit for completing all questions; partial credit is not available. The
+  questions are based on the readings and the framing video, so doing the readings first will
+  make them straightforward.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

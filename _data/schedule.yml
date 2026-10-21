@@ -89,6 +89,7 @@
   lab: "Diagnose and fix a three-tool agent (online)"
   lab_url: "/labs/week7/"
   self_paced: "Evolution of tool use - Toolformer to function calling"
+  self_paced_url: "/self-paced/week7/"
   assigned: ""
   due: '<a href="/project/cp1/">CP1</a> (5%, due Oct 25)'
 
