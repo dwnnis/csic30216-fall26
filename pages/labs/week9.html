@@ -1,0 +1,345 @@
+---
+layout: default
+title: Week 9 Lab
+permalink: /labs/week9/
+---
+
+<div class="page-header">
+  <h1>Week 9 Lab — Measure and Improve a RAG Pipeline</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Goal</h2>
+<p>
+  You are given a small question-answering system over a (fictional) company handbook. It finds the
+  relevant passages and gives them to a model (RAG). Your job is to <strong>measure</strong> how
+  well it finds the right passage, <strong>find out why it sometimes does not</strong>, and
+  <strong>improve</strong> both the search and the prompt. Retrieval can be scored without calling
+  a model at all, so you can run many experiments quickly and for free.
+</p>
+<p><strong>Working style:</strong> In-person lab, individual &middot; <strong>Total time:</strong> ~60 minutes</p>
+
+<div class="callout note">
+  <strong>Retrieval scores are deterministic:</strong> the same command gives the same result every
+  time. If answer generation does not fail for you, that is a valid result; Part 3 says what to
+  report.
+</div>
+
+<h2>What You Submit <span class="lab-timing">(read this first)</span></h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <tbody>
+    <tr><td><strong>Who</strong></td><td>Individual. Each student submits their own file</td></tr>
+    <tr><td><strong>What</strong></td><td><strong>One PDF document</strong> with the contents listed below</td></tr>
+    <tr><td><strong>Where</strong></td><td>E3, under &ldquo;Week 9 Lab&rdquo;</td></tr>
+    <tr><td><strong>When</strong></td><td>By the end of <strong>Wednesday, November 4 (23:59)</strong></td></tr>
+    <tr><td><strong>File name</strong></td><td><code>Week9_Lab_&lt;your student ID&gt;.pdf</code></td></tr>
+    <tr><td><strong>Grading</strong></td><td>Graded on completion, like the earlier labs. Be specific</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Your PDF should contain, in this order:</strong></p>
+<ol>
+  <li><strong>Header:</strong> your name, student ID, team number, and the model you used</li>
+  <li><strong>Part 1:</strong> the with/without retrieval comparison, with your predictions</li>
+  <li><strong>Part 2:</strong> retrieval results: the chunking table, your two diagnosed misses, and your <code>chunk_by_heading</code> code</li>
+  <li><strong>Part 3:</strong> your <code>build_prompt</code>, before/after answer scores, a faithfulness spot-check of three answers, and three classified failures (or the &ldquo;did not fail&rdquo; report)</li>
+  <li><strong>Part 4:</strong> your written responses to Question 1 and Question 2</li>
+</ol>
+<p>
+  A fillable copy is in <code>week9_lab_submission_template.md</code>. Write in any tool and save
+  as PDF before uploading. Please do <strong>NOT</strong> include your API key.
+</p>
+
+<h2>Time Plan</h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Part</th><th>What</th><th>Minutes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Setup</td><td>files, packages, smoke test</td><td>5</td></tr>
+    <tr><td>Part 1</td><td>RAG vs. no RAG on four questions</td><td>10</td></tr>
+    <tr><td>Part 2</td><td>measure and diagnose retrieval; write a second chunker</td><td>20</td></tr>
+    <tr><td>Part 3</td><td>measure the answers; write a better prompt</td><td>15</td></tr>
+    <tr><td>Part 4</td><td>written responses</td><td>10</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Setup <span class="lab-timing">(5 minutes)</span></h2>
+<p>You need Python 3.9 or newer.</p>
+<ol>
+  <li>
+    Put <code>week9_lab_starter.py</code>, <code>eval_questions.json</code> and the
+    <code>corpus/</code> folder <strong>in the same folder</strong>. Download them from E3, under
+    &ldquo;Week 9 Lab Files&rdquo;
+  </li>
+  <li>Install the packages: <code>pip install chromadb anthropic</code></li>
+  <li>Run <code>python week9_setup_check.py</code>. The first run downloads a small embedding model</li>
+  <li>
+    <strong>API key</strong> (needed in Parts 1 and 3 only): Get your team's API key from the
+    course website. Set it in your terminal and never in a file:
+    <ul>
+      <li>macOS / Linux: <code>export ANTHROPIC_API_KEY=your-key-here</code></li>
+      <li>Windows: <code>setx ANTHROPIC_API_KEY your-key-here</code>, then open a <strong>new</strong> terminal</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Smoke test (free, no key needed):</strong>
+    <code>python week9_lab_starter.py eval</code>. You should see a list of questions with
+    <code>ok</code> or <code>MISS</code>
+  </li>
+</ol>
+
+<div class="callout warning">
+  <strong>Protect your key.</strong> Never post it on E3, Discord, in email, in a screenshot, or in
+  your team's repository. The class shares a budget: keep <code>--repeat</code> at 5 or below.
+</div>
+
+<h2>What the Starter File Gives You</h2>
+<ul>
+  <li><strong>The corpus:</strong> 20 short documents from the &ldquo;Nimbus Notes&rdquo; engineering handbook (architecture, policies, runbooks, postmortems, a changelog)</li>
+  <li><strong>21 questions</strong> in <code>eval_questions.json</code>, each with the evidence it needs and a type (factual, paraphrase, exact term, conflict, and so on)</li>
+  <li><strong>Chunking:</strong> <code>chunk_fixed(size, overlap)</code>, sized in words (roughly 1.3 tokens per word)</li>
+  <li><strong>Two retrievers:</strong> <code>bm25</code> (keyword search) and <code>dense</code> (semantic search with a local embedding model)</li>
+  <li><strong>Scoring (no API calls):</strong> <code>hit@k</code> (do the top-k chunks contain <em>all</em> the evidence?), <code>MRR</code> (how high is the first relevant chunk?), <code>precision@k</code>, and the number of context words the model must read</li>
+  <li><strong>Generation:</strong> <code>ask</code>, <code>run-all</code>, and an automatic answer check (a rough heuristic: read the answers yourself)</li>
+</ul>
+<p>
+  You write three things: <code>chunk_by_heading</code> (Part 2), <code>build_prompt</code>
+  (Part 3), and optionally <code>HybridIndex.search</code> (Part 4).
+</p>
+
+<p><strong>Commands you will use</strong></p>
+<pre class="code-block"><code>python week9_lab_starter.py eval --retriever bm25 --chunk fixed:200:0 --k 3
+python week9_lab_starter.py grid --retrievers bm25,dense --k 3
+python week9_lab_starter.py ask "question"            # add --no-rag, --retriever dense, --k 5
+python week9_lab_starter.py run-all --prompt v0       # all 21 questions with the basic prompt
+python week9_lab_starter.py run-all                   # all 21 questions with YOUR prompt</code></pre>
+<p>
+  <code>--chunk fixed:200:0</code> means chunks of 200 words with 0 words of overlap.
+  <code>fixed:200:50</code> means 50 words are shared between neighbouring chunks.
+</p>
+
+<h2>Part 1 — Does Retrieval Help? <span class="lab-timing">(10 minutes)</span></h2>
+<p>
+  <strong>Predict first.</strong> For each question below, write whether you expect the model to
+  answer <strong>correctly without retrieval</strong>, and why. The company is fictional, so think
+  about what a model could possibly know.
+</p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>#</th><th>Question</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>a</td><td>Which port does the search service listen on?</td></tr>
+    <tr><td>b</td><td>How many approvals does a change to the billing code need?</td></tr>
+    <tr><td>c</td><td>What uptime SLA do Team plan customers get?</td></tr>
+    <tr><td>d</td><td>What is the maximum size of a pull request?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Run each question twice:</strong></p>
+<pre class="code-block"><code>python week9_lab_starter.py ask "Which port does the search service listen on?" --no-rag
+python week9_lab_starter.py ask "Which port does the search service listen on?" --prompt v0</code></pre>
+<p>
+  Record, for each: the answer, the chunk ids retrieved (RAG only), and whether it is correct. Look
+  at the <strong>ideal answers</strong> by reading the retrieved chunks yourself.
+</p>
+<p>
+  <strong>Look for:</strong> what did the model do when it did <strong>not</strong> know? Did it say
+  so, or invent something? Which question is unanswerable from the documents, and what did RAG do
+  with it? Were b and d answered correctly with the basic prompt? Check the retrieved chunks: is
+  there more than one version of the relevant policy?
+</p>
+
+<h2>Part 2 — Measure and Diagnose Retrieval <span class="lab-timing">(20 minutes)</span></h2>
+<p>All commands in this part are free: no API calls.</p>
+
+<h3>Step 1: Predict <span class="lab-timing">(3 minutes)</span></h3>
+<p>
+  The questions have these types: <strong>factual</strong>, <strong>paraphrase</strong> (the
+  question uses different words from the document), <strong>exact term</strong> (an acronym or
+  command), <strong>conflict</strong>, <strong>multi chunk</strong> (the evidence is in two places
+  far apart), <strong>multi hop</strong> (needs two documents), <strong>number confusion</strong>.
+  Write down which two types you expect keyword search (BM25) to find hardest, and why. Then which
+  types you expect semantic search (dense) to handle better, and which worse.
+</p>
+
+<h3>Step 2: Run <span class="lab-timing">(4 minutes)</span></h3>
+<pre class="code-block"><code>python week9_lab_starter.py eval --retriever bm25 --chunk fixed:200:0 --k 3
+python week9_lab_starter.py eval --retriever dense --chunk fixed:200:0 --k 3</code></pre>
+<p>
+  Record <code>hit@3</code>, <code>MRR</code>, and the <strong>list of questions marked MISS</strong>
+  for each retriever. Compare with your prediction.
+</p>
+
+<h3>Step 3: The Chunking Table <span class="lab-timing">(6 minutes)</span></h3>
+<pre class="code-block"><code>python week9_lab_starter.py grid --retrievers bm25,dense --k 3</code></pre>
+<p>
+  Each cell shows <code>hit@k / MRR / average context words</code>. Copy at least
+  <strong>four rows</strong> into your PDF. Then answer:
+</p>
+<ul>
+  <li>Which chunk setting would you choose for each retriever, and why? Consider both the score and the number of context words the model has to read (cost and noise)</li>
+  <li>Did overlap help? Look at <code>fixed:200:0</code> against <code>fixed:200:50</code>. Can you explain what you see? (Hint: how long are the documents?)</li>
+  <li>Try <code>--k 1</code> and <code>--k 5</code> for your chosen setting. What does a larger k buy you, and what does it cost?</li>
+</ul>
+
+<h3>Step 4: Write a Second Chunker <span class="lab-timing">(5 minutes)</span></h3>
+<p>
+  Implement <code>chunk_by_heading(doc, max_words)</code> in the starter. Documents are split into
+  sections that begin with <code>## </code>. Pack consecutive sections into one chunk until adding
+  the next section would make the chunk longer than <code>max_words</code>; cut any single section
+  that is longer than <code>max_words</code>. Then compare:
+</p>
+<pre class="code-block"><code>python week9_lab_starter.py grid --retrievers bm25,dense --k 3 --heading</code></pre>
+<p>
+  Is <code>heading:250</code> better, worse, or the same as your best <code>fixed</code> setting?
+  Offer one reason, and say whether you think the difference would survive on a bigger corpus.
+</p>
+
+<h3>Step 5: Diagnose Two Misses <span class="lab-timing">(2 minutes)</span></h3>
+<p>
+  Choose <strong>two</strong> questions that missed with your best setting (different retrievers or
+  different types if possible). For each, run <code>eval</code> and look at the chunk ids it
+  retrieved. Use the printed <code>top:</code> list and open the files if you need to. Write: the
+  question; what was retrieved; the <strong>most likely reason</strong> it missed (vocabulary
+  mismatch, evidence split across two chunks, a different chunk with the same words, a chunk too
+  small, k too small, or something else); and <strong>one change</strong> that might fix it.
+</p>
+
+<h2>Part 3 — Measure the Answers and Improve the Prompt <span class="lab-timing">(15 minutes)</span></h2>
+<p>
+  Use the best retrieval setting you found. These commands call the model: about 21 calls per run.
+</p>
+
+<h3>Step 1: Baseline With the Basic Prompt <span class="lab-timing">(3 minutes)</span></h3>
+<pre class="code-block"><code>python week9_lab_starter.py run-all --prompt v0 --retriever dense --chunk fixed:200:0 --k 3</code></pre>
+<p>
+  (Use your own best retriever and chunk setting.) It prints a pass/fail line for each question and
+  saves all answers to a <code>results_*.json</code> file. The automatic check is a rough
+  heuristic, so <strong>open the results file and read the answers</strong>, especially the failures
+  and these three types: <strong>conflict</strong>, <strong>unanswerable</strong> and
+  <strong>injection</strong>.
+</p>
+
+<h3>Step 2: Write a Better Prompt <span class="lab-timing">(6 minutes)</span></h3>
+<p>Edit <code>build_prompt</code> in the starter. Think about:</p>
+<ul>
+  <li>telling the model to answer <strong>only</strong> from the documents, and exactly what to say if the answer is not there</li>
+  <li>showing each chunk's source (<code>doc_id</code>, title, date, status) so the model can cite and compare</li>
+  <li>what to do when two documents disagree</li>
+  <li>what to do with an <strong>instruction found inside a document</strong></li>
+</ul>
+<p>
+  Run <code>python week9_lab_starter.py run-all --retriever ... --chunk ... --k ...</code> again
+  (without <code>--prompt v0</code>). Compare the number of questions passed with the basic prompt
+  and with yours.
+</p>
+
+<h3>Step 3: Faithfulness Spot-Check <span class="lab-timing">(3 minutes)</span></h3>
+<p>
+  The automatic check does not tell you whether an answer is <strong>grounded</strong>. Pick
+  <strong>three</strong> answers from your improved prompt (include one conflict or unanswerable
+  question). For each, list the claims the answer makes and mark whether a retrieved chunk supports
+  each claim (<strong>faithful</strong>: yes or no), and whether the answer addresses the question
+  that was asked (<strong>relevant</strong>: yes or no). Note any claim you cannot point to a
+  passage for.
+</p>
+
+<h3>Step 4: Classify Three Failures <span class="lab-timing">(3 minutes)</span></h3>
+<p>
+  Pick <strong>three</strong> questions that failed with either prompt (or that you consider wrong
+  after reading). For each, say which of these it is, and what the first fix would be:
+</p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Failure</th><th>What it looks like</th><th>First fix to try</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Retrieval miss</strong></td><td>the needed chunk was not retrieved</td><td>change the chunk size, k, or retriever (Part 2)</td></tr>
+    <tr><td><strong>Context ignored or misread</strong></td><td>the chunk was retrieved but the answer is wrong</td><td>prompt: ask for quotes or citations, reduce noise</td></tr>
+    <tr><td><strong>Conflicting sources</strong></td><td>an outdated document was used</td><td>show status and date; tell the model which to prefer</td></tr>
+    <tr><td><strong>Invented answer</strong></td><td>the answer is not in the documents, but the model gave one</td><td>prompt: allow &ldquo;I could not find this&rdquo;</td></tr>
+    <tr><td><strong>Injection followed</strong></td><td>the model obeyed an instruction inside a document</td><td>prompt: treat documents as data; filter or review the corpus</td></tr>
+    <tr><td><strong>Other</strong></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>If Generation Did Not Fail</h3>
+<p>
+  Because the model is strong, some generation problems may not show up for you. That is a valid
+  result and earns the same credit. If the basic prompt already passes the <strong>conflict</strong>,
+  <strong>unanswerable</strong> and <strong>injection</strong> questions, do all of these:
+</p>
+<ol>
+  <li><strong>Evidence.</strong> Run <code>run-all --prompt v0 --repeat 3</code> and report, for those questions, how many of 3 runs passed</li>
+  <li><strong>Try to break it.</strong> Write <strong>two questions of your own</strong> that you predict could trip the basic prompt (for example, ask about a topic the documents only touch on, ask in Chinese, or ask something an outdated document would answer differently). Write your prediction first, then report the result</li>
+  <li><strong>Reflect (4–5 sentences):</strong> why do you think it held up? What would make it fail in a real project (a bigger corpus, more conflicting versions, a user-editable corpus, a different model)? What would you log or test to notice? Why is &ldquo;it passed today&rdquo; not enough?</li>
+</ol>
+
+<h2>Part 4 — Written Responses <span class="lab-timing">(10 minutes)</span></h2>
+<p>
+  <strong>Question 1 (3–5 sentences).</strong> Think of your team's project. What would a knowledge
+  base for it contain, and would you use RAG? Consider the size of the knowledge base (could it
+  simply be placed in the prompt?), how often it changes, and what you learned about which
+  retriever and chunk size worked. If you would <strong>not</strong> use RAG, say why.
+</p>
+<p>
+  <strong>Question 2 (2–4 sentences).</strong> One document in the corpus contains an instruction
+  aimed at AI assistants. Who can write to your project's knowledge base, and what could go wrong
+  if a document there were malicious or simply wrong? Name <strong>two</strong> controls you would
+  use (for example: restrict who can add documents, review additions, show sources to the user,
+  tell the model that retrieved text is data and not instructions, test with known-bad documents).
+</p>
+<div class="callout note">
+  <strong>Optional extension (not required).</strong> Implement <code>HybridIndex.search</code>
+  (reciprocal rank fusion of BM25 and dense) and run
+  <code>grid --retrievers bm25,dense,hybrid</code>. Does combining the two help? Which questions
+  does each retriever get right that the other gets wrong?
+</div>
+
+<h2>Submission Checklist</h2>
+<ul>
+  <li>Name, student ID, team number and model are filled in</li>
+  <li>Part 1: predictions and the with/without retrieval table</li>
+  <li>Part 2: predictions, the retrieval results for both retrievers, a chunking table (at least four rows), your <code>chunk_by_heading</code> code, and two diagnosed misses</li>
+  <li>Part 3: the basic-prompt result, your <code>build_prompt</code>, the before/after pass counts, the faithfulness spot-check, and three classified failures (or the &ldquo;did not fail&rdquo; report)</li>
+  <li>Question 1 and Question 2 are answered</li>
+  <li>Your answers are specific to what you saw</li>
+  <li>No API key appears anywhere</li>
+  <li>Saved as one PDF named <code>Week9_Lab_&lt;student ID&gt;.pdf</code></li>
+</ul>
+<div class="callout warning">
+  Upload it on E3 under &ldquo;Week 9 Lab&rdquo; by <strong>Wednesday, November 4 (23:59)</strong>.
+</div>
+
+<h2>If Things Go Wrong</h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Problem</th><th>What to do</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Semantic search needs chromadb</code></td><td>Run <code>pip install chromadb</code></td></tr>
+    <tr><td>The embedding model will not download</td><td>Check your network and free disk space; a VPN or proxy can block it. Use <code>--retriever bm25</code> meanwhile and tell a TA</td></tr>
+    <tr><td><code>ModuleNotFoundError: anthropic</code></td><td>Run <code>pip install anthropic</code> (only needed for Parts 1 and 3)</td></tr>
+    <tr><td>An authentication error</td><td>The key is missing or wrong. Reset it, open a <strong>new</strong> terminal if you used <code>setx</code>, and rerun</td></tr>
+    <tr><td>&ldquo;Your credit balance is too low&rdquo;</td><td>Tell a TA. Do not keep retrying</td></tr>
+    <tr><td>Rate limit or &ldquo;overloaded&rdquo;</td><td>Wait 30 seconds, then retry with a smaller <code>--repeat</code></td></tr>
+    <tr><td><code>NotImplementedError: TODO</code></td><td>That function is yours to write: <code>chunk_by_heading</code> in Part 2, <code>HybridIndex.search</code> in Part 4</td></tr>
+    <tr><td><code>FileNotFoundError</code> for corpus or questions</td><td>Keep the script, <code>corpus/</code> and <code>eval_questions.json</code> in one folder, and run from that folder</td></tr>
+    <tr><td>The first dense run is slow</td><td>It embeds every chunk once. Results are cached while the program runs</td></tr>
+    <tr><td>Scores differ slightly from a neighbour's</td><td>Different chunk or <code>k</code> settings. Compare your commands</td></tr>
+  </tbody>
+</table>
+</div>
+
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>
