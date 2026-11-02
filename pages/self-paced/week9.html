@@ -1,0 +1,150 @@
+---
+layout: default
+title: Week 9 Self-Paced Module
+permalink: /self-paced/week9/
+---
+
+<div class="page-header">
+  <h1>Week 9 Self-Paced Module: RAG Evaluation in Depth — RAGAS and Production Monitoring</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  This week's lab measured a small RAG system by hand: 21 questions, retrieval scores you could
+  compute yourself, and faithfulness checked by reading the answers. That works for a class
+  exercise. This module is about what happens at a different scale — thousands of questions, no
+  time to read every answer, and a system that keeps changing after you ship it. It covers how
+  retrieval and generation checks are automated (RAGAS-style metrics), what those automated checks
+  get wrong, and how to keep watching a RAG system once it is live.
+</p>
+
+<h2>Why This Matters</h2>
+<p>
+  Every automated check in this module exists to avoid reading every answer yourself, and every
+  one of them has a catch — learning the catches is the point. Splitting retrieval from generation
+  tells you which half of the pipeline to fix when an answer is wrong. An LLM-as-a-judge score can
+  agree with humans most of the time on one benchmark and still carry known biases, so it has to be
+  calibrated against a labelled sample before you trust it — the same instinct behind the lab's
+  faithfulness spot-check. And because a RAG system can break without a single line of code
+  changing — a document gets added, removed, or superseded — the habit of re-running your test set
+  after the corpus changes matters as much as the first check you ever wrote.
+</p>
+
+<h2>Format and Timing</h2>
+<ul>
+  <li><strong>Framing video</strong> (posted on E3).</li>
+  <li><strong>Required reading</strong> — three items: the RAGAS paper, three RAGAS documentation pages, and a practitioner FAQ on AI evals. Linked below.</li>
+  <li><strong>Multiple choice questions</strong> (單一選擇題) — four questions on E3.</li>
+  <li><strong>Total estimated time:</strong> ~60 minutes</li>
+  <li><strong>Complete by Sunday, November 8, 23:59.</strong></li>
+</ul>
+
+<h2>What You'll Learn</h2>
+<ul>
+  <li>
+    <strong>Two evaluation layers: retrieval and generation</strong> — did the system fetch the
+    right passages, and did the model use them faithfully? Keeping the two apart tells you whether
+    to fix the chunker/retriever or the prompt when an answer is wrong.
+  </li>
+  <li>
+    <strong>Context precision, and how it differs from the lab</strong> — RAGAS's context
+    precision is rank-aware (it averages precision@k over the ranked list, so position matters),
+    while the lab's precision@k was unranked. The lab also decided relevance with a gold evidence
+    phrase; some RAGAS variants ask a language model to judge each chunk instead.
+  </li>
+  <li>
+    <strong>Faithfulness is not correctness</strong> — faithfulness is the share of claims in a
+    response that can be inferred from the retrieved context. An answer that accurately quotes a
+    superseded or wrong chunk still scores a perfect faithfulness, which is exactly the kind of
+    failure the lab caught by checking a chunk's status and date.
+  </li>
+  <li>
+    <strong>Answer (response) relevancy</strong> — whether the response addresses the question
+    that was asked, computed by generating candidate questions from the answer and comparing them
+    with the original by embedding similarity. It does not check factual accuracy, so a faithful
+    answer can still be irrelevant, and a relevant answer can still be unfaithful.
+  </li>
+  <li>
+    <strong>LLM-as-a-judge: useful, but not free of bias</strong> — one well-known study found
+    about 85% agreement with human experts on a chat benchmark, alongside position, verbosity and
+    self-enhancement biases. A judge is a measuring instrument: calibrate it against human labels
+    on your own task before you trust its scores.
+  </li>
+  <li>
+    <strong>Building a good test set</strong> — grow the lab's 21 designed questions with real
+    queries users actually asked, especially ones the system got wrong, and keep deliberately
+    awkward cases (out-of-corpus, outdated documents, adversarial text) on purpose. Keep a fixed
+    core for comparable scores over time, plus a held-out part you don't tune on.
+  </li>
+  <li>
+    <strong>Offline checks vs. online monitoring</strong> — a fixed test set run on every change
+    catches regressions in cases you already thought of; monitoring live traffic is how the failure
+    modes nobody anticipated reach that test set in the first place. Both are needed.
+  </li>
+  <li>
+    <strong>What to log and watch in production</strong> — one trace per request (question,
+    retrieved chunk ids and scores, prompt version, model, answer, citations, latency, cost,
+    feedback), sampled with some random traces alongside targeted ones, and a re-check of your test
+    set whenever the corpus, embedding model, or model itself changes.
+  </li>
+</ul>
+
+<h2>Required Materials</h2>
+<ul>
+  <li><strong>Framing video:</strong> posted on E3 under <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=250993">Week 9 Self-Paced Modules</a>.</li>
+  <li>
+    <strong>Reading:</strong> Es, James, Espinosa-Anke and Schockaert (2023), &ldquo;<a href="https://arxiv.org/abs/2309.15217">Ragas: Automated Evaluation of Retrieval Augmented Generation</a>&rdquo;
+     — read the abstract, the introduction, and the sections that define the metrics.
+    You can skim the experiments.
+  </li>
+  <li>
+    <strong>Reading:</strong> RAGAS documentation, three metric pages —
+    &ldquo;<a href="https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/faithfulness/">Faithfulness</a>&rdquo;,
+    &ldquo;<a href="https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/context_precision/">Context Precision</a>&rdquo;, and
+    &ldquo;<a href="https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/answer_relevance/">Response (Answer) Relevancy</a>&rdquo;.
+    For each, read the definition, how the score is computed, the required inputs, and the worked examples.
+  </li>
+  <li>
+    <strong>Reading:</strong> Hamel Husain, &ldquo;<a href="https://hamel.dev/blog/posts/evals-faq/">Frequently Asked Questions (And Answers) About AI Evals</a>&rdquo;
+     — read: <em>How do I know if I can trust my automated eval?</em>; <em>What should
+    I do when I can't get my LLM judge to agree with human reviewers?</em>; <em>How are evaluations
+    used differently in CI/CD vs. monitoring production?</em>; <em>How can I efficiently sample
+    production traces for review?</em>; and <em>Should I use &ldquo;ready-to-use&rdquo; evaluation
+    metrics?</em>
+  </li>
+  <li><strong>Multiple choice questions:</strong> posted on E3 under <a href="https://e3p.nycu.edu.tw/mod/quiz/view.php?id=250967">Week 9 Self-Paced Module Response</a>.</li>
+</ul>
+
+<h2>Optional Materials</h2>
+<p>If you want to go deeper on any of these topics (not required, but helpful if you're curious):</p>
+<ul>
+  <li>
+    <strong>Zheng et al. (2023), &ldquo;<a href="https://arxiv.org/abs/2306.05685">Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</a>&rdquo;</strong> —
+    the study behind the LLM-as-a-judge discussion. Read the abstract and the section on
+    limitations of LLM-as-a-judge.
+  </li>
+  <li>
+    <strong>Langfuse, &ldquo;<a href="https://langfuse.com/blog/2025-10-28-rag-observability-and-evals">RAG observability and evals</a>&rdquo;</strong> (October 2025) —
+    tracing a RAG pipeline and an offline experiment on chunk size, using a model to score
+    retrieved chunks. Focuses on offline experiments, not live monitoring.
+  </li>
+  <li>
+    <strong>RAGAS documentation, &ldquo;<a href="https://docs.ragas.io/en/v0.1.21/getstarted/monitoring.html">Monitor Your RAG in Production</a>&rdquo;</strong> —
+    an older page that lists the aspects worth watching in production. Read it as a checklist of ideas.
+  </li>
+  <li>
+    <strong>Barnett et al. (2024), &ldquo;<a href="https://arxiv.org/abs/2401.05856">Seven Failure Points When Engineering a Retrieval Augmented Generation System</a>&rdquo;</strong> —
+    a catalogue of where RAG systems fail. Useful when deciding what to monitor.
+  </li>
+</ul>
+
+<h2>Completion and Assessment</h2>
+<div class="callout warning">
+  This module is graded on completion. Submit your answers to the 4 questions on E3 before
+  <strong>Sunday, November 8, 23:59</strong>. You'll receive full credit for completing all questions;
+  partial credit is not available. The questions are based on the readings and the framing video,
+  so doing the readings first will make them straightforward.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

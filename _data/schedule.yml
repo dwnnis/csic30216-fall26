@@ -113,7 +113,8 @@
   slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=250751"
   lab: "Measure and improve a RAG pipeline"
   lab_url: "/labs/week9/"
-  self_paced: "Evolution of tool use"
+  self_paced: "RAG evaluation in depth: RAGAS and production monitoring"
+  self_paced_url: "/self-paced/week9/"
   assigned: ""
   due: ""
 
