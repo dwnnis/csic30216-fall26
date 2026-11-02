@@ -110,9 +110,9 @@
   status: normal
   topic: "Context Management and Grounding (RAG)"
   topic_url: ""
-  slides_url: ""
-  lab: "Two-tool agent + prompt system sketch"
-  lab_url: ""
+  slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=250751"
+  lab: "Measure and improve a RAG pipeline"
+  lab_url: "/labs/week9/"
   self_paced: "Evolution of tool use"
   assigned: ""
   due: ""
@@ -139,7 +139,7 @@
   lab_url: ""
   self_paced: "How researchers evaluate LLM outputs at scale"
   assigned: ""
-  due: "Assignment 2 (12%)"
+  due: ""
 
 - week: 12
   date: "Nov 23"
@@ -151,7 +151,7 @@
   lab_url: ""
   self_paced: "Code evaluation benchmarks and AI pair programming patterns"
   assigned: ""
-  due: "CP2 (15%) | T1 Survey"
+  due: "Assignment 2 (12%) | CP2 (15%) | T1 Survey"
 
 - week: 13
   date: "Nov 30"
