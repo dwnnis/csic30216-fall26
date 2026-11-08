@@ -20,7 +20,7 @@ permalink: /labs/week10/
 <p><strong>Working style:</strong> In-person lab, individual &middot; <strong>Total time:</strong> ~60 minutes</p>
 
 <div class="callout note">
-  <strong>This lab is practice for Assignment 3, Part B.</strong> Part B asks for a 10-case suite
+  <strong>This lab is practice for Assignment 2, Part B.</strong> Part B asks for a 10-case suite
   on <em>your own</em> prompt from Part A. Here you do the same steps on a prompt we give you, so
   you will know the workflow, the file formats and the traps before you do it on your own prompt.
 </div>
@@ -36,7 +36,7 @@ permalink: /labs/week10/
   <tbody>
     <tr><td><strong>Who</strong></td><td>Individual. Each student submits their own file</td></tr>
     <tr><td><strong>What</strong></td><td><strong>One PDF document</strong> with the contents listed below</td></tr>
-    <tr><td><strong>Where</strong></td><td>E3, under &ldquo;Week 10 Lab&rdquo;</td></tr>
+    <tr><td><strong>Where</strong></td><td>E3, under &ldquo;<a href="https://e3p.nycu.edu.tw/mod/assign/view.php?id=252597">Week 10 Lab</a>&rdquo;</td></tr>
     <tr><td><strong>When</strong></td><td>By the end of <strong>Wednesday, November 11 (23:59)</strong></td></tr>
     <tr><td><strong>File name</strong></td><td><code>Week10_Lab_&lt;your student ID&gt;.pdf</code></td></tr>
     <tr><td><strong>Grading</strong></td><td>Graded on completion, like the earlier labs. We encourage you to be specific, because the detail is what makes the lab useful to you</td></tr>
@@ -53,8 +53,9 @@ permalink: /labs/week10/
 </ol>
 <p>
   The optional steps in Part 3 are not required for completion. A fillable copy is in
-  <code>week10_lab_submission_template.md</code>. Write in any tool and save as PDF before
-  uploading. Do <strong>not</strong> include your API key.
+  <code>week10_lab_submission_template.md</code>, available with the
+  <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=252304">required lab files</a> on E3.
+  Write in any tool and save as PDF before uploading. Do <strong>not</strong> include your API key.
 </p>
 
 <h2>Time Plan</h2>
@@ -79,15 +80,19 @@ permalink: /labs/week10/
   with <code>node --version</code>.
 </p>
 <ol>
-  <li>Put the files from the student package <strong>in one folder</strong> — download location to be posted on E3</li>
+  <li>
+    Put the files from the student package <strong>in one folder</strong>. Download them from the
+    <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=252304">required lab files</a> on E3
+  </li>
   <li>
     In that folder run <code>python week10_setup_check.py</code>. Do this <strong>before
     class</strong> if you can; it checks Node, the files and PromptFoo (the first run downloads
     PromptFoo, which can take a minute)
   </li>
   <li>
-    <strong>API key</strong> — distribution details are posted on E3; ask a TA if you don't have
-    one yet. Set it in your terminal and never in a file:
+    <strong>API key</strong> — distributed with the
+    <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=252304">required lab files</a> on E3;
+    ask a TA if you don't have one yet. Set it in your terminal and never in a file:
     <ul>
       <li>macOS / Linux: <code>export ANTHROPIC_API_KEY=your-key-here</code></li>
       <li>Windows: <code>setx ANTHROPIC_API_KEY your-key-here</code>, then open a <strong>new</strong> terminal</li>
@@ -170,7 +175,7 @@ npx promptfoo@latest view</code></pre>
 </div>
 
 <h2>Part 2 — Write Six More Tests <span class="lab-timing">(20 minutes)</span></h2>
-<p>Add these to <code>tests.yaml</code>, copying the pattern of T1 to T3. The requirement, from Assignment 3, is to cover these categories:</p>
+<p>Add these to <code>tests.yaml</code>, copying the pattern of T1 to T3. The requirement, from Assignment 2, is to cover these categories:</p>
 <div class="table-scroll">
 <table class="grading-table">
   <thead>
@@ -304,7 +309,7 @@ npx promptfoo@latest view</code></pre>
   <li>Saved as one PDF named <code>Week10_Lab_&lt;student ID&gt;.pdf</code></li>
 </ul>
 <div class="callout warning">
-  Upload it on E3 under &ldquo;Week 10 Lab&rdquo; by <strong>Wednesday, November 11 (23:59)</strong>.
+  Upload it on E3 under &ldquo;<a href="https://e3p.nycu.edu.tw/mod/assign/view.php?id=252597">Week 10 Lab</a>&rdquo; by <strong>Wednesday, November 11 (23:59)</strong>.
 </div>
 
 <h2>If Things Go Wrong</h2>
@@ -328,14 +333,5 @@ npx promptfoo@latest view</code></pre>
   </tbody>
 </table>
 </div>
-
-<h2>Connection to the Course</h2>
-<ul>
-  <li><strong>Week 5 and 6:</strong> the prompt techniques and the ways prompts fail. Here you check which failures a test actually catches, and whether a reworded prompt behaves differently</li>
-  <li><strong>Week 9:</strong> the eval question set and <code>eval</code> command were a small test suite for RAG. This week you build the same idea for a prompt</li>
-  <li><strong>Week 11 onward:</strong> the same suite approach applies to AI-written code, where the test is a program that runs the code</li>
-  <li><strong>Assignment 3, Part B:</strong> you will do these steps on your own prompt, with the same ten cases</li>
-  <li><strong>Your project:</strong> keep your suite in the repository (without any key). Run it again whenever the prompt or the model changes</li>
-</ul>
 
 <p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

@@ -123,10 +123,10 @@
   status: normal
   topic: "Prompt testing and reliability"
   topic_url: ""
-  slides_url: ""
-  lab: "Build a minimal RAG pipeline"
-  lab_url: ""
-  self_paced: "Vector databases and RAG evaluation in depth"
+  slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=252305"
+  lab: "Build and run a prompt test suite (PromptFoo)"
+  lab_url: "/labs/week10/"
+  self_paced: "How researchers evaluate LLM outputs at scale"
   assigned: ""
   due: ""
 
@@ -136,52 +136,52 @@
   topic: "AI-assisted code generation and debugging"
   topic_url: ""
   slides_url: ""
-  lab: "Prompt test suite with PromptFoo"
+  lab: "Debug an AI-generated codebase"
   lab_url: ""
-  self_paced: "How researchers evaluate LLM outputs at scale"
+  self_paced: "Code evaluation benchmarks + AI pair programming patterns"
   assigned: ""
   due: ""
 
 - week: 12
   date: "Nov 23"
   status: normal
-  topic: "Evaluating and Debugging AI-Assisted Code"
+  topic: "Software engineering practices for AI workflows"
   topic_url: ""
   slides_url: ""
-  lab: "Claude Code debugging split lab"
+  lab: "Structured PR review workshop"
   lab_url: ""
-  self_paced: "Code evaluation benchmarks and AI pair programming patterns"
+  self_paced: "Engineering team culture around AI"
   assigned: ""
   due: "Assignment 2 (12%) | CP2 (15%) | T1 Survey"
 
 - week: 13
   date: "Nov 30"
   status: normal
-  topic: "When Is an Agent the Right Tool?"
+  topic: "When is an agent the right tool, and how do you build one you can trust?"
   topic_url: ""
   slides_url: ""
-  lab: "PR review workshop + evaluation methodology revisit"
+  lab: "Minimum viable agent"
   lab_url: ""
-  self_paced: "Engineering team culture around AI"
+  self_paced: "How engineers use agents in production"
   assigned: ""
   due: ""
 
 - week: 14
   date: "Dec 7"
   status: normal
-  topic: "Ethics, Safety, and Professional Responsibility"
+  topic: "Guest Lecture (TBA)"
   topic_url: ""
   slides_url: ""
-  lab: "Minimum viable agent"
+  lab: "(No lab for the week)"
   lab_url: ""
-  self_paced: "Agents in production"
+  self_paced: ""
   assigned: ""
   due: ""
 
 - week: 15
   date: "Dec 14"
   status: normal
-  topic: "Guest Lecture (TBA)"
+  topic: "Ethics, Safety, and Professional Responsibility"
   topic_url: ""
   slides_url: ""
   lab: "Case study discussion"
@@ -198,6 +198,6 @@
   slides_url: ""
   lab: "Lightning talks + poster/demo session"
   lab_url: ""
-  self_paced: "Assigned by guest speaker"
+  self_paced: ""
   assigned: ""
   due: "Video | Peer eval | Post-Course Survey"

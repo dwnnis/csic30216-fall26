@@ -15,7 +15,7 @@
   number: 2
   slug: ""
   title: "Prompt System Design and Test Suite"
-  weight: "15%"
+  weight: "12%"
   due: "Week 11 — Nov 16, start of class"
   description: "This two-part assignment requires you to design a complete prompt system for several engineering scenarios, and build test suites, resolve failures, and analyze the test outcomes. The goal is to move from \"this prompt works on the examples I tried\" to \"I have evidence this prompt works reliably.\""
   # "Part A: design a complete prompt system for one of three engineering scenarios. Part B: build a 10-case PromptFoo test suite, fix the most important failure, and analyse what testing revealed."
