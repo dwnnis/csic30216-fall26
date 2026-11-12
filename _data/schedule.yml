@@ -126,7 +126,8 @@
   slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=252305"
   lab: "Build and run a prompt test suite (PromptFoo)"
   lab_url: "/labs/week10/"
-  self_paced: "How researchers evaluate LLM outputs at scale"
+  self_paced: "Statistical reliability of prompt evals: how much does a pass prove?"
+  self_paced_url: "/self-paced/week10/"
   assigned: ""
   due: ""
 

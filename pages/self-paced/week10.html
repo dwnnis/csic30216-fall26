@@ -1,0 +1,145 @@
+---
+layout: default
+title: Week 10 Self-Paced Module
+permalink: /self-paced/week10/
+---
+
+<div class="page-header">
+  <h1>Week 10 Self-Paced Module: Statistical Reliability of Prompt Evals — How Much Does a Pass Prove?</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  In the lab you built a 10-case suite and watched most of it fail. This module is about the other
+  direction: what you are allowed to conclude when tests <strong>pass</strong>, when two prompts
+  score differently, or when you re-run a test and get a different answer. It needs no statistics
+  background; every calculation is a few lines, and the video shows the numbers.
+</p>
+
+<h2>Why This Matters</h2>
+<p>
+  A red cell in a test table is easy to act on: you read the output and fix the prompt. A green
+  table is the dangerous one, because it feels like proof. Five clean runs of a test does not mean
+  the failure rate is zero — it means a failure rate up to about 45% has not been ruled out at the
+  usual confidence level. Fifty runs across ten tickets are not fifty pieces of evidence, because
+  repeats of the same ticket are clustered: the number that actually sets your uncertainty is the
+  number of distinct tickets, not the number of runs. And a prompt that fixes five failing tickets
+  and breaks none can still fall short of statistical significance at ten tests. None of this means
+  small suites are useless — they are excellent at finding failures, which is exactly what the lab
+  used them for. It means knowing the difference between a suite that finds problems and a suite
+  that certifies success, so the claim you write about your own prompt is one the evidence actually
+  supports.
+</p>
+
+<h2>Format and Timing</h2>
+<ul>
+  <li><strong>Framing video</strong> (24 minutes, posted on E3).</li>
+  <li><strong>Required reading</strong> — three items: a paper on adding error bars to evals, an Anthropic engineering article on demystifying evals, and a short clinical note on the rule of three (~38 minutes combined). Linked below.</li>
+  <li><strong>Multiple choice questions</strong> (單一選擇題) — four questions on E3, about 10 minutes.</li>
+  <li><strong>Total estimated time:</strong> ~60 minutes</li>
+  <li><strong>Complete by Sunday, November 15.</strong></li>
+</ul>
+
+<h2>What You'll Learn</h2>
+<ul>
+  <li>
+    <strong>Two sources of uncertainty</strong> — randomness in the model's output when you re-run
+    the same test (run-to-run noise), and the limited sample of test cases you happened to write
+    (test-sample noise). Repeats fix the first; writing more distinct tests fixes the second.
+  </li>
+  <li>
+    <strong>What a clean run really proves</strong> — after <em>n</em> clean runs, the exact 95%
+    upper bound on the failure rate is 1 − 0.05^(1/n): about 45% after 5 clean runs, about 26%
+    after 10. The rule of three (roughly 3 ÷ n) is a useful approximation for larger n, not a
+    certificate of zero failures.
+  </li>
+  <li>
+    <strong>A pass rate has an interval, not a point</strong> — a suite result like 9 of 10 is an
+    estimate, with a 95% confidence interval of roughly 55% to 99.7%. Small suites are good at
+    finding failures and poor at certifying success; keeping those two jobs separate is the point.
+  </li>
+  <li>
+    <strong>Repeats are not new tests (clustering)</strong> — 10 tests × 5 repeats is 50 runs, but
+    not 50 independent pieces of evidence, because the five repeats of one ticket share that
+    ticket. The number that sets your uncertainty is the number of distinct tickets tested, not the
+    number of runs.
+  </li>
+  <li>
+    <strong>What repeats are actually good for</strong> — detecting flaky tests, separating whether
+    a failure comes from the prompt or from sampling, and steadying a comparison between two
+    prompts. Not for lowering the temperature just to make the table look stable.
+  </li>
+  <li>
+    <strong>Comparing two prompts on the same tests (paired comparison)</strong> — only the tickets
+    that changed from fail to pass or pass to fail carry information about which prompt is better.
+    An exact sign test on the changed tickets tells you whether the result is established or just
+    suggestive — five tickets improved and none worse can still fall short of the usual significance
+    line.
+  </li>
+  <li>
+    <strong>Other ways the number misleads</strong> — tuning the prompt until your own tests pass
+    (keep some held out), a suite that saturates at 100% (which only guards against regressions),
+    model updates changing results with no prompt edit, and a test set drawn from your imagination
+    rather than real tickets.
+  </li>
+  <li>
+    <strong>Writing an honest reliability claim</strong> — report the number of distinct test
+    cases, the number of repeats, the interval (or the limit of a small suite), and which cases
+    were held out.
+  </li>
+</ul>
+
+<h2>Required Materials</h2>
+<ul>
+  <li><strong>Framing video:</strong> posted on E3 under <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=252934">Week 10 Self-Paced Modules</a>.</li>
+  <li>
+    <strong>Reading:</strong> Miller (2024), &ldquo;<a href="https://arxiv.org/abs/2411.00640">Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations</a>&rdquo;
+    (~17 minutes) — read Section 1 (Introduction); Section 2 (Analysis framework: independent
+    questions, and the idea of clustering, without the formulas); Section 4 (Comparing models:
+    unpaired and paired analysis); Section 5 (Power analysis — skim the idea, skip the
+    derivations); and Section 6 (Conclusion). Skip the appendices.
+  </li>
+  <li>
+    <strong>Reading:</strong> Anthropic Engineering (January 2026), &ldquo;<a href="https://anthropic.com/engineering/demystifying-evals-for-ai-agents">Demystifying evals for AI agents</a>&rdquo;
+    (~14 minutes) — read: The structure of an evaluation; Capability vs. regression evals; How to
+    think about non-determinism in evaluations for agents; and from the roadmap, Collect tasks for
+    the initial eval dataset and Maintain and use the eval long-term (look for the passages on eval
+    saturation). Skim the sections on specific agent types.
+  </li>
+  <li>
+    <strong>Reading:</strong> Phillips (2005), &ldquo;<a href="https://adc.bmj.com/content/archdischild/90/6/642.2.full.pdf">Towards evidence based medicine for paediatricians</a>&rdquo;, Archimedes series
+    (~7 minutes) — read only the short section on the rule of three (zero events, upper limit 3/n,
+    worked examples). Skip the rest of the article.
+  </li>
+  <li><strong>Multiple choice questions:</strong> posted on E3 under <a href="https://e3p.nycu.edu.tw/mod/quiz/view.php?id=252924">Week 10 Self-Paced Module Response</a>.</li>
+</ul>
+
+<h2>Optional Materials</h2>
+<p>If you want to go deeper on any of these topics (not required, but helpful if you're curious):</p>
+<ul>
+  <li>
+    <strong>Madaan et al. (2024), &ldquo;<a href="https://arxiv.org/abs/2406.10229">Quantifying Variance in Evaluation Benchmarks</a>&rdquo;</strong> —
+    measures how much benchmark scores vary between model training runs, and finds that benchmarks
+    with few items show high variance. It is about training seeds rather than prompts, so read it
+    for the idea that small benchmarks are noisy, not for your own numbers.
+  </li>
+  <li>
+    <strong>Newman (1995), &ldquo;<a href="https://jamanetwork.com/journals/jama/article-abstract/389714">If Almost Nothing Goes Wrong, Is Almost Everything All Right? Interpreting Small Numerators</a>&rdquo;</strong>, JAMA —
+    a short letter responding to the original 1983 rule-of-three article. States the 3/N rule and
+    gives examples.
+  </li>
+  <li>
+    <strong>Thinking Machines, &ldquo;<a href="https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/">Defeating Nondeterminism in LLM Inference</a>&rdquo;</strong> (2025) — On why some model outputs vary even at temperature 0.
+  </li>
+</ul>
+
+<h2>Completion and Assessment</h2>
+<div class="callout warning">
+  This module is graded on completion. Submit your answers to the 4 questions on E3 before
+  <strong>Sunday, November 15, 23:59</strong>. You'll receive full credit for completing all questions;
+  partial credit is not available. The questions are based on the readings and the framing video,
+  so doing the readings first will make them straightforward.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>
