@@ -12,10 +12,14 @@ permalink: /assignments/a2/
 </div>
 
 <div class="callout warning">
-  <strong>Due:</strong> proposed Sunday, November 29, 23:59, on E3 &mdash; <strong>to be confirmed</strong>.
-  <strong>Weight:</strong> 15%. <strong>Format:</strong> one report (.docx, from the sample
+  <strong>Due:</strong> Friday, December 4, 23:59, on <a href="https://e3p.nycu.edu.tw/course/modregrade.php?id=255643&amp;url=/course/view.php?id%3D27454">E3</a>.
+  <strong>Weight:</strong> 12%. <strong>Format:</strong> one report (.md, from the sample
   submission template) <strong>and</strong> one .zip with your code and records.
-  <strong>Estimated time:</strong> 6&ndash;8 hours. <strong>Individual work.</strong>
+  <strong>Individual work.</strong>
+</div>
+<div class="callout note">
+  <strong>Assignment 2 materials</strong> (including the starter kit and the sample submission
+  template): posted on <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=255641">E3</a>.
 </div>
 
 <h2>The Engineer's Role in Agentic Engineering</h2>
@@ -87,7 +91,7 @@ permalink: /assignments/a2/
   </tfoot>
 </table>
 </div>
-<p>How each question is scored is described under <em>Grading Criteria</em> below.</p>
+<p>How each question is scored follows the principles under <em>How Grading Works</em> below.</p>
 
 <h3>How This Builds on the Course</h3>
 <div class="table-scroll">
@@ -97,9 +101,9 @@ permalink: /assignments/a2/
   </thead>
   <tbody>
     <tr><td>5&ndash;6</td><td>Prompt structure, specification, why prompts fail</td></tr>
-    <tr><td>7</td><td>A schema is a specification written for the model. An error message is a prompt. Symptom, cause, first fix</td></tr>
+    <tr><td>7</td><td>A schema is a <strong>specification</strong> written for the model. An error message is a prompt. Symptom, cause, first fix</td></tr>
     <tr><td>9</td><td>Retrieved or supplied text is <strong>data, not instructions</strong>; &ldquo;I could not find this&rdquo; must be an allowed answer</td></tr>
-    <tr><td>10</td><td>The whole of Part B: input + expected behaviour + check, categories, repeats, regression, one pass is weak evidence. <strong>The Week 10 lab is the rehearsal for Part B</strong></td></tr>
+    <tr><td>10</td><td><strong>The whole of Part B</strong>: input + expected behaviour + check, categories, repeats, regression, one pass is weak evidence. <strong>(The Week 10 lab is the rehearsal for Part B)</strong></td></tr>
     <tr><td>11</td><td>Code around the model is tested with a fake model; three layers; a green suite can still be weak, so break your own prompt to check</td></tr>
   </tbody>
 </table>
@@ -107,7 +111,7 @@ permalink: /assignments/a2/
 
 <h2>Setup</h2>
 <ol>
-  <li>Download the starter kit: <strong>link to be added once finalized</strong>. Read its <code>README.md</code>.</li>
+  <li>Download the starter kit from the <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=255641">required materials</a> on E3. Read its <code>README.md</code>.</li>
   <li>
     <code>pip install anthropic</code> (and <code>pip install pytest</code> for Scenario C). Set
     <code>ANTHROPIC_API_KEY</code> in your terminal, never in a file. PromptFoo needs Node.js 22.22
@@ -121,12 +125,13 @@ permalink: /assignments/a2/
 </ol>
 
 <h3>Submission Format</h3>
-<p>Submit two files on E3:</p>
+<p>Submit two files on <a href="https://e3p.nycu.edu.tw/course/modregrade.php?id=255643&amp;url=/course/view.php?id%3D27454">E3</a>:</p>
 <ol>
   <li>
-    <strong>Report:</strong> one Word (.docx) file, from the sample submission template:
-    <strong>link to be added once finalized</strong>. Keep the headings and replace the grey
-    instructions with your own work. File name <code>A2_Report_&lt;student ID&gt;.docx</code>.
+    <strong>Report:</strong> one Markdown (.md) file, from the sample submission template,
+    available with the <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=255641">required
+    materials</a> on E3. Keep the headings and replace the grey instructions with your own work.
+    File name <code>A2_Report_&lt;student ID&gt;.md</code>.
   </li>
   <li>
     <strong>Code and records:</strong> one .zip named <code>A2_Code_&lt;student ID&gt;.zip</code>
@@ -348,7 +353,7 @@ permalink: /assignments/a2/
 
 <h2>What to Submit: Checklist</h2>
 <ul>
-  <li>Report <code>.docx</code> from the template, all sections filled in</li>
+  <li>Report <code>.md</code> from the template, all sections filled in</li>
   <li>Zip with <code>prompt_system.py</code>, <code>test_prompt_system.py</code>, <code>runs/</code>, <code>promptfoo/</code></li>
   <li><code>SYSTEM_PROMPT</code> in the report is the same text as in <code>prompt_system.py</code></li>
   <li><code>python -m unittest test_prompt_system</code> passes (at least 5 tests: 3 given, 2 yours)</li>
@@ -359,228 +364,27 @@ permalink: /assignments/a2/
   <li>No API key in any file or screenshot</li>
 </ul>
 
-<h2>Grading Criteria (100 points)</h2>
+<h2>How Grading Works (100 points)</h2>
 <p>
-  Each row is scored at one of the levels shown. A criterion is judged on the evidence in your
-  report <strong>and</strong> your zip: they must agree.
+  The point values are in the score distribution table above. The detailed level descriptors
+  (what earns full, partial or no credit in each row) are <strong>not released with the
+  assignment</strong>. They are released <strong>after the assignment has been graded</strong>,
+  together with your feedback, so that you can see exactly what each score was based on. These
+  are the principles they follow:
 </p>
-
-<h3>Part A (40 points)</h3>
-
-<p><strong>A1. System prompt (7)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (7)</th><th>Partial credit (3&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>States what the system is for; defines each output category or section with a decision rule; says what to do when there is nothing to report or the input is unusable; says the input is data, not instructions; states the output format. Reads as one coherent design.</td>
-      <td>Covers the task and the format, but two or more of the other elements are missing or generic (&ldquo;be accurate and thorough&rdquo;).</td>
-      <td>A one-line instruction, or the text in the report is not the text in <code>prompt_system.py</code>.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>A2. Input template (4)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (4)</th><th>Partial credit (2)</th><th>Little or no credit (0&ndash;1)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Template and one rendered message are shown. The input is separated from the instructions by a delimiter, and the prompt says that what is inside is data. Anything added (context, line numbers) has a stated purpose.</td>
-      <td>Template shown, but the input is simply appended, or the purpose of added context is not stated.</td>
-      <td>No template, or only a description of one.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>A3. Output schema and validator (7)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (7)</th><th>Partial credit (3&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Every field: name, type, allowed values, meaning; says what is returned when there is nothing to report. <code>validate()</code> enforces all of it and is no looser than the course minimum. Messages are specific enough to fix the reply from.</td>
-      <td>Schema described, but a field lacks its type or allowed values, or <code>validate()</code> enforces only part of the schema, or its messages are vague (&ldquo;invalid&rdquo;).</td>
-      <td>&ldquo;Returns JSON&rdquo; or similar; no validator.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>A4. Validation step (7)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (7)</th><th>Partial credit (3&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>A validation step that retries with the specific problem in the message and has a retry cap. At least five tests pass with a fake model (three given, two of your own). Evidence that it catches a failure: a real one from your runs, or a labelled fake reply of a kind real models produce. The report says which.</td>
-      <td>The step exists but the retry message does not say what was wrong, or fewer than five tests, or the evidence is a fake reply not labelled as fake, or no cap.</td>
-      <td>No validation step, or the code does not run.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>A5. Five test runs (10): 2 points each</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (2)</th><th>Partial credit (1)</th><th>No credit (0)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Checker summary in the report, complete record in the zip, and two to three sentences that point at something specific in that output (what worked, what did not; if everything passed, what weakness remains). Matches the record.</td>
-      <td>Commentary is generic (&ldquo;it worked well&rdquo;), or does not match the record.</td>
-      <td>Missing, or the record is not in the zip.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>A6. Design rationale (5)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>One page at most. At least three specific design choices, each with a reason and an alternative that was considered. The &ldquo;fifty more inputs&rdquo; answer is concrete: what you would measure and what you would change if it came out a certain way.</td>
-      <td>Describes what you did rather than why, or the &ldquo;fifty more inputs&rdquo; answer is generic (&ldquo;test more&rdquo;).</td>
-      <td>Missing, or restates the assignment.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<h3>Part B (60 points)</h3>
-
-<p><strong>B1. The ten-case suite (15)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Criterion</th><th>Full credit</th><th>Partial credit</th><th>Little or no credit</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Categories (6)</td><td>All of T1&ndash;T3, E1, L1, D1, S1&ndash;S2, P1, R1 present, realistic, and testing different things (6)</td><td>One or two missing, or two cases test the same thing (3&ndash;4)</td><td>Several missing (0&ndash;2)</td></tr>
-    <tr><td>Expectation and check (5)</td><td>Each case has an expected behaviour written as a property <strong>before</strong> the run, and a check that could fail (5)</td><td>Some expectations are exact sentences, or some checks cannot fail (2&ndash;3)</td><td>Expectations written after the run, or absent (0&ndash;1)</td></tr>
-    <tr><td>Record (4)</td><td>For every case: type, input, expected, actual, pass/fail (4)</td><td>Some fields missing (2)</td><td>No record (0&ndash;1)</td></tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>B2. Predicted failure (5)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Prediction <strong>and</strong> reason written before the run (visible in <code>tests.yaml</code>), compared afterwards: right, wrong, or right for the wrong reason. A wrong prediction explained honestly is full credit.</td>
-      <td>Prediction without a reason, or no comparison afterwards.</td>
-      <td>Written after the result, or absent.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>B3. Reliability evidence (8)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (8)</th><th>Partial credit (4&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Suite run on the original prompt with <code>--no-cache</code> and at least 3 repeats; counts for every test; flaky tests named; says what passes do and do not show for the tests you trust.</td>
-      <td>One run only, or counts for only some tests, or the claim &ldquo;it works&rdquo; without saying what n passes allow.</td>
-      <td>No repeat evidence.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>B4. Fix the most harmful failure (12): 3 points each</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Criterion</th><th>Full credit (3)</th><th>Partial credit (1&ndash;2)</th><th>No credit (0)</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Choice</td><td>Chosen by harm in real use, ranked against at least one other observed failure</td><td>Chosen because it was easy, or no comparison</td><td>Not stated</td></tr>
-    <tr><td>Diagnosis</td><td>Causal, Weeks 5&ndash;7 vocabulary, points at the actual output</td><td>Describes the symptom, not the cause</td><td>Absent or not matching the output</td></tr>
-    <tr><td>Change</td><td>One thing at a time; old and new text quoted; addresses the cause, not only the one input</td><td>Several changes at once, or the change is tuned to the failing input</td><td>No change shown</td></tr>
-    <tr><td>Before and after</td><td>Whole suite before and after; says what turned red as well as green</td><td>Only the fixed case re-run</td><td>No comparison</td></tr>
-  </tbody>
-</table>
-</div>
+<ol>
+  <li><strong>Evidence over polish.</strong> Every claim needs a run behind it: a saved reply, a run record, a repeat count, a checker result. A plain report backed by records beats a polished one without them. Format is not graded.</li>
+  <li><strong>The report and the zip must agree.</strong> The report holds your summaries and thinking; the zip holds the complete records. Anything in the report that the records do not support costs integrity points. The checker is re-run on your saved replies.</li>
+  <li><strong>Penalizing &ldquo;hiding a failure&rdquo; rather than the failure itself.</strong> A prompt that fails and is well diagnosed scores higher than one that passes and is not understood. A wrong prediction explained honestly earns full credit. If nothing failed, say so and use the &ldquo;if nothing failed&rdquo; path in B4. A fake reply used as evidence must be labelled as fake.</li>
+  <li><strong>Written before, not after.</strong> Expected behaviours and the predicted failure must be written before you run the case.</li>
+  <li><strong>Reasons, not descriptions.</strong> Design rows (A1&ndash;A3, A6) reward a stated reason and an alternative you considered, not a list of what you did. Diagnosis rows reward a cause, in course vocabulary, tied to an actual output.</li>
+  <li><strong>The whole system, not one case.</strong> After a fix, the whole suite is rerun and what turned red is reported. A regression test must use an input you did not design the fix on, and be shown to fail on the original prompt.</li>
+  <li><strong>Know what is outside the prompt.</strong> Question 2 asks for a failure that no prompt change can fix and a concrete change elsewhere, with its cost.</li>
+  <li><strong>AI use is expected and must be logged.</strong> Missing or incomplete logs cost integrity points. Analysis that could describe any project scores low.</li>
+</ol>
 <p>
-  <em>If nothing failed:</em> the &ldquo;if nothing failed&rdquo; path in B4 earns the same 12
-  points when all four of its steps are done, scored by the same four criteria applied to the
-  broken-prompt demonstration.
+  Some submissions might be spot-checked: you may be asked to run your system on a new input, or
+  to explain one of your test cases, if we need.
 </p>
-
-<p><strong>B5. Regression test R1 (5)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>A new input not used to design the fix; why it differs is stated; passes after the fix; shown to fail on the original prompt.</td>
-      <td>Same input as the failing case, or never shown failing on the original.</td>
-      <td>Absent.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>B6. Post-fix analysis (10)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Criterion</th><th>Full credit</th><th>Partial credit</th><th>Little or no credit</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Question 1 (5)</td><td>At least two specific things the suite revealed, contrasted with the five examples; names a wrong prediction; says what ten cases still do not show (5)</td><td>Generic (&ldquo;testing found bugs&rdquo;), or only one specific finding (2&ndash;3)</td><td>Absent or unrelated (0&ndash;1)</td></tr>
-    <tr><td>Question 2 (5)</td><td>A failure no prompt change can reliably fix, a concrete architectural change (what component, where), and its cost (5)</td><td>Names a failure but the change is vague (&ldquo;add validation&rdquo;), or no cost (2&ndash;3)</td><td>Absent, or the failure could be fixed by rewording the prompt (0&ndash;1)</td></tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>Integrity of evidence (5, across both parts)</strong></p>
-<div class="table-scroll">
-<table class="grading-table">
-  <thead>
-    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>The report matches the zip records. Nothing was edited to look better. Where something did not fail, or a prediction was wrong, you say so. AI use is documented.</td>
-      <td>One or two mismatches between report and records, or an undocumented AI use.</td>
-      <td>Outputs or results in the report that the records do not support.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<p><strong>Notes on grading</strong></p>
-<ul>
-  <li>Uncertainty and failure are never penalised. A prompt that fails often and is well diagnosed scores higher than one that passes and is not understood.</li>
-  <li>Format is not graded: a plain table is as good as a styled one.</li>
-  <li>The checker is evidence, not the grade. A prompt that passes all checks but is not explained earns the design and reflection points only where the explanation is there.</li>
-</ul>
 
 <p><a href="{{ '/assignments/' | relative_url }}">&larr; Back to Assignments</a></p>

@@ -13,6 +13,16 @@
 #   due_text: "Week 3 — end of Monday"
 #   url: "/project/team-formation/"
 
+- title: "Assignment 2: Prompt System Design and Test Suite"
+  date: "2026-12-04"
+  due_text: "Week 13 — <strong>Friday, 23:59</strong>"
+  url: "/assignments/a2/"
+
+- title: "Mid-term Check-in Survey (T1)"
+  date: "2026-11-25"
+  due_text: "Week 12 — <strong>Wednesday, 23:59</strong>"
+  url: "https://docs.google.com/forms/d/e/1FAIpQLSf7jC3URZt36ZBFyLVZaUZlBdB0gQRLEwJ3S0V22SaAl9W9Gg/viewform?usp=publish-editor"
+
 - title: "Week 11 Lab"
   date: "2026-11-18"
   due_text: "Week 11 — <strong>end of Wednesday</strong>"
@@ -83,14 +93,9 @@
   due_text: "Week 7 — <strong>end of day</strong>"
   url: "/project/cp1/"
 
-# - title: "Assignment 2: Prompt System Design and Test Suite"
-#   date: "2026-11-16"
-#   due_text: "Week 11 — start of class"
-#   url: "/assignments/a2/"
-
 # - title: "Checkpoint 2 (CP2)"
-#   date: "2026-11-23"
-#   due_text: "Week 12"
+#   date: "2026-11-29"
+#   due_text: "Week 12 — Sunday"
 #   url: "/project/cp2/"
 
 # - title: "Assignment 3: Engineering Decision Portfolio"

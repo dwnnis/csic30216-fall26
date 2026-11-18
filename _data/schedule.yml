@@ -153,7 +153,7 @@
   lab_url: ""
   self_paced: "Engineering team culture around AI"
   assigned: ""
-  due: "Assignment 2 (12%) | CP2 (15%) | T1 Survey"
+  due: '<a href="/project/cp2/">CP2</a> (15%, due Nov 29) | <a href="https://docs.google.com/forms/d/e/1FAIpQLSf7jC3URZt36ZBFyLVZaUZlBdB0gQRLEwJ3S0V22SaAl9W9Gg/viewform?usp=publish-editor">T1 Survey</a> (due Nov 25)'
 
 - week: 13
   date: "Nov 30"
@@ -165,7 +165,7 @@
   lab_url: ""
   self_paced: "How engineers use agents in production"
   assigned: ""
-  due: ""
+  due: '<a href="/assignments/a2/">Assignment 2</a> (12%, due Dec 4)'
 
 - week: 14
   date: "Dec 7"
