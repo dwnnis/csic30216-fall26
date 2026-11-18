@@ -1,0 +1,155 @@
+---
+layout: default
+title: Week 11 Self-Paced Module
+permalink: /self-paced/week11/
+---
+
+<div class="page-header">
+  <h1>Week 11 Self-Paced Module: What a Benchmark Can Tell You, and What Only You Can Write Down</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Overview</h2>
+<p>
+  The lecture asked how <em>you</em> know AI-written code is right. This module asks the same
+  question one level up, about AI coding <strong>benchmarks</strong>: what does a model's score on
+  HumanEval or SWE-bench tell you, and what does it leave out? It then turns to the one kind of
+  evidence no benchmark and no test can produce: a written record of <strong>why</strong> the code
+  is the way it is. That record is part of your CP2 evidence (PR descriptions and
+  <code>DECISIONS.md</code>).
+</p>
+
+<h2>Why This Matters</h2>
+<p>
+  A benchmark is a test suite written by someone else, about tasks that are not yours — the Week 10
+  lesson at a larger scale. HumanEval's scores cluster near the top today partly because its tests
+  were too thin: adding far more tests dropped scores and changed rankings. SWE-bench Verified went
+  further: an audit of the problems top models still failed found that most of them had flawed
+  tests, not flawed models, which is why OpenAI stopped reporting it in February 2026. None of
+  today's benchmarks check whether code is secure, fast enough, maintainable, or a fit for your
+  codebase — a model can score well on "correct" while being exploitable on half its correct
+  answers. And even a perfect test suite only shows <strong>what</strong> your code does, never
+  <strong>why</strong> it does it that way: the alternatives considered, the one that was rejected,
+  the person who decided. With AI that gap widens, because the options you never picked disappear
+  with the chat window. A short decision record is the only thing that closes it.
+</p>
+
+<h2>Format and Timing</h2>
+<ul>
+  <li><strong>Framing video</strong> (~12 minutes, 15 slides, posted on E3) — link coming soon; check back before starting the module.</li>
+  <li><strong>Required reading</strong> — three items: the HumanEval paper, OpenAI's post on retiring SWE-bench Verified, and Nygard's article on documenting decisions (~38 minutes combined, plus a short writing task). Linked below.</li>
+  <li><strong>Multiple choice questions</strong> (單一選擇題) — four questions on E3, about 10 minutes.</li>
+  <li><strong>Total estimated time:</strong> ~60 minutes</li>
+  <li><strong>Complete by Sunday, November 22.</strong></li>
+</ul>
+
+<h2>What You'll Learn</h2>
+<ul>
+  <li>
+    <strong>HumanEval: the first standard benchmark</strong> — 164 hand-written Python problems,
+    each a function signature and docstring, judged by hidden unit tests rather than by how much
+    the code resembles a reference answer. <code>pass@k</code> is the chance that at least one of k
+    samples passes all the tests.
+  </li>
+  <li>
+    <strong>Why HumanEval stopped telling models apart</strong> — frontier models now solve nearly
+    all of its short, self-contained problems, so scores cluster near the top. Adding about 80
+    times more tests per problem (EvalPlus) dropped scores by up to 19&ndash;29% and changed
+    rankings: code that &ldquo;passed&rdquo; was sometimes wrong. A score near 100% can mean the
+    benchmark ran out of questions to ask, not that the model ran out of mistakes.
+  </li>
+  <li>
+    <strong>SWE-bench: real issues from real repositories</strong> — the model gets a full codebase
+    and a GitHub issue, and must produce a patch that fixes the issue's tests without breaking the
+    existing ones (a median of 51 per task). Far closer to project work than a self-contained
+    function.
+  </li>
+  <li>
+    <strong>Why OpenAI stopped reporting SWE-bench Verified</strong> — an audit of 138 unsolved
+    problems found material test issues (too narrow or too wide) in 59.4% of them, plus signs that
+    models could reproduce the original fixes. Near the top of a benchmark, the remaining
+    &ldquo;failures&rdquo; can be failures of the test, not the model — the same thing to check when
+    your own ten-case suite keeps failing one test.
+  </li>
+  <li>
+    <strong>What coding benchmarks don't measure</strong> — security (BaxBench found about half of
+    functionally correct backend programs were exploitable), performance at real scale,
+    maintainability, and fit with your team's codebase and conventions. A high score is evidence a
+    model can produce test-passing patches for well-described issues in popular open-source
+    projects — not that it will do so safely and maintainably in yours.
+  </li>
+  <li>
+    <strong>&ldquo;What&rdquo; versus &ldquo;why&rdquo;</strong> — code shows what happens and
+    tests show what is required, but neither shows why a particular approach was chosen over the
+    alternatives that were considered and rejected. If that reasoning isn't written down, it exists
+    only in a chat window and in one person's memory.
+  </li>
+  <li>
+    <strong>Why AI widens the documentation gap</strong> — generation is cheap, so the options you
+    never picked disappear; the conversation that produced the final answer lives in a chat nobody
+    else reads; and there may be no single person who can say why the code is the way it is.
+    Without that record, teammates can only blindly accept a decision or blindly change it.
+  </li>
+  <li>
+    <strong>Two short records that close the gap</strong> — a decision record in
+    <code>DECISIONS.md</code> (Context, Decision, Status, Consequences), and a short PR description
+    for AI-assisted code: what you asked for, what you changed and why, alternatives considered and
+    rejected, and how you checked it.
+  </li>
+</ul>
+
+<h2>Required Materials</h2>
+<ul>
+  <li><strong>Framing video:</strong> posted on E3 under Week 11 Self-Paced Modules — link coming soon.</li>
+  <li>
+    <strong>Reading:</strong> Chen et al. (2021), &ldquo;<a href="https://arxiv.org/abs/2107.03374">Evaluating Large Language Models Trained on Code</a>&rdquo;
+    (~16 minutes) — read the Introduction; Section 2 (how HumanEval is built, functional
+    correctness, and how pass@k is computed; skip the formula's derivation); and from the Broader
+    Impacts and Hazard Analysis section, the parts on over-reliance and misalignment. Skip the
+    training details and the appendices.
+  </li>
+  <li>
+    <strong>Reading:</strong> OpenAI (February 23, 2026), &ldquo;<a href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">Why we no longer evaluate SWE-bench Verified</a>&rdquo;
+    (~12 minutes) — read the whole post.
+  </li>
+  <li>
+    <strong>Reading:</strong> Nygard (2011), &ldquo;<a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions">Documenting Architecture Decisions</a>&rdquo;
+    (~10 minutes: ~6 to read, ~4 to write) — read the whole post. Then write one decision record for
+    your own project, with the four headings Context, Decision, Status, Consequences, in at most
+    eight lines. You do not submit it here; it can go straight into your team's
+    <code>DECISIONS.md</code>.
+  </li>
+  <li><strong>Multiple choice questions:</strong> posted on E3 under <a href="https://e3p.nycu.edu.tw/mod/quiz/view.php?id=254937">Week 11 Self-Paced Module Response</a>.</li>
+</ul>
+
+<h2>Optional Materials</h2>
+<p>If you want to go deeper on any of these topics (not required, but helpful if you're curious):</p>
+<ul>
+  <li>
+    <strong>Jimenez et al. (2023), &ldquo;<a href="https://arxiv.org/abs/2310.06770">SWE-bench: Can Language Models Resolve Real-World GitHub Issues?</a>&rdquo;</strong> —
+    the original SWE-bench paper. Read the introduction and the section on how tasks are collected
+    and evaluated.
+  </li>
+  <li>
+    <strong>Liu et al. (2023), &ldquo;<a href="https://arxiv.org/abs/2305.01210">Is Your Code Generated by ChatGPT Really Correct? (EvalPlus)</a>&rdquo;</strong> —
+    how adding many more tests to HumanEval changed scores and rankings.
+  </li>
+  <li>
+    <strong>Deng et al. (Scale AI, 2025), &ldquo;<a href="https://arxiv.org/abs/2509.16941">SWE-Bench Pro</a>&rdquo;</strong> —
+    the harder successor to SWE-bench: larger changes, held-out and commercial tasks.
+  </li>
+  <li>
+    <strong>Vero et al. (2025), &ldquo;<a href="https://arxiv.org/abs/2502.11844">BaxBench: Can LLMs Generate Correct and Secure Backends?</a>&rdquo;</strong> —
+    correct is not the same as secure.
+  </li>
+</ul>
+
+<h2>Completion and Assessment</h2>
+<div class="callout warning">
+  This module is graded on completion. Submit your answers to the 4 questions on E3 before
+  <strong>Sunday, November 22</strong>. You'll receive full credit for completing all questions;
+  partial credit is not available. The questions are based on the readings and the framing video,
+  so doing the readings first will make them straightforward.
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>

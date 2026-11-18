@@ -11,6 +11,576 @@ permalink: /assignments/a2/
   <p class="page-subtitle">{{ a.weight }} &middot; Due: {{ a.due }}</p>
 </div>
 
-<p>{{ a.description }}</p>
+<div class="callout warning">
+  <strong>Due:</strong> proposed Sunday, November 29, 23:59, on E3 &mdash; <strong>to be confirmed</strong>.
+  <strong>Weight:</strong> 15%. <strong>Format:</strong> one report (.docx, from the sample
+  submission template) <strong>and</strong> one .zip with your code and records.
+  <strong>Estimated time:</strong> 6&ndash;8 hours. <strong>Individual work.</strong>
+</div>
+
+<h2>The Engineer's Role in Agentic Engineering</h2>
+<p>
+  The engineer's job is to be the decision-maker at every level: specifying intent clearly enough
+  for the system to execute, evaluating what it actually does (not just whether one example looked
+  good), and knowing when to take back control. In Assignment 1 you used techniques and diagnosed
+  prompts someone else wrote. Here you design the whole prompt system yourself, and then you try to
+  break it on purpose.
+</p>
+<p>
+  This is the second of three individual assignments: use techniques deliberately (A1),
+  <strong>design a system and gather evidence that it works (A2)</strong>, demonstrate growth in
+  engineering judgment with evidence (A3).
+</p>
+
+<h2>Note on AI Assistance</h2>
+<p>
+  You may, and are expected to, use AI tools while writing your prompt. Record that in your AI
+  usage log (see the template). What AI cannot do for you is the evidence: the predictions you
+  wrote before you ran anything, the failures you actually saw and the reasons you give for them.
+  Analysis written without running the suite shows in how generic it is.
+</p>
+
+<h2>Overview</h2>
+<p>One assignment in two parts, on one scenario that you choose.</p>
+<ul>
+  <li>
+    <strong>Part A (40 points): design a prompt system</strong> for a real engineering task: system
+    prompt, input template, output schema with a validator, and a validation step that retries on
+    a bad reply. Run it on five provided inputs.
+  </li>
+  <li>
+    <strong>Part B (60 points): test it.</strong> Build a ten-case test suite, run it, read the
+    failures, fix the most harmful one, and show what the suite revealed that five examples did
+    not.
+  </li>
+</ul>
+<p>
+  The goal is to move from &ldquo;this prompt works on the examples I tried&rdquo; to &ldquo;I have
+  evidence about when this prompt works, and I know what that evidence does not show.&rdquo;
+</p>
+
+<h3>Score Distribution (100 points)</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Question</th><th>Points</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Part A: Prompt System Design</strong></td><td><strong>40</strong></td></tr>
+    <tr><td>A1 System prompt</td><td>7</td></tr>
+    <tr><td>A2 Input template</td><td>4</td></tr>
+    <tr><td>A3 Output schema and validator</td><td>7</td></tr>
+    <tr><td>A4 Validation step</td><td>7</td></tr>
+    <tr><td>A5 Five test runs on the provided inputs</td><td>10</td></tr>
+    <tr><td>A6 Design rationale</td><td>5</td></tr>
+    <tr><td><strong>Part B: Prompt Test Suite</strong></td><td><strong>60</strong></td></tr>
+    <tr><td>B1 The ten-case suite</td><td>15</td></tr>
+    <tr><td>B2 Predicted failure</td><td>5</td></tr>
+    <tr><td>B3 Reliability evidence</td><td>8</td></tr>
+    <tr><td>B4 Fix the most harmful failure</td><td>12</td></tr>
+    <tr><td>B5 Regression test R1</td><td>5</td></tr>
+    <tr><td>B6 Post-fix analysis</td><td>10</td></tr>
+    <tr><td>Integrity of evidence (across both parts)</td><td>5</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td><strong>Total</strong></td><td><strong>100</strong></td></tr>
+  </tfoot>
+</table>
+</div>
+<p>How each question is scored is described under <em>Grading Criteria</em> below.</p>
+
+<h3>How This Builds on the Course</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Week</th><th>What you use here</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>5&ndash;6</td><td>Prompt structure, specification, why prompts fail</td></tr>
+    <tr><td>7</td><td>A schema is a specification written for the model. An error message is a prompt. Symptom, cause, first fix</td></tr>
+    <tr><td>9</td><td>Retrieved or supplied text is <strong>data, not instructions</strong>; &ldquo;I could not find this&rdquo; must be an allowed answer</td></tr>
+    <tr><td>10</td><td>The whole of Part B: input + expected behaviour + check, categories, repeats, regression, one pass is weak evidence. <strong>The Week 10 lab is the rehearsal for Part B</strong></td></tr>
+    <tr><td>11</td><td>Code around the model is tested with a fake model; three layers; a green suite can still be weak, so break your own prompt to check</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Setup</h2>
+<ol>
+  <li>Download the starter kit: <strong>link to be added once finalized</strong>. Read its <code>README.md</code>.</li>
+  <li>
+    <code>pip install anthropic</code> (and <code>pip install pytest</code> for Scenario C). Set
+    <code>ANTHROPIC_API_KEY</code> in your terminal, never in a file. PromptFoo needs Node.js 22.22
+    or newer, as in Week 10.
+  </li>
+  <li>
+    The kit uses a small, inexpensive model by default. The class shares a budget: keep
+    <code>--repeat</code> at 5 or lower and do not run long loops. Iterate on the cheap model;
+    validate your final prompt once on the stronger model if you want to (optional).
+  </li>
+</ol>
+
+<h3>Submission Format</h3>
+<p>Submit two files on E3:</p>
+<ol>
+  <li>
+    <strong>Report:</strong> one Word (.docx) file, from the sample submission template:
+    <strong>link to be added once finalized</strong>. Keep the headings and replace the grey
+    instructions with your own work. File name <code>A2_Report_&lt;student ID&gt;.docx</code>.
+  </li>
+  <li>
+    <strong>Code and records:</strong> one .zip named <code>A2_Code_&lt;student ID&gt;.zip</code>
+    containing <code>prompt_system.py</code>, <code>test_prompt_system.py</code>, the
+    <code>runs/</code> folder (every reply and <strong>every complete run record</strong>), and
+    your <code>promptfoo/</code> folder (<code>tests.yaml</code>, <code>checks.js</code>,
+    <code>suite_cases/</code>, <code>prompts/</code>, and the saved results of your before and
+    after runs). No API keys anywhere.
+  </li>
+</ol>
+<p>
+  The report holds your <strong>summaries and your thinking</strong>. The zip holds the
+  <strong>complete records</strong>. Checker output pasted in the report is a summary, never a
+  replacement for the full run record.
+</p>
+
+<h2>Choose One Scenario</h2>
+<p>
+  All three have the same shape: a prompt system that takes a piece of code and returns something
+  a program or a person will use. Choose the one you would most like to have working.
+</p>
+<p>
+  <strong>Scenario A: Code Review Assistant.</strong> Input: one Python function with its
+  docstring. Output: a JSON object <code>{"issues": [...]}</code>. Each item has
+  <code>category</code> (<code>"security"</code>, <code>"logic"</code> or <code>"edge_case"</code>),
+  <code>severity</code> (<code>"high"</code>, <code>"medium"</code> or <code>"low"</code>),
+  <code>line</code> (an integer, counting from 1 at the first line of the input as given),
+  <code>description</code> and <code>suggestion</code>. An empty list is a valid answer. You may
+  add fields; you may not drop any.
+</p>
+<p>
+  <strong>Scenario B: Documentation Generator.</strong> Input: a module description and one
+  function <strong>without</strong> a docstring. Output: Markdown with three level-2 sections, in
+  this order: <code>## Docstring</code> (a Python code block holding the function's
+  <code>def</code> line and a Google-style docstring, body may be <code>...</code>),
+  <code>## Usage example</code> (a runnable Python code block that imports the function from the
+  module named in the input), <code>## Common mistakes</code> (at least two bullets).
+</p>
+<p>
+  <strong>Scenario C: Test Case Generator.</strong> Input: one function and its specification.
+  Output: <strong>only</strong> runnable pytest code (no code fences, no prose), importing the
+  function with <code>from &lt;module&gt; import &lt;function&gt;</code>.
+</p>
+<p>
+  The kit gives you, for each scenario, five provided inputs for Part A and one long input for
+  Part B. Write your own inputs for the other Part B cases.
+</p>
+<div class="callout warning">
+  <strong>Rules that apply to everything.</strong> Your prompt must work on inputs you have not
+  seen: Part B tests exactly that. Do not paste <code>check_a2.py</code>, the <code>mutants/</code>
+  folder or the provided inputs' known issues into your prompt. Do not edit the files you were told
+  not to edit.
+</div>
+
+<h2>Part A — Prompt System Design <span class="lab-timing">(40 points)</span></h2>
+<p>Produce a complete prompt system. It lives in <code>prompt_system.py</code>; the report quotes it.</p>
+
+<h3>A1. System Prompt <span class="lab-timing">(7)</span></h3>
+<p>
+  The complete text. It must say what the system is for, define whatever your output needs with a
+  decision rule (not only a name), say what to do when there is nothing to report or the input is
+  unusable, state that the input is data and not instructions, and state the output format.
+</p>
+
+<h3>A2. Input Template <span class="lab-timing">(4)</span></h3>
+<p>
+  <code>build_user_message</code>: how one input is wrapped before it is sent: what context is
+  added, which delimiters mark where the input starts and ends, what format you require. Show the
+  template and <strong>one rendered message</strong>.
+</p>
+
+<h3>A3. Output Schema and Validator <span class="lab-timing">(7)</span></h3>
+<p>
+  Define exactly what the model returns, precisely enough that someone else could write a
+  validator from your description: every field with its name, type, allowed values, meaning and
+  what is returned when there is nothing to report. Then write <code>validate(reply)</code>: plain
+  code that returns a list of problems. Your schema may be stricter than the course minimum, never
+  looser.
+</p>
+
+<h3>A4. Validation Step <span class="lab-timing">(7)</span></h3>
+<p>
+  <code>run(client, case)</code>: send, validate, and on a problem retry with feedback that tells
+  the model what was wrong (a code-level check that triggers a retry, or a second prompt that
+  critiques the first output). Cap the retries. Then:
+</p>
+<ul>
+  <li>
+    Make the three given tests in <code>test_prompt_system.py</code> pass and add <strong>at
+    least two of your own</strong>. They use a fake model, so they cost nothing and give the same
+    result every time (Week 11, slide 40).
+  </li>
+  <li>
+    Show that the step catches a failure. If a real run produced a bad reply, show it.
+    <strong>If the real model never produced one, that is a valid result:</strong> show the step
+    working on a fake reply of the kind real models produce (code fences around the JSON, prose
+    before the answer, a label that does not exist) and <strong>say clearly that the reply was a
+    fake</strong>. Do not present a made-up reply as something the model said.
+  </li>
+</ul>
+
+<h3>A5. Five Test Runs on the Provided Inputs <span class="lab-timing">(10)</span></h3>
+<p>
+  <code>python run_provided.py &lt;A|B|C&gt;</code> runs your system on the five provided inputs
+  and saves each reply and its complete run record. For each of the five inputs, report:
+</p>
+<ul>
+  <li>the <code>check_a2.py</code> result <strong>(summary)</strong>; the complete reply and run record are in your zip</li>
+  <li><strong>two to three sentences</strong> on what worked and what did not, pointing at something specific in that output</li>
+</ul>
+<p>
+  Before you run them, write down what a good answer to each input must contain, and keep that
+  note. If a run surprises you, run it again.
+</p>
+<div class="callout note">
+  <strong>If all five inputs pass the checker,</strong> that is a real result, not a mistake. Say
+  so and use your commentary for what the checker cannot see (for example whether the descriptions
+  are useful, or one thing about the output you would not accept in a real project).
+</div>
+
+<h3>A6. Design Rationale <span class="lab-timing">(5)</span></h3>
+<p>
+  One page at most. Why did you structure the system prompt this way? Why this output schema?
+  What would you change if you ran it on fifty more inputs, and how would you decide?
+</p>
+
+<h2>Part B — Prompt Test Suite <span class="lab-timing">(60 points)</span></h2>
+<p>
+  Build and run a systematic test suite for <strong>your own prompt system</strong>. This is the
+  Week 10 workflow on your own prompt: PromptFoo, ten cases, repeats, one fix, one regression test.
+  PromptFoo tests the prompt (layer 2). Your fake-model tests from Part A test the code around the
+  model (layer 1). Part B asks about layer 2.
+</p>
+
+<h3>B1. The Ten-Case Suite <span class="lab-timing">(15)</span></h3>
+<p>Write <strong>at least ten</strong> cases, in <code>promptfoo/tests.yaml</code>, covering these categories:</p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>ID</th><th>Category</th><th>What to write</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>T1&ndash;T3</td><td>Typical (three)</td><td>The main job, on three different inputs. You may use provided inputs</td></tr>
+    <tr><td>E1</td><td>Empty input</td><td>Nothing, or only whitespace</td></tr>
+    <tr><td>L1</td><td>Very long input</td><td>500+ words or 100+ lines, with what matters buried (a provided long input is available; you may use it)</td></tr>
+    <tr><td>D1</td><td>Delimiter conflict</td><td>Input that contains the characters or structure your prompt uses (tags, backticks, JSON), ideally with a sentence addressed to the model hidden in it</td></tr>
+    <tr><td>S1&ndash;S2</td><td>Input sensitivity (two)</td><td>The <strong>same</strong> input, reworded by the user in two different ways (not by you editing your prompt)</td></tr>
+    <tr><td>P1</td><td>Predicted failure</td><td>A case <strong>you expect to fail</strong> (see B2)</td></tr>
+    <tr><td>R1</td><td>Regression</td><td>Added after your fix (see B5)</td></tr>
+  </tbody>
+</table>
+</div>
+<p>
+  For every case record: <strong>test type, input, expected behaviour, actual behaviour,
+  pass/fail</strong>. Write the expected behaviour <strong>before</strong> you run, as a property
+  (&ldquo;returns bare JSON, flags line 13 as security, no more than 3 items&rdquo;), not as an
+  exact sentence. Each case needs a check that <strong>could fail</strong>.
+</p>
+
+<h3>B2. Predicted Failure <span class="lab-timing">(5)</span></h3>
+<p>
+  For P1, write the prediction and the reason <strong>before</strong> you run it: &ldquo;I expect
+  this to fail because ...&rdquo;. Afterwards say whether you were right, wrong, or right for the
+  wrong reason. Being wrong is fine and earns full credit if you say so.
+</p>
+
+<h3>B3. Reliability Evidence <span class="lab-timing">(8)</span></h3>
+<p>
+  Run the suite on your <strong>original</strong> prompt with <code>--no-cache --repeat 3</code>
+  (more if you can). Record, for every test, how many of the runs passed. Name any test that does
+  not give the same result every time (a flaky test is information). For each test you trust, say
+  what its passes show and what they do not: three passes out of three is consistent with a
+  failure rate of up to about 63% (Week 10, slide 29).
+</p>
+
+<h3>B4. Fix the Most Harmful Failure <span class="lab-timing">(12)</span></h3>
+<ol>
+  <li><strong>Choose.</strong> Choose the failure that would do the most harm in real use, not the easiest one to fix. Say what it would cost and why you rank it above at least one other failure you saw. Judge by what you observed.</li>
+  <li><strong>Diagnose.</strong> Say why the old prompt failed, with Weeks 5&ndash;7 vocabulary, pointing at the actual output.</li>
+  <li><strong>Change one thing at a time</strong> in <code>SYSTEM_PROMPT</code> or in your input template. Quote the change (old text, new text) and say why it addresses the cause and not only this one input. Run <code>python export_prompt.py</code> so PromptFoo uses the new text.</li>
+  <li><strong>Rerun the whole suite</strong>, not only the failing case. Report the table before and after, and say what turned <strong>red</strong>, not only what turned green.</li>
+</ol>
+<p>
+  Optional (not scored): a reworded-prompt control (Week 10, lab step 5), and one run of your
+  final prompt on the stronger model.
+</p>
+<div class="callout note">
+  <strong>If nothing failed.</strong> Report it honestly. That is a valid result, and this path
+  earns full credit when you do all of the following:
+  <ol>
+    <li><strong>Show it with numbers:</strong> the repeat counts for every test.</li>
+    <li><strong>Try harder:</strong> add two harder cases of your own (a stress case, or a case a weaker model would get wrong), predict their results first, and run them with <code>--repeat 5</code>.</li>
+    <li><strong>Prove the suite can go red.</strong> Break your own prompt on purpose in one documented way (for example, delete the rule that tells the model what to do for an empty input). Show which tests turn red and which stay green. A suite that cannot go red is not evidence (Week 11, slides 36 and 41). Restore the prompt.</li>
+    <li>In place of the fix, say which of the broken-prompt results worries you most, and write R1 for that failure.</li>
+  </ol>
+</div>
+
+<h3>B5. Regression Test R1 <span class="lab-timing">(5)</span></h3>
+<p>
+  Add a tenth (or later) case that guards the failure you fixed: a <strong>new</strong> input that
+  you did not use to design the fix, that would catch the same kind of failure coming back. Say
+  why it differs from the case that failed. Show that it passes after the fix and that it
+  <strong>fails on the original prompt</strong>.
+</p>
+
+<h3>B6. Post-Fix Analysis <span class="lab-timing">(10)</span></h3>
+<p>One page at most, in two parts.</p>
+<p>
+  <strong>Question 1 (5).</strong> What did the suite reveal that running the prompt on five
+  examples did not? Name at least two specific things. Say which of your predictions were wrong,
+  and what ten test cases still do not tell you.
+</p>
+<p>
+  <strong>Question 2 (5).</strong> Name <strong>one failure mode that no change to the prompt can
+  reliably fix</strong>. Describe the architectural change that would address it (something
+  outside the prompt: a check in code, a restricted format, a second independent check, a human
+  review step) and say what it costs.
+</p>
+
+<h2>What to Submit: Checklist</h2>
+<ul>
+  <li>Report <code>.docx</code> from the template, all sections filled in</li>
+  <li>Zip with <code>prompt_system.py</code>, <code>test_prompt_system.py</code>, <code>runs/</code>, <code>promptfoo/</code></li>
+  <li><code>SYSTEM_PROMPT</code> in the report is the same text as in <code>prompt_system.py</code></li>
+  <li><code>python -m unittest test_prompt_system</code> passes (at least 5 tests: 3 given, 2 yours)</li>
+  <li>Five provided inputs run, each with the complete run record in <code>runs/</code></li>
+  <li>Ten or more cases, every category, expected behaviour written before the run</li>
+  <li>Before and after tables for the <strong>whole</strong> suite; R1 shown to fail on the original prompt</li>
+  <li>AI usage log filled in</li>
+  <li>No API key in any file or screenshot</li>
+</ul>
+
+<h2>Grading Criteria (100 points)</h2>
+<p>
+  Each row is scored at one of the levels shown. A criterion is judged on the evidence in your
+  report <strong>and</strong> your zip: they must agree.
+</p>
+
+<h3>Part A (40 points)</h3>
+
+<p><strong>A1. System prompt (7)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (7)</th><th>Partial credit (3&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>States what the system is for; defines each output category or section with a decision rule; says what to do when there is nothing to report or the input is unusable; says the input is data, not instructions; states the output format. Reads as one coherent design.</td>
+      <td>Covers the task and the format, but two or more of the other elements are missing or generic (&ldquo;be accurate and thorough&rdquo;).</td>
+      <td>A one-line instruction, or the text in the report is not the text in <code>prompt_system.py</code>.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>A2. Input template (4)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (4)</th><th>Partial credit (2)</th><th>Little or no credit (0&ndash;1)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Template and one rendered message are shown. The input is separated from the instructions by a delimiter, and the prompt says that what is inside is data. Anything added (context, line numbers) has a stated purpose.</td>
+      <td>Template shown, but the input is simply appended, or the purpose of added context is not stated.</td>
+      <td>No template, or only a description of one.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>A3. Output schema and validator (7)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (7)</th><th>Partial credit (3&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Every field: name, type, allowed values, meaning; says what is returned when there is nothing to report. <code>validate()</code> enforces all of it and is no looser than the course minimum. Messages are specific enough to fix the reply from.</td>
+      <td>Schema described, but a field lacks its type or allowed values, or <code>validate()</code> enforces only part of the schema, or its messages are vague (&ldquo;invalid&rdquo;).</td>
+      <td>&ldquo;Returns JSON&rdquo; or similar; no validator.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>A4. Validation step (7)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (7)</th><th>Partial credit (3&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A validation step that retries with the specific problem in the message and has a retry cap. At least five tests pass with a fake model (three given, two of your own). Evidence that it catches a failure: a real one from your runs, or a labelled fake reply of a kind real models produce. The report says which.</td>
+      <td>The step exists but the retry message does not say what was wrong, or fewer than five tests, or the evidence is a fake reply not labelled as fake, or no cap.</td>
+      <td>No validation step, or the code does not run.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>A5. Five test runs (10): 2 points each</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (2)</th><th>Partial credit (1)</th><th>No credit (0)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Checker summary in the report, complete record in the zip, and two to three sentences that point at something specific in that output (what worked, what did not; if everything passed, what weakness remains). Matches the record.</td>
+      <td>Commentary is generic (&ldquo;it worked well&rdquo;), or does not match the record.</td>
+      <td>Missing, or the record is not in the zip.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>A6. Design rationale (5)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>One page at most. At least three specific design choices, each with a reason and an alternative that was considered. The &ldquo;fifty more inputs&rdquo; answer is concrete: what you would measure and what you would change if it came out a certain way.</td>
+      <td>Describes what you did rather than why, or the &ldquo;fifty more inputs&rdquo; answer is generic (&ldquo;test more&rdquo;).</td>
+      <td>Missing, or restates the assignment.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Part B (60 points)</h3>
+
+<p><strong>B1. The ten-case suite (15)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Criterion</th><th>Full credit</th><th>Partial credit</th><th>Little or no credit</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Categories (6)</td><td>All of T1&ndash;T3, E1, L1, D1, S1&ndash;S2, P1, R1 present, realistic, and testing different things (6)</td><td>One or two missing, or two cases test the same thing (3&ndash;4)</td><td>Several missing (0&ndash;2)</td></tr>
+    <tr><td>Expectation and check (5)</td><td>Each case has an expected behaviour written as a property <strong>before</strong> the run, and a check that could fail (5)</td><td>Some expectations are exact sentences, or some checks cannot fail (2&ndash;3)</td><td>Expectations written after the run, or absent (0&ndash;1)</td></tr>
+    <tr><td>Record (4)</td><td>For every case: type, input, expected, actual, pass/fail (4)</td><td>Some fields missing (2)</td><td>No record (0&ndash;1)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>B2. Predicted failure (5)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prediction <strong>and</strong> reason written before the run (visible in <code>tests.yaml</code>), compared afterwards: right, wrong, or right for the wrong reason. A wrong prediction explained honestly is full credit.</td>
+      <td>Prediction without a reason, or no comparison afterwards.</td>
+      <td>Written after the result, or absent.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>B3. Reliability evidence (8)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (8)</th><th>Partial credit (4&ndash;5)</th><th>Little or no credit (0&ndash;2)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Suite run on the original prompt with <code>--no-cache</code> and at least 3 repeats; counts for every test; flaky tests named; says what passes do and do not show for the tests you trust.</td>
+      <td>One run only, or counts for only some tests, or the claim &ldquo;it works&rdquo; without saying what n passes allow.</td>
+      <td>No repeat evidence.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>B4. Fix the most harmful failure (12): 3 points each</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Criterion</th><th>Full credit (3)</th><th>Partial credit (1&ndash;2)</th><th>No credit (0)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Choice</td><td>Chosen by harm in real use, ranked against at least one other observed failure</td><td>Chosen because it was easy, or no comparison</td><td>Not stated</td></tr>
+    <tr><td>Diagnosis</td><td>Causal, Weeks 5&ndash;7 vocabulary, points at the actual output</td><td>Describes the symptom, not the cause</td><td>Absent or not matching the output</td></tr>
+    <tr><td>Change</td><td>One thing at a time; old and new text quoted; addresses the cause, not only the one input</td><td>Several changes at once, or the change is tuned to the failing input</td><td>No change shown</td></tr>
+    <tr><td>Before and after</td><td>Whole suite before and after; says what turned red as well as green</td><td>Only the fixed case re-run</td><td>No comparison</td></tr>
+  </tbody>
+</table>
+</div>
+<p>
+  <em>If nothing failed:</em> the &ldquo;if nothing failed&rdquo; path in B4 earns the same 12
+  points when all four of its steps are done, scored by the same four criteria applied to the
+  broken-prompt demonstration.
+</p>
+
+<p><strong>B5. Regression test R1 (5)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A new input not used to design the fix; why it differs is stated; passes after the fix; shown to fail on the original prompt.</td>
+      <td>Same input as the failing case, or never shown failing on the original.</td>
+      <td>Absent.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>B6. Post-fix analysis (10)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Criterion</th><th>Full credit</th><th>Partial credit</th><th>Little or no credit</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Question 1 (5)</td><td>At least two specific things the suite revealed, contrasted with the five examples; names a wrong prediction; says what ten cases still do not show (5)</td><td>Generic (&ldquo;testing found bugs&rdquo;), or only one specific finding (2&ndash;3)</td><td>Absent or unrelated (0&ndash;1)</td></tr>
+    <tr><td>Question 2 (5)</td><td>A failure no prompt change can reliably fix, a concrete architectural change (what component, where), and its cost (5)</td><td>Names a failure but the change is vague (&ldquo;add validation&rdquo;), or no cost (2&ndash;3)</td><td>Absent, or the failure could be fixed by rewording the prompt (0&ndash;1)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Integrity of evidence (5, across both parts)</strong></p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Full credit (5)</th><th>Partial credit (2&ndash;3)</th><th>Little or no credit (0&ndash;1)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>The report matches the zip records. Nothing was edited to look better. Where something did not fail, or a prediction was wrong, you say so. AI use is documented.</td>
+      <td>One or two mismatches between report and records, or an undocumented AI use.</td>
+      <td>Outputs or results in the report that the records do not support.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Notes on grading</strong></p>
+<ul>
+  <li>Uncertainty and failure are never penalised. A prompt that fails often and is well diagnosed scores higher than one that passes and is not understood.</li>
+  <li>Format is not graded: a plain table is as good as a styled one.</li>
+  <li>The checker is evidence, not the grade. A prompt that passes all checks but is not explained earns the design and reflection points only where the explanation is there.</li>
+</ul>
 
 <p><a href="{{ '/assignments/' | relative_url }}">&larr; Back to Assignments</a></p>
