@@ -67,9 +67,110 @@ permalink: /project/cp2/
 </p>
 
 <h2>Rubrics</h2>
+<p>
+  CP2 is worth <strong>100 points</strong>, split equally between <strong>the product (50)</strong>
+  and <strong>how your team built it (50)</strong>. How you built it matters as much as what you
+  built. A modest prototype built by all four of you, with real review conversations and a
+  decision log, can score well. An impressive prototype built mostly by one person will not.
+</p>
 <div class="callout note">
-  Rubrics will be updated by the due date of CP1, in preparation for the work of CP2.
+  Each criterion is graded on <strong>four levels</strong> (Strong, Solid, Developing, Not yet)
+  according to the evidence we can find in your submission and your repository. The full rubric,
+  with level descriptions for each criterion, will be published after grading.
 </div>
+
+<h3>Product (50 points)</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Criterion</th><th>Points</th><th>What we look for</th><th>Evidence we check</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Working prototype</strong></td>
+      <td>15</td>
+      <td>Two people can use it together; the core interaction works well enough for a real user to try the main task. Polish is not required</td>
+      <td>Your demo in the Week 12 lab, the repository, README run instructions</td>
+    </tr>
+    <tr>
+      <td><strong>Design rationale and user testing</strong></td>
+      <td>10</td>
+      <td>Your main design decisions and what shaped them, including findings from <strong>at least two sessions with real users outside your team</strong></td>
+      <td>Design rationale document; <code>DECISIONS.md</code> entries that cite the findings</td>
+    </tr>
+    <tr>
+      <td><strong>AI components</strong></td>
+      <td>15</td>
+      <td><strong>Prompt test suite</strong> (6): at least 10 cases, typical and edge inputs, and at least one cycle of failure found, fix, re-run. <strong>System prompt (<code>CLAUDE.md</code>) and prompt documentation card</strong> (5): a new engineer can see what the AI does, what it was told to do and how it fails. <strong>AI usage guidelines</strong> (4): updated from your Week 3 draft to match how your team really worked</td>
+      <td>Test file and results, the card, the history of your guidelines</td>
+    </tr>
+    <tr>
+      <td><strong>Updated evaluation report</strong></td>
+      <td>10</td>
+      <td>An interim summary of your evidence so far, honest about what you have <strong>not</strong> tested yet</td>
+      <td>The report</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>
+  <em>If your tool does not use AI, say so in your submission; the 15 points for AI components
+  then move to the working prototype (+8) and the evaluation report (+7).</em>
+</p>
+
+<h3>Collaboration (50 points)</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Criterion</th><th>Points</th><th>What we look for</th><th>Evidence we check</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Everyone contributes to the code</strong></td>
+      <td>15</td>
+      <td>Substantive code from <strong>all four</strong> members, not only documentation or configuration</td>
+      <td>GitHub contributor graph, PR history</td>
+    </tr>
+    <tr>
+      <td><strong>Review quality and the code steward role</strong></td>
+      <td>15</td>
+      <td>Stewards read the PR and say something real: a question, a concern or a specific suggestion. &ldquo;Looks good to me&rdquo; on its own does not count</td>
+      <td>PR comments, steward records and handoff notes in <code>DECISIONS.md</code></td>
+    </tr>
+    <tr>
+      <td><strong><code>DECISIONS.md</code></strong></td>
+      <td>10</td>
+      <td>A log of real decisions: what was chosen, what was rejected, who led it, kept up as you went</td>
+      <td><code>DECISIONS.md</code> compared with the PR history and commit dates</td>
+    </tr>
+    <tr>
+      <td><strong>Team sessions</strong></td>
+      <td>10</td>
+      <td>The walking skeleton and merge day happened, all four took part, and you recorded what you learned. We grade that the sessions took place and how honestly you reflected, not how impressive the output was</td>
+      <td>Walking skeleton worksheet and merged PR; merge-plan entry in <code>DECISIONS.md</code>; a clean, running <code>main</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Minimums for Every Student</h3>
+<p>Each of you, individually, needs by CP2:</p>
+<ul>
+  <li>at least <strong>2 merged pull requests with substantive code</strong></li>
+  <li>at least <strong>2 pull-request approvals as code steward</strong>, each with at least one substantive comment</li>
+  <li>to have been the <strong>code steward at least once</strong>, recorded in <code>DECISIONS.md</code></li>
+</ul>
+<p>
+  These are checked for each person against the contributor graph, PR history and
+  <code>DECISIONS.md</code>.
+</p>
+
+<h3>What to Keep in Mind</h3>
+<ul>
+  <li><strong>We grade evidence, not claims.</strong> If something happened but left no trace (a review done out loud, a decision made in a chat), write it down in the PR or <code>DECISIONS.md</code>.</li>
+  <li><strong>Small and shared beats big and solo.</strong> A smaller prototype that all four of you understand is a better CP2 than a bigger one only one person can explain.</li>
+  <li><strong>Be honest about gaps.</strong> Saying clearly what is untested, unfinished or not working costs you nothing, and is part of what we look for in the evaluation report.</li>
+</ul>
 
 <h2>Submission</h2>
 <p>

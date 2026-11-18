@@ -98,10 +98,10 @@
   due_text: "Week 7 — <strong>end of day</strong>"
   url: "/project/cp1/"
 
-# - title: "Checkpoint 2 (CP2)"
-#   date: "2026-11-29"
-#   due_text: "Week 12 — Sunday"
-#   url: "/project/cp2/"
+- title: "Checkpoint 2 (CP2)"
+  date: "2026-11-29"
+  due_text: "Week 12 — <strong>Sunday</strong>"
+  url: "/project/cp2/"
 
 # - title: "Assignment 3: Engineering Decision Portfolio"
 #   date: "2026-12-14"
