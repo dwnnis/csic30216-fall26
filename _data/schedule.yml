@@ -139,7 +139,8 @@
   slides_url: "https://e3p.nycu.edu.tw/mod/folder/view.php?id=254073"
   lab: "Debug an AI-generated codebase"
   lab_url: "/labs/week11/"
-  self_paced: "Code evaluation benchmarks + AI pair programming patterns"
+  self_paced: "What a benchmark can tell you, and what only you can write down"
+  self_paced_url: "/self-paced/week11/"
   assigned: ""
   due: ""
 

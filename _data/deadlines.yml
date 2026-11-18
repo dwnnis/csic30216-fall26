@@ -13,6 +13,11 @@
 #   due_text: "Week 3 — end of Monday"
 #   url: "/project/team-formation/"
 
+- title: "Week 11 Self-paced Module Response"
+  date: "2026-11-22"
+  due_text: "Before end of Week 11 — <strong>Sunday</strong>"
+  url: "https://e3p.nycu.edu.tw/mod/quiz/view.php?id=254937"
+
 - title: "Assignment 2: Prompt System Design and Test Suite"
   date: "2026-12-04"
   due_text: "Week 13 — <strong>Friday, 23:59</strong>"
