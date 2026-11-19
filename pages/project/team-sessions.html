@@ -1,0 +1,165 @@
+---
+layout: default
+title: Walking Skeleton and Merge Day
+permalink: /project/team-sessions/
+---
+
+<div class="page-header">
+  <h1>Walking Skeleton and Merge Day</h1>
+  <p class="page-subtitle">Team Sessions Guide</p>
+</div>
+
+<p>
+  Before CP2, your team holds two <strong>whole-team sessions</strong>: the walking skeleton and
+  merge day. They are short, they happen outside class, and all four of you take part. Both must
+  be done <strong>before you submit CP2</strong> (Sunday, November 29th, end of day), and each
+  leaves a small record that is part of your CP2 submission.
+</p>
+
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th></th><th>Walking skeleton</th><th>Merge day</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>When</strong></td><td>first &mdash; do it as soon as your team has initial pieces to connect</td><td>last &mdash; right before you submit CP2, with enough time to fix what it uncovers</td></tr>
+    <tr><td><strong>How long</strong></td><td>about 75 minutes</td><td>about 60 minutes, plus 15 minutes of steward prep</td></tr>
+    <tr><td><strong>Goal</strong></td><td>the thinnest version of your tool runs from input to output</td><td>a clean <code>main</code>, running end to end</td></tr>
+    <tr><td><strong>What you hand in (in CP2)</strong></td><td>the worksheet (<code>docs/walking_skeleton.md</code>) and a link to the merged PR</td><td>the merge plan entry in <code>DECISIONS.md</code>, with its outcome, and the worksheet (<code>docs/merge_day.md</code>)</td></tr>
+    <tr><td><strong>Worksheet</strong></td><td colspan="2">both worksheets are in the <a href="https://e3p.nycu.edu.tw/mod/folder/view.php?id=255922">team sessions materials</a> on E3</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <strong>Why these sessions exist.</strong> In a team project it is easy for four people to work
+  in four separate corners and only discover at the end that the pieces do not fit. These sessions
+  are the moments when everyone works on the <strong>same</strong> code, at the <strong>same</strong>
+  time, and checks that it connects. How you work together in them matters more than how much you
+  produce.
+</p>
+<p>
+  <strong>How they are graded.</strong> In the CP2 rubric, &ldquo;Team sessions&rdquo; is worth 10
+  points. We grade <strong>that the sessions happened, that all four of you took part, and how
+  honestly you reflected</strong>, not how impressive the output was. A session where you found a
+  problem and wrote it down is a good session.
+</p>
+
+<h2>Walking Skeleton</h2>
+
+<h3>What It Is</h3>
+<p>
+  The thinnest possible version of your tool that runs from beginning to end: a user gives
+  something in, something comes out. It can be ugly. Parts can be faked. What matters is that the
+  pieces connect, and that you find out early if they do not.
+</p>
+
+<h3>Before the Session</h3>
+<ul>
+  <li><strong>Pick a time all four of you can make.</strong> Same room, or one call where you can share a screen</li>
+  <li><strong>Make sure everyone can clone and run the project</strong> on their own machine: each of you will build a piece</li>
+  <li><strong>Open the worksheet</strong> in your repository so one person can type into it during the session</li>
+  <li><strong>API keys</strong> stay in environment variables. Never paste a key into the worksheet, a PR or a chat</li>
+</ul>
+
+<h3>During the Session <span class="lab-timing">(about 75 minutes)</span></h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Part</th><th>Time</th><th>What you do</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1 &#9733;</td><td>10 min</td><td>Each person writes <strong>one sentence</strong> about what the tool does, alone; read them aloud; agree on one</td></tr>
+    <tr><td>2 &#9733;</td><td>10 min</td><td>Draw the <strong>path</strong> from input to output (three to five boxes). <strong>Not running yet:</strong> decide the smallest piece that counts as &ldquo;it runs&rdquo;. <strong>Already running:</strong> trace it (each box explained by someone who didn't write it) and pick the next thin slice. Then <strong>split the building</strong> into one task per person or pair, and agree what each piece receives and returns</td></tr>
+    <tr><td>3 &#9733;</td><td>30 min</td><td><strong>Build, then connect.</strong> 20 minutes: each person or pair builds their piece on their own branch (stuck? fake it at your edge, in the agreed format). 10 minutes, together on one screen: connect the pieces one at a time; each piece is explained by someone who didn't write it before it goes in; run the example end to end</td></tr>
+    <tr><td>4 &#9733;</td><td>15 min</td><td><strong>Open the pull request together.</strong> The current code steward reviews it on screen and leaves at least one real comment; the author answers; merge</td></tr>
+    <tr><td>5</td><td>5 min</td><td><strong>Team check:</strong> what worked, what was awkward, who had the least chance to contribute, what you will do differently next time</td></tr>
+  </tbody>
+</table>
+</div>
+<p>&#9733; = protect these if time runs short.</p>
+
+<div class="callout note">
+  <strong>Already have something running?</strong> You still do the session. Part 2 gives you a
+  route: trace the path together, then build the next thin slice (something still faked, the
+  second user, or one failure state for the AI call).
+</div>
+
+<h3>After the Session</h3>
+<ul>
+  <li>Save the worksheet as <code>docs/walking_skeleton.md</code></li>
+  <li>Add one line to <code>DECISIONS.md</code> about the biggest choice you made (what you cut, or what you faked)</li>
+  <li>Keep the link to the merged pull request for CP2</li>
+</ul>
+
+<h3>Tips</h3>
+<ul>
+  <li><strong>Agreeing on the sentence is the most valuable ten minutes.</strong> Teams that skip it often discover in Week 14 that they were building different tools</li>
+  <li><strong>Agree the hand-offs before you split.</strong> Most connection failures are two pieces that disagree about what they pass each other. Two minutes on &ldquo;receives / returns&rdquo; saves the connect step</li>
+  <li><strong>Fake freely, but write it down.</strong> A faked response in the agreed format lets the others keep going, and is better than a half-built real one that blocks them</li>
+  <li><strong>Every piece is explained by someone who didn't write it</strong> before it is connected. If nobody can explain AI-written code, make it shorter until someone can</li>
+</ul>
+
+<h2>Merge Day</h2>
+
+<h3>What It Is</h3>
+<p>
+  A session to clean up <code>main</code> before you submit CP2: every open pull request merged
+  or closed, conflicts resolved together, and the prototype running end to end on a fresh copy.
+  <strong>Nothing new goes in today.</strong>
+</p>
+
+<h3>Why Before CP2</h3>
+<p>
+  CP2 asks for a working prototype, and the version you submit is the version we grade. Merge day
+  makes sure that version is the one on <code>main</code>, that it runs, and that every member's
+  work is in it, rather than spread across branches that never got merged. Plan it with enough
+  time to fix what it uncovers before the deadline.
+</p>
+
+<h3>Before the Session</h3>
+<ul>
+  <li><strong>The current code steward (about 15 minutes)</strong> writes a <strong>merge plan</strong> as a new entry in <code>DECISIONS.md</code>: every open branch and PR, the order to merge them and why, the conflicts you expect, PRs you will close without merging, and what &ldquo;done&rdquo; means today. The worksheet has a template</li>
+  <li><strong>Everyone else:</strong> push your work, and mark each of your PRs as ready, needing work, or to be closed. Read the steward's plan before the session starts</li>
+</ul>
+
+<h3>During the Session <span class="lab-timing">(about 60 minutes)</span></h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Part</th><th>Time</th><th>What you do</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>5 min</td><td>Read the plan together, adjust the order if needed, and decide who drives each merge (rotate)</td></tr>
+    <tr><td>2 &#9733;</td><td>35 min</td><td><strong>Merge one PR at a time</strong>, in order: update it with <code>main</code>, resolve conflicts <strong>together</strong>, run the tests and the app, review and merge, then run the tests and the app again <strong>on <code>main</code></strong> before the next one</td></tr>
+    <tr><td>3 &#9733;</td><td>10 min</td><td><strong>Fresh-clone test:</strong> someone who is not the steward clones the repository into a new folder, follows only the README, and does the main task end to end</td></tr>
+    <tr><td>4 &#9733;</td><td>5 min</td><td><strong>Record the outcome</strong> under the merge plan in <code>DECISIONS.md</code>, and do a short team check</td></tr>
+  </tbody>
+</table>
+</div>
+<p>&#9733; = protect these if time runs short.</p>
+
+<h3>After the Session</h3>
+<ul>
+  <li>The merge plan entry, <strong>with its outcome</strong>, is your CP2 artifact</li>
+  <li>Save the worksheet as <code>docs/merge_day.md</code></li>
+  <li>Anything left over becomes a GitHub issue for Phase 3</li>
+</ul>
+
+<h3>Tips</h3>
+<ul>
+  <li><strong>Conflicts are a team conversation.</strong> Read both sides out loud. If an AI tool suggests a resolution, the driver explains what it keeps and what it drops before you accept it</li>
+  <li><strong>Never stack merges on a broken <code>main</code>.</strong> Stop, fix it with one small PR, or revert the last merge (<code>git revert -m 1 &lt;merge commit&gt;</code>) and write down why</li>
+  <li><strong>The fresh-clone test is how we will see your project.</strong> If the README is not enough for a teammate, it will not be enough for whoever grades or reviews your CP2</li>
+  <li><strong>Small, short-lived branches make merge day easy.</strong> If merging was painful, that is the habit to change in Phase 3</li>
+</ul>
+
+<h2>Questions</h2>
+<p><strong>One of us cannot come.</strong> Do the session with the people who can, and write down who was missing and why. The missing member reads the worksheet afterwards and adds a line about it. If it keeps happening, tell a TA.</p>
+<p><strong>We are working remotely.</strong> That works: one call where you can share a screen. In the walking skeleton you build your pieces separately and share a screen to connect them; on merge day, the person typing changes for each merge.</p>
+<p><strong>We did not finish.</strong> Hand in what you have and write what happened. That counts. Not finishing because you discovered a real problem is the point of the session.</p>
+<p><strong>We already did a session without the worksheet.</strong> Fill in the worksheet from memory now, say so at the top, and link the PR or <code>DECISIONS.md</code> entry that came out of it.</p>
+<p><strong>Can we use AI tools during the sessions?</strong> Yes, as you would in normal work. The rule for both sessions: whoever is typing explains AI-written code or AI-suggested conflict resolutions before they are kept.</p>
+<p><strong>Who do we ask for help?</strong> A TA, or the teaching team by email. If something is going wrong in the team, tell us early.</p>
+
+<p><a href="{{ '/project/' | relative_url }}">&larr; Back to Final Project</a></p>
