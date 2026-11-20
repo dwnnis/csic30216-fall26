@@ -1,0 +1,254 @@
+---
+layout: default
+title: Week 12 Lab
+permalink: /labs/week12/
+---
+
+<div class="page-header">
+  <h1>Week 12 Lab — Cross-Team Review, Then a Phase 3 Plan</h1>
+  <p class="page-subtitle">{{ site.course_code }} &middot; {{ site.course_semester }}</p>
+</div>
+
+<h2>Goal</h2>
+<p>
+  Today another team reviews your project and you review theirs. Then you turn what you heard
+  into a plan for Phase 3. <strong>Everyone has real work to do, whether or not your prototype
+  runs today:</strong>
+</p>
+<ul>
+  <li><strong>Track A, it runs:</strong> reviewers use your prototype themselves, try to make its AI feature fail, and check one pull request</li>
+  <li><strong>Track B, it doesn't run end to end yet:</strong> reviewers try to get it running from your README, review your pull requests and decision log, and check your plan to get it working</li>
+</ul>
+<p>
+  A Track B review is not a lower grade or a lesser review. It is often the more useful one: an
+  outside pair finding exactly where your setup breaks is what you need before CP3.
+</p>
+<p><strong>Working style:</strong> In-person lab, teams &middot; <strong>Total time:</strong> ~60 minutes</p>
+
+<div class="callout note">
+  <strong>The standard for every finding is lecture slide 21:</strong> where, what you saw
+  (evidence), and a specific suggestion. &ldquo;Looks good&rdquo; and &ldquo;could be
+  clearer&rdquo; are not findings.
+</div>
+
+<h2>What You Hand In <span class="lab-timing">(read this first)</span></h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <tbody>
+    <tr><td><strong>Who</strong></td><td>One submission <strong>per team</strong></td></tr>
+    <tr><td><strong>What</strong></td><td><strong>One PDF</strong> made from <code>week12_lab_submission_template.md</code></td></tr>
+    <tr><td><strong>Where</strong></td><td>E3, under &ldquo;Week 12 Lab&rdquo;</td></tr>
+    <tr><td><strong>When</strong></td><td>By <strong>Wednesday, November 25 (23:59)</strong> &mdash; to be confirmed</td></tr>
+    <tr><td><strong>File name</strong></td><td><code>GroupXX_Week12_Lab.pdf</code></td></tr>
+    <tr><td><strong>Grading</strong></td><td>Graded on completion, like the earlier labs. Be specific: the detail is what makes the review useful to the other team</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Your PDF contains:</strong></p>
+<ol>
+  <li><strong>The review your team wrote</strong> about the other team (Part 1)</li>
+  <li><strong>The review your team received</strong>, and the GitHub issues you made from it (Part 2)</li>
+  <li><strong>The pull request</strong> that adds the PR template to your repository (Part 2)</li>
+  <li><strong>Three rewritten AI usage rules</strong> and two sentences on your evaluation plan (Part 3)</li>
+</ol>
+<div class="callout warning">
+  <strong>Also, before you leave class:</strong> send the review you wrote to the team you
+  reviewed (paste it into a GitHub issue in their repository if you have access, or email it to
+  all four of them). They need it for Part 2.
+</div>
+
+<h2>Time Plan</h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Part</th><th>What</th><th>Minutes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Setup</td><td>find your pairing, put out your status card, split into hosts and reviewers</td><td>5</td></tr>
+    <tr><td>Part 1</td><td><strong>Cross-team review</strong>, two rounds so everyone hosts and reviews</td><td>25</td></tr>
+    <tr><td>Part 2</td><td>back in your team: findings &rarr; GitHub issues; add the PR template</td><td>15</td></tr>
+    <tr><td>Part 3</td><td>guidelines from evidence; one change to your evaluation plan</td><td>15</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Before Class <span class="lab-timing">(everyone)</span></h2>
+<ul>
+  <li><strong><code>main</code> in the best state you can get it today.</strong> Merge day does not need to be done before the lab; it only needs to be done before you submit CP2</li>
+  <li><strong>One laptop with your prototype ready to run</strong>, and one teammate who can run it without help</li>
+  <li><strong>Your repository link</strong>, and your README up to date</li>
+  <li><strong>Close anything private</strong> on the demo laptop: <code>.env</code> files, API keys, chats. Reviewers will be at your keyboard</li>
+</ul>
+
+<h2>Setup <span class="lab-timing">(5 minutes)</span></h2>
+<ol>
+  <li>
+    <strong>Find your pairing</strong> in the <a href="#pairing-table">pairing table</a> at the end
+    of this guide. Find your group in the <strong>left</strong> column: the group beside it is the
+    one you <strong>review</strong>. Find your group in the <strong>right</strong> column: the
+    group beside it <strong>reviews you</strong>. These are two different groups.
+  </li>
+  <li>
+    <strong>Put out your status card.</strong> Write one line and place it next to your laptop:
+    <ul>
+      <li><strong>Track A:</strong> &ldquo;Our main task runs end to end.&rdquo; or</li>
+      <li><strong>Track B:</strong> &ldquo;It doesn't run end to end yet. It breaks at: ____.&rdquo;</li>
+    </ul>
+    Be honest. Saying where it breaks gets you a useful review. Pretending it works gets you a
+    confused one.
+  </li>
+  <li>
+    <strong>Split your team in two pairs:</strong> in Round 1, <strong>pair 1 hosts</strong>
+    (stays with your laptop and answers questions) and <strong>pair 2 reviews</strong> (goes to
+    the team you review). In Round 2 you swap.
+  </li>
+</ol>
+
+<h2>Part 1 — Cross-Team Review <span class="lab-timing">(25 minutes: two rounds of about 12)</span></h2>
+<p>
+  <strong>Hosts:</strong> answer questions, show where things are, and <strong>do not touch the
+  keyboard</strong> unless the reviewers ask. Take notes of what surprised the reviewers; that is
+  feedback too.
+</p>
+<p>
+  <strong>Reviewers:</strong> read the team's status card, then follow <strong>Track A</strong> or
+  <strong>Track B</strong>. Write findings into the review form
+  (<code>week12_lab_submission_template.md</code>, Part 1) as you go. Round 2 reviewers continue
+  the same form: build on what Round 1 found, do not repeat it.
+</p>
+
+<div class="callout note">
+  <strong>Resource for A2 and B4:</strong> the failure-states activity from today's lecture (what
+  the user sees when the AI is wrong, slow or unavailable). If your team filled one in, hosts can
+  show it; reviewers can compare it with what actually happens. It is not required.
+</div>
+
+<h3>Track A: The Prototype Runs</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Step</th><th>What to do</th><th>Minutes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>A1</td><td><strong>Use it yourselves.</strong> Ask the hosts for the main task in one sentence, then do it, with a reviewer at the keyboard. Where did you hesitate? What was unclear?</td><td>4</td></tr>
+    <tr><td>A2</td><td><strong>Make the AI feature fail</strong> (lecture slide 24). Try empty input, odd input, very long input, something off-topic. What does the user see? Can they recover?</td><td>3</td></tr>
+    <tr><td>A3</td><td><strong>Trust and transparency</strong> (slides 23, 25). Can a user tell the output came from AI? Can they correct or reject it easily?</td><td>2</td></tr>
+    <tr><td>A4</td><td><strong>One pull request.</strong> Pick one recently merged PR. Could you understand what it did, what the AI did, and how it was checked, from its description alone? Use the reviewer checklist (slide 18) on its diff</td><td>3</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Track B: The Prototype Doesn't Run End to End Yet</h3>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Step</th><th>What to do</th><th>Minutes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>B1</td><td><strong>Where does it break?</strong> Ask the hosts to show the furthest point it gets to. Then try the <strong>README</strong> yourselves: could a new person set it up? Note the first step that fails or is missing</td><td>4</td></tr>
+    <tr><td>B2</td><td><strong>Two pull requests.</strong> Pick one merged and one open PR. Review them with the reviewer checklist (slide 18) and ask: from the description alone, what did the AI do and how was it checked?</td><td>4</td></tr>
+    <tr><td>B3</td><td><strong>The plan.</strong> Read recent <code>DECISIONS.md</code> entries (and the merge plan, if they have written one yet). Is there a clear, small plan to get the main task running? Who owns it, and by when?</td><td>2</td></tr>
+    <tr><td>B4</td><td><strong>The design on paper.</strong> Look at the design rationale: when the AI is wrong or unavailable, what is meant to happen?</td><td>2</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Partly running?</strong> Do A1 on the part that works and B1 on the part that doesn't, then continue with whichever of A4 or B2 fits.</p>
+
+<h3>What Every Review Must Contain</h3>
+<ul>
+  <li><strong>At least three findings</strong>, each with <strong>where</strong> (a screen, a file, a PR number), <strong>what you saw</strong> (evidence), and <strong>one specific suggestion</strong></li>
+  <li><strong>Severity</strong> for each: <em>blocks the main task</em> / <em>will confuse users or reviewers</em> / <em>polish</em></li>
+  <li><strong>One genuine strength</strong>, specific enough that they know what to keep doing</li>
+</ul>
+
+<h2>Part 2 — Turn the Review You Received Into a Plan <span class="lab-timing">(15 minutes, your own team)</span></h2>
+<ol>
+  <li><strong>Read the review you received</strong> together (the other team sends it before the end of Part 1, or reads it out to you).</li>
+  <li><strong>Make GitHub issues</strong> for the findings you will act on: one issue per finding, with a label (for example <code>cp3</code>, <code>bug</code>, <code>ux</code>, <code>process</code>), an <strong>owner</strong> and a <strong>target date</strong>. Write &ldquo;not doing, because&hellip;&rdquo; for any finding you decide not to act on.</li>
+  <li><strong>Track B teams:</strong> make one extra issue, <strong>&ldquo;Main task runs end to end&rdquo;</strong>, with the smallest next step, an owner and a date this week.</li>
+  <li><strong>Add the PR template.</strong> Copy <code>pull_request_template.md</code> (in the lab files) to <code>.github/pull_request_template.md</code> in your repository, adjust it if you like, and open a pull request for it. That pull request itself should use the template. Get it reviewed and merged by your steward.</li>
+</ol>
+
+<h2>Part 3 — Guidelines from Evidence <span class="lab-timing">(15 minutes, your own team)</span></h2>
+<ol>
+  <li><strong>Look at your evidence:</strong> the three numbers from lecture slide 4 (PRs mostly AI-generated, explainable by someone else, saying what the AI did), today's review, and your current AI usage guidelines.</li>
+  <li><strong>Rewrite three rules</strong> into rules a teammate could check from a pull request (module slide 5). For each one, write the old wording, the new wording, and the evidence that made you change it.</li>
+  <li><strong>Commit</strong> the updated guidelines to your repository (through a pull request, using your new template).</li>
+  <li><strong>Evaluation plan:</strong> in two sentences, what will you change in your evaluation plan for Phase 3, given what the reviewers saw or could not see?</li>
+</ol>
+
+<h2>Submission Checklist</h2>
+<ul>
+  <li>Part 1: the review we wrote (at least three findings with where, evidence, suggestion and severity; one strength), and we sent it to the other team</li>
+  <li>Part 2: the review we received; links to our GitHub issues (with owners and dates); Track B: the &ldquo;runs end to end&rdquo; issue</li>
+  <li>Part 2: link to the merged PR that adds <code>.github/pull_request_template.md</code></li>
+  <li>Part 3: three rules (old, new, evidence), the commit or PR link, and two sentences on the evaluation plan</li>
+  <li>Saved as one PDF named <code>GroupXX_Week12_Lab.pdf</code> and uploaded to E3 under &ldquo;Week 12 Lab&rdquo;</li>
+</ul>
+
+<h2>If Things Go Wrong</h2>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Problem</th><th>What to do</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>The other team's prototype stops working during your review</td><td>Switch to Track B from where you are; that is a finding</td></tr>
+    <tr><td>Your laptop or the network fails</td><td>Tell the reviewers, switch your status card to Track B, show the repository instead</td></tr>
+    <tr><td>Your repository is private and the reviewers can't open it</td><td>Hosts share the screen or open the pages for them; send the review by email instead of an issue</td></tr>
+    <tr><td>The team you review is missing members</td><td>Review with whoever is there; a single host is fine</td></tr>
+    <tr><td>The group you review is absent, or the group that reviews you is</td><td>Ask a TA: you will be paired with another group, or a TA will review you</td></tr>
+    <tr><td>You run out of time in Part 3</td><td>Finish the rules after class, but before the hand-in</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Connection to the Course</h2>
+<ul>
+  <li><strong>Lecture today:</strong> the reviewer checklist (slide 18), the PR template (slide 14), what makes a comment useful (slide 21), failure states (slide 24), checkable guidelines (slide 32)</li>
+  <li><strong>Self-paced module this week:</strong> the LLVM, Fedora and Ghostty rules are good models for Part 3</li>
+  <li><strong>CP3 (Dec 14):</strong> your issues are your Phase 3 backlog; the PR template and rewritten guidelines are evidence for the refined usage guidelines CP3 asks for</li>
+</ul>
+
+<h2 id="pairing-table">Pairing Table</h2>
+<p>
+  Read across: the group on the left <strong>reviews</strong> the group on the right. Every group
+  reviews one group and is reviewed by a different one (no two groups review each other).
+  Pairings were drawn at random.
+</p>
+<div class="table-scroll">
+<table class="grading-table">
+  <thead>
+    <tr><th>Group</th><th>Group</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Group 01</td><td>Group 24</td></tr>
+    <tr><td>Group 02</td><td>Group 11</td></tr>
+    <tr><td>Group 03</td><td>Group 18</td></tr>
+    <tr><td>Group 04</td><td>Group 10</td></tr>
+    <tr><td>Group 05</td><td>Group 07</td></tr>
+    <tr><td>Group 06</td><td>Group 16</td></tr>
+    <tr><td>Group 07</td><td>Group 15</td></tr>
+    <tr><td>Group 08</td><td>Group 04</td></tr>
+    <tr><td>Group 09</td><td>Group 22</td></tr>
+    <tr><td>Group 10</td><td>Group 14</td></tr>
+    <tr><td>Group 11</td><td>Group 01</td></tr>
+    <tr><td>Group 12</td><td>Group 17</td></tr>
+    <tr><td>Group 13</td><td>Group 03</td></tr>
+    <tr><td>Group 14</td><td>Group 09</td></tr>
+    <tr><td>Group 15</td><td>Group 02</td></tr>
+    <tr><td>Group 16</td><td>Group 21</td></tr>
+    <tr><td>Group 17</td><td>Group 13</td></tr>
+    <tr><td>Group 18</td><td>Group 23</td></tr>
+    <tr><td>Group 19</td><td>Group 25</td></tr>
+    <tr><td>Group 20</td><td>Group 05</td></tr>
+    <tr><td>Group 21</td><td>Group 19</td></tr>
+    <tr><td>Group 22</td><td>Group 20</td></tr>
+    <tr><td>Group 23</td><td>Group 06</td></tr>
+    <tr><td>Group 24</td><td>Group 12</td></tr>
+    <tr><td>Group 25</td><td>Group 08</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><a href="{{ '/calendar/' | relative_url }}">&larr; Back to Calendar</a></p>
